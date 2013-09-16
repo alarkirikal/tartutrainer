@@ -6,6 +6,8 @@
   <li><a href="#team-members"> Team members</a></li>
 </ul>
 
+<hr>
+
 <h4>Directories in the repo</h4>
 /TartuTrainer - source code<br />
 /Documentation - documentation<br />
