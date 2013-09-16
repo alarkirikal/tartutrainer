@@ -1,4 +1,4 @@
-Tartu Trainer - Android application
+<h2>Tartu Trainer - Android application</h2>
 
 ============
 
