@@ -6,9 +6,7 @@
 /Extra - extra files/scripts and such<br />
 
 <h4>Team members</h4>
-<strong>
   Alar Kirikal<br />
   Helina Ziugand<br />
   Karl Peedosk<br />
   Heike Randlahe<br />
-</strong>
