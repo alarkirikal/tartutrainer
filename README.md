@@ -1,5 +1,11 @@
 <h2>Tartu Trainer - Android application</h2>
 
+<h4>Contents</h4>
+<ul>
+  <li><a href="#directories-in-the-repo">Directories</a></li>
+  <li><a href="#team-members"> Team members</a></li>
+</ul>
+
 <h4>Directories in the repo</h4>
 /TartuTrainer - source code<br />
 /Documentation - documentation<br />
