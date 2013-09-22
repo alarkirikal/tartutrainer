@@ -19,4 +19,6 @@
   Karl Peedosk<br />
   Heike Randlahe<br />
 
+<hr>
+
 <i>For more information, please use our <a href="../../wiki">Wiki page</a></i>
