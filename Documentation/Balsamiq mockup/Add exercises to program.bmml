@@ -88,121 +88,105 @@
                     </control>
                   </groupChildrenDescriptors>
                 </control>
-                <control controlID="1" controlTypeID="__group__" x="0" y="45" w="233" h="278" measuredW="233" measuredH="278" zOrder="1" locked="false" isInGroup="23">
+                <control controlID="2" controlTypeID="__group__" x="0" y="45" w="232" h="278" measuredW="232" measuredH="278" zOrder="1" locked="false" isInGroup="23">
                   <controlProperties>
                     <href>Exercise%20details%26bm%3BExercise%20details.bmml%26bm%3BExercise%20details.bmml%26bm%3BExercise%20details.bmml</href>
-                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C146%2C258%2C424%22%20href%3D%22Exercise%2520details.bmml%22%20alt%3D%22Exercise%20details%22%20id%3D%221%22/%3E</map>
+                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C146%2C257%2C424%22%20href%3D%22Exercise%2520details.bmml%22%20alt%3D%22Exercise%20details%22%20id%3D%222%22/%3E</map>
                   </controlProperties>
                   <groupChildrenDescriptors>
-                    <control controlID="0" controlTypeID="__group__" x="0" y="0" w="233" h="278" measuredW="233" measuredH="278" zOrder="0" locked="false" isInGroup="1">
+                    <control controlID="0" controlTypeID="__group__" x="0" y="0" w="232" h="53" measuredW="232" measuredH="53" zOrder="0" locked="false" isInGroup="2">
                       <groupChildrenDescriptors>
-                        <control controlID="9" controlTypeID="__group__" x="0" y="0" w="233" h="53" measuredW="233" measuredH="53" zOrder="0" locked="false" isInGroup="0">
-                          <groupChildrenDescriptors>
-                            <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="9">
-                              <controlProperties>
-                                <rowHeight>22</rowHeight>
-                                <selectedIndex>-1</selectedIndex>
-                                <text>Exercise%20%231%0Adescription</text>
-                              </controlProperties>
-                            </control>
-                            <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="196" y="14" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="9">
-                              <controlProperties>
-                                <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
-                                <icon>PlusBigIcon%7Csmall</icon>
-                                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22221%2C160%2C245%2C184%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
-                              </controlProperties>
-                            </control>
-                          </groupChildrenDescriptors>
+                        <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="52" y="0" w="180" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="0">
+                          <controlProperties>
+                            <rowHeight>22</rowHeight>
+                            <selectedIndex>-1</selectedIndex>
+                            <text>Exercise%20%231%0Adescription</text>
+                          </controlProperties>
                         </control>
-                        <control controlID="16" controlTypeID="__group__" x="0" y="45" w="233" h="53" measuredW="233" measuredH="53" zOrder="1" locked="false" isInGroup="0">
-                          <groupChildrenDescriptors>
-                            <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="16">
-                              <controlProperties>
-                                <rowHeight>22</rowHeight>
-                                <selectedIndex>-1</selectedIndex>
-                                <text>Exercise%20%232%0Adescription</text>
-                              </controlProperties>
-                            </control>
-                            <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="196" y="14" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="16">
-                              <controlProperties>
-                                <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
-                                <icon>PlusBigIcon%7Csmall</icon>
-                                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22221%2C205%2C245%2C229%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
-                              </controlProperties>
-                            </control>
-                          </groupChildrenDescriptors>
+                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="3" w="52" h="44" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="0">
+                          <controlProperties>
+                            <text/>
+                          </controlProperties>
                         </control>
-                        <control controlID="17" controlTypeID="__group__" x="0" y="90" w="233" h="53" measuredW="233" measuredH="53" zOrder="2" locked="false" isInGroup="0">
-                          <groupChildrenDescriptors>
-                            <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="17">
-                              <controlProperties>
-                                <rowHeight>22</rowHeight>
-                                <selectedIndex>-1</selectedIndex>
-                                <text>Exercise%20%233%0Adescription</text>
-                              </controlProperties>
-                            </control>
-                            <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="196" y="14" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="17">
-                              <controlProperties>
-                                <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
-                                <icon>PlusBigIcon%7Csmall</icon>
-                                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22221%2C250%2C245%2C274%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
-                              </controlProperties>
-                            </control>
-                          </groupChildrenDescriptors>
+                      </groupChildrenDescriptors>
+                    </control>
+                    <control controlID="1" controlTypeID="__group__" x="0" y="45" w="232" h="53" measuredW="232" measuredH="53" zOrder="1" locked="false" isInGroup="2">
+                      <groupChildrenDescriptors>
+                        <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="52" y="0" w="180" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="1">
+                          <controlProperties>
+                            <rowHeight>22</rowHeight>
+                            <selectedIndex>-1</selectedIndex>
+                            <text>Exercise%20%232%0Adescription</text>
+                          </controlProperties>
                         </control>
-                        <control controlID="18" controlTypeID="__group__" x="0" y="137" w="233" h="53" measuredW="233" measuredH="53" zOrder="3" locked="false" isInGroup="0">
-                          <groupChildrenDescriptors>
-                            <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="18">
-                              <controlProperties>
-                                <rowHeight>22</rowHeight>
-                                <selectedIndex>-1</selectedIndex>
-                                <text>Exercise%20%234%0Adescription</text>
-                              </controlProperties>
-                            </control>
-                            <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="196" y="14" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="18">
-                              <controlProperties>
-                                <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
-                                <icon>PlusBigIcon%7Csmall</icon>
-                                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22221%2C297%2C245%2C321%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
-                              </controlProperties>
-                            </control>
-                          </groupChildrenDescriptors>
+                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="4" w="52" h="44" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="1">
+                          <controlProperties>
+                            <text/>
+                          </controlProperties>
                         </control>
-                        <control controlID="19" controlTypeID="__group__" x="0" y="182" w="233" h="53" measuredW="233" measuredH="53" zOrder="4" locked="false" isInGroup="0">
-                          <groupChildrenDescriptors>
-                            <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="19">
-                              <controlProperties>
-                                <rowHeight>22</rowHeight>
-                                <selectedIndex>-1</selectedIndex>
-                                <text>Exercise%20%235%0Adescription</text>
-                              </controlProperties>
-                            </control>
-                            <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="196" y="14" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="19">
-                              <controlProperties>
-                                <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
-                                <icon>PlusBigIcon%7Csmall</icon>
-                                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22221%2C342%2C245%2C366%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
-                              </controlProperties>
-                            </control>
-                          </groupChildrenDescriptors>
+                      </groupChildrenDescriptors>
+                    </control>
+                    <control controlID="2" controlTypeID="__group__" x="0" y="90" w="232" h="53" measuredW="232" measuredH="53" zOrder="2" locked="false" isInGroup="2">
+                      <groupChildrenDescriptors>
+                        <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="52" y="0" w="180" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="2">
+                          <controlProperties>
+                            <rowHeight>22</rowHeight>
+                            <selectedIndex>-1</selectedIndex>
+                            <text>Exercise%20%233%0Adescription</text>
+                          </controlProperties>
                         </control>
-                        <control controlID="20" controlTypeID="__group__" x="0" y="231" w="233" h="47" measuredW="233" measuredH="47" zOrder="5" locked="false" isInGroup="0">
-                          <groupChildrenDescriptors>
-                            <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="47" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="20">
-                              <controlProperties>
-                                <rowHeight>22</rowHeight>
-                                <selectedIndex>-1</selectedIndex>
-                                <text>Exercise%20%236%0Adescription</text>
-                              </controlProperties>
-                            </control>
-                            <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="196" y="11" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="20">
-                              <controlProperties>
-                                <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
-                                <icon>PlusBigIcon%7Csmall</icon>
-                                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22221%2C388%2C245%2C412%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
-                              </controlProperties>
-                            </control>
-                          </groupChildrenDescriptors>
+                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="4" w="52" h="44" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="2">
+                          <controlProperties>
+                            <text/>
+                          </controlProperties>
+                        </control>
+                      </groupChildrenDescriptors>
+                    </control>
+                    <control controlID="3" controlTypeID="__group__" x="0" y="137" w="232" h="53" measuredW="232" measuredH="53" zOrder="3" locked="false" isInGroup="2">
+                      <groupChildrenDescriptors>
+                        <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="52" y="0" w="180" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="3">
+                          <controlProperties>
+                            <rowHeight>22</rowHeight>
+                            <selectedIndex>-1</selectedIndex>
+                            <text>Exercise%20%234%0Adescription</text>
+                          </controlProperties>
+                        </control>
+                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="4" w="52" h="44" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="3">
+                          <controlProperties>
+                            <text/>
+                          </controlProperties>
+                        </control>
+                      </groupChildrenDescriptors>
+                    </control>
+                    <control controlID="4" controlTypeID="__group__" x="0" y="182" w="232" h="53" measuredW="232" measuredH="53" zOrder="4" locked="false" isInGroup="2">
+                      <groupChildrenDescriptors>
+                        <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="52" y="0" w="180" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="4">
+                          <controlProperties>
+                            <rowHeight>22</rowHeight>
+                            <selectedIndex>-1</selectedIndex>
+                            <text>Exercise%20%235%0Adescription</text>
+                          </controlProperties>
+                        </control>
+                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="4" w="52" h="44" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="4">
+                          <controlProperties>
+                            <text/>
+                          </controlProperties>
+                        </control>
+                      </groupChildrenDescriptors>
+                    </control>
+                    <control controlID="5" controlTypeID="__group__" x="0" y="231" w="232" h="47" measuredW="232" measuredH="47" zOrder="5" locked="false" isInGroup="2">
+                      <groupChildrenDescriptors>
+                        <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="52" y="0" w="180" h="47" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="5">
+                          <controlProperties>
+                            <rowHeight>22</rowHeight>
+                            <selectedIndex>-1</selectedIndex>
+                            <text>Exercise%20%236%0Adescription</text>
+                          </controlProperties>
+                        </control>
+                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="1" w="52" h="44" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="5">
+                          <controlProperties>
+                            <text/>
+                          </controlProperties>
                         </control>
                       </groupChildrenDescriptors>
                     </control>
