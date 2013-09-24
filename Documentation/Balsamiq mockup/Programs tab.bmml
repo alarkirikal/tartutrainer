@@ -8,110 +8,94 @@
     </control>
     <control controlID="30" controlTypeID="__group__" x="404" y="127" w="233" h="321" measuredW="233" measuredH="321" zOrder="1" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="__group__" x="0" y="0" w="233" h="321" measuredW="233" measuredH="321" zOrder="0" locked="false" isInGroup="30">
+        <control controlID="1" controlTypeID="__group__" x="0" y="0" w="233" h="48" measuredW="233" measuredH="48" zOrder="0" locked="false" isInGroup="30">
           <groupChildrenDescriptors>
-            <control controlID="16" controlTypeID="__group__" x="0" y="0" w="233" h="321" measuredW="233" measuredH="321" zOrder="0" locked="false" isInGroup="0">
+            <control controlID="0" controlTypeID="__group__" x="0" y="0" w="233" h="27" measuredW="233" measuredH="27" zOrder="0" locked="false" isInGroup="1">
               <groupChildrenDescriptors>
-                <control controlID="0" controlTypeID="__group__" x="0" y="0" w="233" h="48" measuredW="233" measuredH="48" zOrder="0" locked="false" isInGroup="16">
-                  <groupChildrenDescriptors>
-                    <control controlID="0" controlTypeID="__group__" x="0" y="0" w="233" h="27" measuredW="233" measuredH="27" zOrder="0" locked="false" isInGroup="0">
-                      <groupChildrenDescriptors>
-                        <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="119" h="27" measuredW="79" measuredH="27" zOrder="0" locked="false" isInGroup="0">
-                          <controlProperties>
-                            <state>selected</state>
-                            <text>Programs</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="108" y="0" w="125" h="27" measuredW="80" measuredH="27" zOrder="1" locked="false" isInGroup="0">
-                          <controlProperties>
-                            <href>Exercise%20tab%26bm%3BExercise%20tab.bmml%26bm%3BExercise%20tab.bmml%26bm%3BExercise%20tab.bmml</href>
-                            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22133%2C100%2C258%2C127%22%20href%3D%22Exercise%2520tab.bmml%22%20alt%3D%22Exercise%20tab%22%20id%3D%221%22/%3E</map>
-                            <text>Exercises</text>
-                          </controlProperties>
-                        </control>
-                      </groupChildrenDescriptors>
-                    </control>
-                    <control controlID="1" controlTypeID="__group__" x="0" y="21" w="233" h="27" measuredW="233" measuredH="27" zOrder="1" locked="false" isInGroup="0">
-                      <groupChildrenDescriptors>
-                        <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="201" y="0" w="32" h="27" measuredW="40" measuredH="27" zOrder="0" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <align>left</align>
-                            <href>Client%20select%26bm%3BClient%20select.bmml%26bm%3BClient%20select.bmml%26bm%3BClient%20select.bmml</href>
-                            <icon>PlusBigIcon%7Cxsmall</icon>
-                            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22226%2C121%2C258%2C148%22%20href%3D%22Client%2520select.bmml%22%20alt%3D%22Client%20select%22%20id%3D%220%22/%3E</map>
-                            <menuIcon>false</menuIcon>
-                            <state>up</state>
-                            <text/>
-                          </controlProperties>
-                        </control>
-                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="209" h="27" measuredW="101" measuredH="27" zOrder="1" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <text>Sort%20by%3A%20Date%20%20</text>
-                          </controlProperties>
-                        </control>
-                      </groupChildrenDescriptors>
-                    </control>
-                  </groupChildrenDescriptors>
-                </control>
-                <control controlID="1" controlTypeID="__group__" x="0" y="43" w="233" h="278" measuredW="233" measuredH="278" zOrder="1" locked="false" isInGroup="16">
+                <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="119" h="27" measuredW="79" measuredH="27" zOrder="0" locked="false" isInGroup="0">
                   <controlProperties>
-                    <href>Notes%26bm%3BNotes.bmml%26bm%3BNotes.bmml%26bm%3BNotes.bmml</href>
-                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C143%2C258%2C421%22%20href%3D%22Notes.bmml%22%20alt%3D%22Notes%22%20id%3D%221%22/%3E</map>
+                    <state>selected</state>
+                    <text>Programs</text>
                   </controlProperties>
-                  <groupChildrenDescriptors>
-                    <control controlID="8" controlTypeID="__group__" x="0" y="0" w="233" h="278" measuredW="233" measuredH="278" zOrder="0" locked="false" isInGroup="1">
-                      <controlProperties>
-                        <href>Add%20exercises%20to%20program%26bm%3BAdd%20exercises%20to%20program.bmml%26bm%3BAdd%20exercises%20to%20program.bmml%26bm%3BAdd%20exercises%20to%20program.bmml</href>
-                        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C143%2C258%2C421%22%20href%3D%22Add%2520exercises%2520to%2520program.bmml%22%20alt%3D%22Add%20exercises%20to%20program%22%20id%3D%228%22/%3E</map>
-                      </controlProperties>
-                      <groupChildrenDescriptors>
-                        <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="8">
-                          <controlProperties>
-                            <rowHeight>22</rowHeight>
-                            <selectedIndex>-1</selectedIndex>
-                            <text>Program%20%23%201%20%28name%29%0AClient%20name</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="1" controlTypeID="com.balsamiq.mockups::List" x="0" y="45" w="233" h="53" measuredW="100" measuredH="126" zOrder="1" locked="false" isInGroup="8">
-                          <controlProperties>
-                            <rowHeight>22</rowHeight>
-                            <selectedIndex>-1</selectedIndex>
-                            <text>Program%20%23%202%0AClient%20name</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="2" controlTypeID="com.balsamiq.mockups::List" x="0" y="90" w="233" h="53" measuredW="100" measuredH="126" zOrder="2" locked="false" isInGroup="8">
-                          <controlProperties>
-                            <rowHeight>22</rowHeight>
-                            <selectedIndex>-1</selectedIndex>
-                            <text>Program%20%23%203%0AClient%20name</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="3" controlTypeID="com.balsamiq.mockups::List" x="0" y="137" w="233" h="53" measuredW="100" measuredH="126" zOrder="3" locked="false" isInGroup="8">
-                          <controlProperties>
-                            <rowHeight>22</rowHeight>
-                            <selectedIndex>-1</selectedIndex>
-                            <text>Program%20%23%204%0AClient%20name</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="4" controlTypeID="com.balsamiq.mockups::List" x="0" y="182" w="233" h="53" measuredW="100" measuredH="126" zOrder="4" locked="false" isInGroup="8">
-                          <controlProperties>
-                            <rowHeight>22</rowHeight>
-                            <selectedIndex>-1</selectedIndex>
-                            <text>Program%20%23%205%0AClient%20name</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="5" controlTypeID="com.balsamiq.mockups::List" x="0" y="231" w="233" h="47" measuredW="100" measuredH="126" zOrder="5" locked="false" isInGroup="8">
-                          <controlProperties>
-                            <rowHeight>22</rowHeight>
-                            <selectedIndex>-1</selectedIndex>
-                            <text>Program%20%23%206%0AClient%20name</text>
-                          </controlProperties>
-                        </control>
-                      </groupChildrenDescriptors>
-                    </control>
-                  </groupChildrenDescriptors>
+                </control>
+                <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="108" y="0" w="125" h="27" measuredW="80" measuredH="27" zOrder="1" locked="false" isInGroup="0">
+                  <controlProperties>
+                    <href>Exercise%20tab%26bm%3BExercise%20tab.bmml%26bm%3BExercise%20tab.bmml%26bm%3BExercise%20tab.bmml</href>
+                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22133%2C100%2C258%2C127%22%20href%3D%22Exercise%2520tab.bmml%22%20alt%3D%22Exercise%20tab%22%20id%3D%221%22/%3E</map>
+                    <text>Exercises</text>
+                  </controlProperties>
                 </control>
               </groupChildrenDescriptors>
+            </control>
+            <control controlID="1" controlTypeID="__group__" x="0" y="21" w="233" h="27" measuredW="233" measuredH="27" zOrder="1" locked="false" isInGroup="1">
+              <groupChildrenDescriptors>
+                <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="201" y="0" w="32" h="27" measuredW="40" measuredH="27" zOrder="0" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <align>left</align>
+                    <href>Client%20select%26bm%3BClient%20select.bmml%26bm%3BClient%20select.bmml%26bm%3BClient%20select.bmml</href>
+                    <icon>PlusBigIcon%7Cxsmall</icon>
+                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22226%2C121%2C258%2C148%22%20href%3D%22Client%2520select.bmml%22%20alt%3D%22Client%20select%22%20id%3D%220%22/%3E</map>
+                    <menuIcon>false</menuIcon>
+                    <state>up</state>
+                    <text/>
+                  </controlProperties>
+                </control>
+                <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="209" h="27" measuredW="101" measuredH="27" zOrder="1" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <text>Sort%20by%3A%20Date%20%20</text>
+                  </controlProperties>
+                </control>
+              </groupChildrenDescriptors>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="3" controlTypeID="__group__" x="0" y="43" w="233" h="278" measuredW="233" measuredH="278" zOrder="1" locked="false" isInGroup="30">
+          <controlProperties>
+            <href>Notes%26bm%3BNotes.bmml%26bm%3BNotes.bmml%26bm%3BNotes.bmml</href>
+            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C143%2C258%2C421%22%20href%3D%22Notes.bmml%22%20alt%3D%22Notes%22%20id%3D%223%22/%3E</map>
+          </controlProperties>
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="3">
+              <controlProperties>
+                <rowHeight>22</rowHeight>
+                <selectedIndex>-1</selectedIndex>
+                <text>Program%20%23%201%20%28name%29%0AClient%20name</text>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::List" x="0" y="45" w="233" h="53" measuredW="100" measuredH="126" zOrder="1" locked="false" isInGroup="3">
+              <controlProperties>
+                <rowHeight>22</rowHeight>
+                <selectedIndex>-1</selectedIndex>
+                <text>Program%20%23%202%0AClient%20name</text>
+              </controlProperties>
+            </control>
+            <control controlID="2" controlTypeID="com.balsamiq.mockups::List" x="0" y="90" w="233" h="53" measuredW="100" measuredH="126" zOrder="2" locked="false" isInGroup="3">
+              <controlProperties>
+                <rowHeight>22</rowHeight>
+                <selectedIndex>-1</selectedIndex>
+                <text>Program%20%23%203%0AClient%20name</text>
+              </controlProperties>
+            </control>
+            <control controlID="3" controlTypeID="com.balsamiq.mockups::List" x="0" y="137" w="233" h="53" measuredW="100" measuredH="126" zOrder="3" locked="false" isInGroup="3">
+              <controlProperties>
+                <rowHeight>22</rowHeight>
+                <selectedIndex>-1</selectedIndex>
+                <text>Program%20%23%204%0AClient%20name</text>
+              </controlProperties>
+            </control>
+            <control controlID="4" controlTypeID="com.balsamiq.mockups::List" x="0" y="182" w="233" h="53" measuredW="100" measuredH="126" zOrder="4" locked="false" isInGroup="3">
+              <controlProperties>
+                <rowHeight>22</rowHeight>
+                <selectedIndex>-1</selectedIndex>
+                <text>Program%20%23%205%0AClient%20name</text>
+              </controlProperties>
+            </control>
+            <control controlID="5" controlTypeID="com.balsamiq.mockups::List" x="0" y="231" w="233" h="47" measuredW="100" measuredH="126" zOrder="5" locked="false" isInGroup="3">
+              <controlProperties>
+                <rowHeight>22</rowHeight>
+                <selectedIndex>-1</selectedIndex>
+                <text>Program%20%23%206%0AClient%20name</text>
+              </controlProperties>
             </control>
           </groupChildrenDescriptors>
         </control>

@@ -1,81 +1,73 @@
 <mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="661" measuredH="537" mockupW="282" mockupH="510">
   <controls>
-    <control controlID="45" controlTypeID="__group__" x="379" y="27" w="282" h="510" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="-1">
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::iPhone" x="379" y="27" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bgPattern>allWhite</bgPattern>
+        <orientation>portrait</orientation>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="__group__" x="404" y="128" w="229" h="323" measuredW="229" measuredH="323" zOrder="1" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="0" y="0" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="45">
-          <controlProperties>
-            <bgPattern>allWhite</bgPattern>
-            <orientation>portrait</orientation>
-          </controlProperties>
-        </control>
-        <control controlID="1" controlTypeID="__group__" x="25" y="101" w="229" h="323" measuredW="229" measuredH="323" zOrder="1" locked="false" isInGroup="45">
+        <control controlID="0" controlTypeID="__group__" x="0" y="0" w="229" h="45" measuredW="229" measuredH="45" zOrder="0" locked="false" isInGroup="49">
           <groupChildrenDescriptors>
-            <control controlID="23" controlTypeID="__group__" x="0" y="0" w="229" h="323" measuredW="229" measuredH="323" zOrder="0" locked="false" isInGroup="1">
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="229" h="45" measuredW="63" measuredH="27" zOrder="0" locked="false" isInGroup="0">
+              <controlProperties>
+                <align>left</align>
+                <state>up</state>
+                <text>Clients</text>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="184" y="10" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="0">
+              <controlProperties>
+                <href>Notes%26bm%3BNotes.bmml%26bm%3BNotes.bmml%26bm%3BNotes.bmml</href>
+                <icon>PlusBigIcon%7Csmall</icon>
+                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22209%2C111%2C233%2C135%22%20href%3D%22Notes.bmml%22%20alt%3D%22Notes%22%20id%3D%221%22/%3E</map>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="1" controlTypeID="__group__" x="0" y="41" w="229" h="282" measuredW="229" measuredH="282" zOrder="1" locked="false" isInGroup="49">
+          <groupChildrenDescriptors>
+            <control controlID="1" controlTypeID="__group__" x="0" y="0" w="229" h="282" measuredW="229" measuredH="282" zOrder="0" locked="false" isInGroup="1">
+              <controlProperties>
+                <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
+                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C142%2C254%2C424%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
+              </controlProperties>
               <groupChildrenDescriptors>
-                <control controlID="6" controlTypeID="__group__" x="0" y="0" w="229" h="45" measuredW="229" measuredH="45" zOrder="0" locked="false" isInGroup="23">
-                  <groupChildrenDescriptors>
-                    <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="229" h="45" measuredW="63" measuredH="27" zOrder="0" locked="false" isInGroup="6">
-                      <controlProperties>
-                        <align>left</align>
-                        <state>up</state>
-                        <text>Clients</text>
-                      </controlProperties>
-                    </control>
-                    <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="184" y="10" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="6">
-                      <controlProperties>
-                        <href>Add%20new%20client%26bm%3BAdd%20new%20client.bmml%26bm%3BAdd%20new%20client.bmml%26bm%3BAdd%20new%20client.bmml</href>
-                        <icon>PlusBigIcon%7Csmall</icon>
-                        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22209%2C111%2C233%2C135%22%20href%3D%22Add%2520new%2520client.bmml%22%20alt%3D%22Add%20new%20client%22%20id%3D%221%22/%3E</map>
-                      </controlProperties>
-                    </control>
-                  </groupChildrenDescriptors>
+                <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="229" h="49" measuredW="74" measuredH="27" zOrder="0" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <text>Client%20%231</text>
+                  </controlProperties>
                 </control>
-                <control controlID="7" controlTypeID="__group__" x="0" y="41" w="229" h="282" measuredW="229" measuredH="282" zOrder="1" locked="false" isInGroup="23">
-                  <groupChildrenDescriptors>
-                    <control controlID="1" controlTypeID="__group__" x="0" y="0" w="229" h="282" measuredW="229" measuredH="282" zOrder="0" locked="false" isInGroup="7">
-                      <controlProperties>
-                        <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
-                        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C142%2C254%2C424%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
-                      </controlProperties>
-                      <groupChildrenDescriptors>
-                        <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="229" h="49" measuredW="74" measuredH="27" zOrder="0" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <text>Client%20%231</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="0" y="43" w="229" h="49" measuredW="77" measuredH="27" zOrder="1" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <text>Client%20%232</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="0" y="84" w="229" h="49" measuredW="76" measuredH="27" zOrder="2" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <text>Client%20%233</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="9" controlTypeID="com.balsamiq.mockups::Button" x="0" y="126" w="229" h="49" measuredW="77" measuredH="27" zOrder="3" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <text>Client%20%234</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="10" controlTypeID="com.balsamiq.mockups::Button" x="0" y="166" w="229" h="49" measuredW="76" measuredH="27" zOrder="4" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <text>Client%20%235</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="11" controlTypeID="com.balsamiq.mockups::Button" x="0" y="208" w="229" h="49" measuredW="77" measuredH="27" zOrder="5" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <text>Client%20%236</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="12" controlTypeID="com.balsamiq.mockups::Button" x="0" y="250" w="229" h="32" measuredW="24" measuredH="27" zOrder="6" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <text/>
-                          </controlProperties>
-                        </control>
-                      </groupChildrenDescriptors>
-                    </control>
-                  </groupChildrenDescriptors>
+                <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="0" y="43" w="229" h="49" measuredW="77" measuredH="27" zOrder="1" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <text>Client%20%232</text>
+                  </controlProperties>
+                </control>
+                <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="0" y="84" w="229" h="49" measuredW="76" measuredH="27" zOrder="2" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <text>Client%20%233</text>
+                  </controlProperties>
+                </control>
+                <control controlID="9" controlTypeID="com.balsamiq.mockups::Button" x="0" y="126" w="229" h="49" measuredW="77" measuredH="27" zOrder="3" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <text>Client%20%234</text>
+                  </controlProperties>
+                </control>
+                <control controlID="10" controlTypeID="com.balsamiq.mockups::Button" x="0" y="166" w="229" h="49" measuredW="76" measuredH="27" zOrder="4" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <text>Client%20%235</text>
+                  </controlProperties>
+                </control>
+                <control controlID="11" controlTypeID="com.balsamiq.mockups::Button" x="0" y="208" w="229" h="49" measuredW="77" measuredH="27" zOrder="5" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <text>Client%20%236</text>
+                  </controlProperties>
+                </control>
+                <control controlID="12" controlTypeID="com.balsamiq.mockups::Button" x="0" y="250" w="229" h="32" measuredW="24" measuredH="27" zOrder="6" locked="false" isInGroup="1">
+                  <controlProperties>
+                    <text/>
+                  </controlProperties>
                 </control>
               </groupChildrenDescriptors>
             </control>

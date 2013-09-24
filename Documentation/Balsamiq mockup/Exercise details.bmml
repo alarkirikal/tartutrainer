@@ -12,51 +12,34 @@
         <text>Exercise%20%234</text>
       </controlProperties>
     </control>
-    <control controlID="77" controlTypeID="com.balsamiq.mockups::Button" x="512" y="137" w="-1" h="-1" measuredW="54" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Send</text>
-      </controlProperties>
-    </control>
-    <control controlID="78" controlTypeID="com.balsamiq.mockups::Button" x="566" y="136" w="27" h="28" measuredW="48" measuredH="30" zOrder="3" locked="false" isInGroup="-1">
-      <controlProperties>
-        <icon>LeftTriangleIcon%7Csmall</icon>
-        <text/>
-      </controlProperties>
-    </control>
-    <control controlID="79" controlTypeID="com.balsamiq.mockups::Button" x="593" y="135" w="32" h="30" measuredW="48" measuredH="30" zOrder="4" locked="false" isInGroup="-1">
-      <controlProperties>
-        <icon>RightTriangleIcon%7Csmall</icon>
-        <text/>
-      </controlProperties>
-    </control>
-    <control controlID="80" controlTypeID="com.balsamiq.mockups::Image" x="404" y="175" w="93" h="79" measuredW="77" measuredH="79" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::Image" x="404" y="175" w="93" h="79" measuredW="77" measuredH="79" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="81" controlTypeID="com.balsamiq.mockups::Image" x="493" y="175" w="93" h="79" measuredW="77" measuredH="79" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::Image" x="493" y="175" w="93" h="79" measuredW="77" measuredH="79" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="82" controlTypeID="com.balsamiq.mockups::TextArea" x="586" y="175" w="51" h="79" measuredW="200" measuredH="140" zOrder="7" locked="false" isInGroup="-1">
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::TextArea" x="586" y="175" w="51" h="79" measuredW="200" measuredH="140" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Details</text>
       </controlProperties>
     </control>
-    <control controlID="83" controlTypeID="com.balsamiq.mockups::TextArea" x="404" y="254" w="233" h="56" measuredW="200" measuredH="140" zOrder="8" locked="false" isInGroup="-1">
+    <control controlID="83" controlTypeID="com.balsamiq.mockups::TextArea" x="404" y="254" w="233" h="56" measuredW="200" measuredH="140" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Exercise%20notes</text>
       </controlProperties>
     </control>
-    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="406" y="311" w="132" h="146" measuredW="136" measuredH="169" zOrder="9" locked="false" isInGroup="-1">
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="406" y="311" w="132" h="146" measuredW="136" measuredH="169" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <hLines>true</hLines>
         <size>10</size>
         <text>Reps%2C%20Kg%2C%20Reps%2C%20Kg%0A12%2C60%2C%2C%0A10%2C40%2C%2C%0A15%2C20%2C%2C%0A40%2C10%2C%2C%0A%20%0A%7B30%2C%2030%2C%2030%2C%2030%7D</text>
       </controlProperties>
     </control>
-    <control controlID="97" controlTypeID="__group__" x="538" y="310" w="93" h="141" measuredW="93" measuredH="141" zOrder="10" locked="false" isInGroup="-1">
+    <control controlID="97" controlTypeID="__group__" x="538" y="310" w="93" h="141" measuredW="93" measuredH="141" zOrder="7" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
         <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="30" h="35" measuredW="30" measuredH="27" zOrder="0" locked="false" isInGroup="97">
           <controlProperties>
