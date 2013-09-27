@@ -29,6 +29,7 @@ public class FragmentBuilder extends Fragment {
 		// Get the identifier of the specific fragment
 		String message = getArguments().getString(IDENTIFIER);
 
+		// Get the specified fragments to display
 		if (message.equalsIgnoreCase("allprograms")) {
 			
 			AllProgramsFragment allPrograms = new AllProgramsFragment(inflater, container);
