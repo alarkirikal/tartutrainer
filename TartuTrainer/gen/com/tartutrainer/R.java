@@ -28,23 +28,18 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int Programslist=0x7f090006;
-        public static final int action_add=0x7f090007;
-        public static final int action_settings=0x7f090008;
-        public static final int btnEditPrograms=0x7f090002;
-        public static final int btnListPrograms=0x7f090003;
-        public static final int list_programs=0x7f090001;
-        public static final int sortByLayout=0x7f090005;
-        public static final int textView=0x7f090004;
+        public static final int action_add=0x7f090004;
+        public static final int action_settings=0x7f090005;
+        public static final int helloWorldExercises=0x7f090002;
+        public static final int helloWorldPrograms=0x7f090003;
+        public static final int viewpager_main=0x7f090001;
         public static final int viewpager_second=0x7f090000;
     }
     public static final class layout {
-        public static final int activity_addprogram=0x7f030000;
-        public static final int activity_editprogram=0x7f030001;
-        public static final int activity_listprograms=0x7f030002;
-        public static final int activity_main=0x7f030003;
-        public static final int fragment_exercise=0x7f030004;
-        public static final int fragment_programslist=0x7f030005;
+        public static final int activity_editprogram=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int fragment_allexercises=0x7f030002;
+        public static final int fragment_allprograms=0x7f030003;
     }
     public static final class menu {
         public static final int actionbar_programslist=0x7f080000;

@@ -1,39 +1,86 @@
 package com.tartutrainer.activities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.tartutrainer.R;
+import com.tartutrainer.adapters.PageAdapter;
+import com.tartutrainer.fragments.AllExercisesFragment;
+import com.tartutrainer.fragments.AllProgramsFragment;
+import com.tartutrainer.helpers.FragmentBuilder;
+import com.tartutrainer.helpers.ZoomOutPageTransformer;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
+
+	PageAdapter pageAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Button btn = (Button) findViewById(R.id.btnListPrograms);
-		btn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View position) {
-				Intent intent = new Intent(getApplicationContext(),
-						ListPrograms.class);
-				startActivity(intent);
-			}
-		});
+		// Build fragments
+		buildMainFragment();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	private void buildMainFragment() {
+		// Get the fragments and set the data adapters
+		List<Fragment> fragments = getFragments();
+		pageAdapter = new PageAdapter(getSupportFragmentManager(), fragments);
+		final ViewPager pager = (ViewPager) findViewById(R.id.viewpager_main);
+		pager.setPageTransformer(true, new ZoomOutPageTransformer());
+		pager.setAdapter(pageAdapter);
+
+		// Set up ActionBar
+		ActionBar actionBar = getActionBar();
+		actionBar.show();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(false);
+		ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+
+			@Override
+			public void onTabReselected(Tab tab, FragmentTransaction ft) {
+			}
+
+			@Override
+			public void onTabSelected(Tab tab, FragmentTransaction ft) {
+				pager.setCurrentItem(tab.getPosition());
+			}
+
+			@Override
+			public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+			}
+
+		};
+
+		pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				getActionBar().setSelectedNavigationItem(position);
+			}
+		});
+
+		// Navigation tabs
+		actionBar.addTab(actionBar.newTab().setText("Programs")
+				.setTabListener(tabListener));
+		actionBar.addTab(actionBar.newTab().setText("Exercises")
+				.setTabListener(tabListener));
+	}
+
+	private List<Fragment> getFragments() {
+		List<Fragment> fList = new ArrayList<Fragment>();
+		fList.add(FragmentBuilder.newInstance("allprograms"));
+		fList.add(FragmentBuilder.newInstance("allexercises"));
+		return fList;
 	}
 
 }
