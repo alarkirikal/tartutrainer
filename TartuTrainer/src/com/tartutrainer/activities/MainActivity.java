@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.tartutrainer.R;
 import com.tartutrainer.adapters.PageAdapter;
-import com.tartutrainer.fragments.AllExercisesFragment;
-import com.tartutrainer.fragments.AllProgramsFragment;
 import com.tartutrainer.helpers.FragmentBuilder;
 import com.tartutrainer.helpers.ZoomOutPageTransformer;
 

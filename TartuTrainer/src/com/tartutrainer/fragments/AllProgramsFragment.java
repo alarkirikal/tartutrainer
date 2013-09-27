@@ -8,11 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class AllProgramsFragment extends Fragment {
+public class AllProgramsFragment {
 	
-	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+	LayoutInflater inflater;
+	ViewGroup container;
+	
+	public AllProgramsFragment(LayoutInflater inflater, ViewGroup container) {
+		this.inflater = inflater;
+		this.container = container;
+	}
+	
+    public View displayFragment() {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_allprograms, container, false);
         return view;
