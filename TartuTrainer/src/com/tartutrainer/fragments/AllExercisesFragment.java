@@ -21,11 +21,11 @@ public class AllExercisesFragment {
 		this.inflater = inflater;
 		this.container = container;
 	}
-	
-	//Initview
+
+	// Initview
 	public View initView() {
-		view = inflater
-				.inflate(R.layout.fragment_allexercises, container, false);
+		view = inflater.inflate(R.layout.fragment_allexercises, container,
+				false);
 		return view;
 	}
 

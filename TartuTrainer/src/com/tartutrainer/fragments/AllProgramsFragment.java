@@ -2,8 +2,10 @@ package com.tartutrainer.fragments;
 
 import com.tartutrainer.R;
 import com.tartutrainer.adapters.ProgramListAdapter;
+import com.tartutrainer.database.DBAdapter;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,21 @@ public class AllProgramsFragment {
 	}
 
 	public void populateList(Activity activity) {
+		
+		// SQL Test
+		
+		DBAdapter db = null; db = DBAdapter.getDBAdapterInstance(activity);
+		db.openDataBase();
+		
+		Cursor myCursor = db.getReadableDatabase().rawQuery("SELECT * FROM sqlite_master WHERE type='table';", null);
+		
+		myCursor.moveToFirst();
+		do {
+			Toast.makeText(activity, myCursor.getString(1), Toast.LENGTH_SHORT).show();
+			myCursor.moveToNext();
+		} while (!myCursor.isLast());
+		
+		myCursor.close(); db.close();
 
 		// SQL to get all programs
 		String[] nameArray = { "Program #1", "Program #2", "Program #3",
@@ -45,5 +62,4 @@ public class AllProgramsFragment {
 		ListView list = (ListView) view.findViewById(R.id.listAllPrograms);
 		list.setAdapter(adapter);
 	}
-
 }

@@ -1,10 +1,12 @@
 package com.tartutrainer.activities;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tartutrainer.R;
 import com.tartutrainer.adapters.PageAdapter;
+import com.tartutrainer.database.DBAdapter;
 import com.tartutrainer.helpers.FragmentBuilder;
 import com.tartutrainer.helpers.ZoomOutPageTransformer;
 
@@ -25,6 +27,9 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// Check database files
+		checkDB();
+		
 		// Build fragments
 		buildMainFragment();
 	}
@@ -79,6 +84,18 @@ public class MainActivity extends FragmentActivity {
 		fList.add(FragmentBuilder.newInstance("allprograms"));
 		fList.add(FragmentBuilder.newInstance("allexercises"));
 		return fList;
+	}
+	
+	private void checkDB() {
+		DBAdapter db = null;
+		db = DBAdapter.getDBAdapterInstance(this);
+		try {
+			db.createDataBase();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		db.openDataBase();
+		db.close();
 	}
 
 }
