@@ -3,11 +3,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     
-    <TextView
-	    android:id="@+id/helloWorldExercises"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_gravity="center"
-    	android:text="Hai world, Exercises" />
+    <ListView
+        android:id="@+id/listAllExercises"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="#b5b5b5"
+        android:dividerHeight="1dp" >
+    </ListView>
 
 </LinearLayout>

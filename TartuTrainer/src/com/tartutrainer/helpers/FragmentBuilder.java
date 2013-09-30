@@ -33,7 +33,9 @@ public class FragmentBuilder extends Fragment {
 		if (message.equalsIgnoreCase("allprograms")) {
 			
 			AllProgramsFragment allPrograms = new AllProgramsFragment(inflater, container);
-			return allPrograms.displayFragment();
+			allPrograms.initView();
+			allPrograms.populateList(getActivity());
+			return allPrograms.getView();
 		
 		} else if (message.equalsIgnoreCase("allexercises")) {
 			
