@@ -40,7 +40,9 @@ public class FragmentBuilder extends Fragment {
 		} else if (message.equalsIgnoreCase("allexercises")) {
 			
 			AllExercisesFragment allExercises = new AllExercisesFragment(inflater, container);
-			return allExercises.displayFragment();
+			allExercises.initView();
+			allExercises.populateList(getActivity());
+			return allExercises.getView();
 			
 		} else {
 			// Must not reach this.
