@@ -21,7 +21,8 @@ public class AllExercisesFragment {
 		this.inflater = inflater;
 		this.container = container;
 	}
-
+	
+	//Initview
 	public View initView() {
 		view = inflater
 				.inflate(R.layout.fragment_allexercises, container, false);
