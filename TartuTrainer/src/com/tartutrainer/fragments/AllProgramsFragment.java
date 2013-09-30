@@ -36,7 +36,7 @@ public class AllProgramsFragment {
 
 	public void populateList(Activity activity) {
 		
-		// SQL Test
+		// SQL Test blalbalbalbalblabla
 		
 		DBAdapter db = null; db = DBAdapter.getDBAdapterInstance(activity);
 		db.openDataBase();
