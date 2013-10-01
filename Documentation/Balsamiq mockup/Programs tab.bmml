@@ -20,8 +20,8 @@
                 </control>
                 <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="108" y="0" w="125" h="27" measuredW="80" measuredH="27" zOrder="1" locked="false" isInGroup="0">
                   <controlProperties>
-                    <href>Exercise%20tab%26bm%3BExercise%20tab.bmml%26bm%3BExercise%20tab.bmml%26bm%3BExercise%20tab.bmml</href>
-                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22133%2C100%2C258%2C127%22%20href%3D%22Exercise%2520tab.bmml%22%20alt%3D%22Exercise%20tab%22%20id%3D%221%22/%3E</map>
+                    <href>Exercises%20tab%26bm%3BExercises%20tab.bmml%26bm%3BExercises%20tab.bmml%26bm%3BExercises%20tab.bmml</href>
+                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22133%2C100%2C258%2C127%22%20href%3D%22Exercises%2520tab.bmml%22%20alt%3D%22Exercises%20tab%22%20id%3D%221%22/%3E</map>
                     <text>Exercises</text>
                   </controlProperties>
                 </control>
@@ -32,9 +32,9 @@
                 <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="201" y="0" w="32" h="27" measuredW="40" measuredH="27" zOrder="0" locked="false" isInGroup="1">
                   <controlProperties>
                     <align>left</align>
-                    <href>Client%20select%26bm%3BClient%20select.bmml%26bm%3BClient%20select.bmml%26bm%3BClient%20select.bmml</href>
+                    <href>Client%20Select%20view%26bm%3BClient%20Select%20view.bmml%26bm%3BClient%20Select%20view.bmml%26bm%3BClient%20Select%20view.bmml</href>
                     <icon>PlusBigIcon%7Cxsmall</icon>
-                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22226%2C121%2C258%2C148%22%20href%3D%22Client%2520select.bmml%22%20alt%3D%22Client%20select%22%20id%3D%220%22/%3E</map>
+                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22226%2C121%2C258%2C148%22%20href%3D%22Client%2520Select%2520view.bmml%22%20alt%3D%22Client%20Select%20view%22%20id%3D%220%22/%3E</map>
                     <menuIcon>false</menuIcon>
                     <state>up</state>
                     <text/>
@@ -51,8 +51,8 @@
         </control>
         <control controlID="3" controlTypeID="__group__" x="0" y="43" w="233" h="278" measuredW="233" measuredH="278" zOrder="1" locked="false" isInGroup="30">
           <controlProperties>
-            <href>Notes%26bm%3BNotes.bmml%26bm%3BNotes.bmml%26bm%3BNotes.bmml</href>
-            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C143%2C258%2C421%22%20href%3D%22Notes.bmml%22%20alt%3D%22Notes%22%20id%3D%223%22/%3E</map>
+            <href>Program%20Notes%20view%26bm%3BProgram%20Notes%20view.bmml%26bm%3BProgram%20Notes%20view.bmml%26bm%3BProgram%20Notes%20view.bmml</href>
+            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C143%2C258%2C421%22%20href%3D%22Program%2520Notes%2520view.bmml%22%20alt%3D%22Program%20Notes%20view%22%20id%3D%223%22/%3E</map>
           </controlProperties>
           <groupChildrenDescriptors>
             <control controlID="0" controlTypeID="com.balsamiq.mockups::List" x="0" y="0" w="233" h="53" measuredW="100" measuredH="126" zOrder="0" locked="false" isInGroup="3">

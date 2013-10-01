@@ -21,9 +21,9 @@
             </control>
             <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="193" y="12" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="2">
               <controlProperties>
-                <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
+                <href>Edit%20Program%20tab%26bm%3BEdit%20Program%20tab.bmml%26bm%3BEdit%20Program%20tab.bmml%26bm%3BEdit%20Program%20tab.bmml</href>
                 <icon>RightArrowIcon%7Csmall</icon>
-                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22218%2C116%2C242%2C140%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%221%22/%3E</map>
+                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22218%2C116%2C242%2C140%22%20href%3D%22Edit%2520Program%2520tab.bmml%22%20alt%3D%22Edit%20Program%20tab%22%20id%3D%221%22/%3E</map>
               </controlProperties>
             </control>
           </groupChildrenDescriptors>

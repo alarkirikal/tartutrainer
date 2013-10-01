@@ -18,8 +18,8 @@
                       <groupChildrenDescriptors>
                         <control controlID="0" controlTypeID="__group__" x="0" y="0" w="119" h="27" measuredW="119" measuredH="27" zOrder="0" locked="false" isInGroup="0">
                           <controlProperties>
-                            <href>Edit%20program%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml%26bm%3BEdit%20program.bmml</href>
-                            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C101%2C144%2C128%22%20href%3D%22Edit%2520program.bmml%22%20alt%3D%22Edit%20program%22%20id%3D%220%22/%3E</map>
+                            <href>Edit%20Program%20tab%26bm%3BEdit%20Program%20tab.bmml%26bm%3BEdit%20Program%20tab.bmml%26bm%3BEdit%20Program%20tab.bmml</href>
+                            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C101%2C144%2C128%22%20href%3D%22Edit%2520Program%2520tab.bmml%22%20alt%3D%22Edit%20Program%20tab%22%20id%3D%220%22/%3E</map>
                           </controlProperties>
                           <groupChildrenDescriptors>
                             <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="119" h="27" measuredW="40" measuredH="27" zOrder="0" locked="false" isInGroup="0">
@@ -47,41 +47,32 @@
                     </control>
                     <control controlID="1" controlTypeID="__group__" x="0" y="21" w="233" h="27" measuredW="233" measuredH="27" zOrder="1" locked="false" isInGroup="0">
                       <groupChildrenDescriptors>
-                        <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="60" h="27" measuredW="60" measuredH="27" zOrder="0" locked="false" isInGroup="1">
+                        <control controlID="0" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="67" h="27" measuredW="60" measuredH="27" zOrder="0" locked="false" isInGroup="1">
                           <controlProperties>
                             <align>left</align>
                             <size>11</size>
                             <text>Level%201</text>
                           </controlProperties>
                         </control>
-                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="51" y="0" w="57" h="27" measuredW="54" measuredH="27" zOrder="1" locked="false" isInGroup="1">
+                        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="57" y="0" w="63" h="27" measuredW="54" measuredH="27" zOrder="1" locked="false" isInGroup="1">
                           <controlProperties>
                             <align>left</align>
                             <size>11</size>
                             <text>Equip.</text>
                           </controlProperties>
                         </control>
-                        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="93" y="0" w="60" h="27" measuredW="59" measuredH="27" zOrder="2" locked="false" isInGroup="1">
+                        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="103" y="0" w="67" h="27" measuredW="59" measuredH="27" zOrder="2" locked="false" isInGroup="1">
                           <controlProperties>
                             <align>left</align>
                             <size>10</size>
                             <text>Muscles</text>
                           </controlProperties>
                         </control>
-                        <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="143" y="0" w="67" h="27" measuredW="63" measuredH="27" zOrder="3" locked="false" isInGroup="1">
+                        <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="159" y="0" w="74" h="27" measuredW="63" measuredH="27" zOrder="3" locked="false" isInGroup="1">
                           <controlProperties>
                             <align>left</align>
                             <size>11</size>
                             <text>Modality</text>
-                          </controlProperties>
-                        </control>
-                        <control controlID="4" controlTypeID="com.balsamiq.mockups::Button" x="201" y="0" w="32" h="27" measuredW="40" measuredH="27" zOrder="4" locked="false" isInGroup="1">
-                          <controlProperties>
-                            <align>left</align>
-                            <icon>PlusBigIcon%7Cxsmall</icon>
-                            <menuIcon>false</menuIcon>
-                            <state>up</state>
-                            <text/>
                           </controlProperties>
                         </control>
                       </groupChildrenDescriptors>
@@ -90,8 +81,8 @@
                 </control>
                 <control controlID="2" controlTypeID="__group__" x="0" y="45" w="232" h="278" measuredW="232" measuredH="278" zOrder="1" locked="false" isInGroup="23">
                   <controlProperties>
-                    <href>Exercise%20details%26bm%3BExercise%20details.bmml%26bm%3BExercise%20details.bmml%26bm%3BExercise%20details.bmml</href>
-                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C146%2C257%2C424%22%20href%3D%22Exercise%2520details.bmml%22%20alt%3D%22Exercise%20details%22%20id%3D%222%22/%3E</map>
+                    <href>Exercise%20Details%20view%26bm%3BExercise%20Details%20view.bmml%26bm%3BExercise%20Details%20view.bmml%26bm%3BExercise%20Details%20view.bmml</href>
+                    <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2225%2C146%2C257%2C424%22%20href%3D%22Exercise%2520Details%2520view.bmml%22%20alt%3D%22Exercise%20Details%20view%22%20id%3D%222%22/%3E</map>
                   </controlProperties>
                   <groupChildrenDescriptors>
                     <control controlID="0" controlTypeID="__group__" x="0" y="0" w="232" h="53" measuredW="232" measuredH="53" zOrder="0" locked="false" isInGroup="2">
