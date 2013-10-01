@@ -19,9 +19,9 @@
             </control>
             <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="184" y="10" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="0">
               <controlProperties>
-                <href>Notes%26bm%3BNotes.bmml%26bm%3BNotes.bmml%26bm%3BNotes.bmml</href>
+                <href>Add%20new%20client%26bm%3BAdd%20new%20client.bmml%26bm%3BAdd%20new%20client.bmml%26bm%3BAdd%20new%20client.bmml</href>
                 <icon>PlusBigIcon%7Csmall</icon>
-                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22209%2C111%2C233%2C135%22%20href%3D%22Notes.bmml%22%20alt%3D%22Notes%22%20id%3D%221%22/%3E</map>
+                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22209%2C111%2C233%2C135%22%20href%3D%22Add%2520new%2520client.bmml%22%20alt%3D%22Add%20new%20client%22%20id%3D%221%22/%3E</map>
               </controlProperties>
             </control>
           </groupChildrenDescriptors>
