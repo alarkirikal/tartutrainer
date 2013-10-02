@@ -1,14 +1,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    
-	<ListView
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/sortAllProgramsWrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/sortAllProgramsByText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:fontFamily="sans"
+            android:text="@string/sort_by"
+            android:textSize="17sp"
+            android:textStyle="normal" />
+
+        <Spinner
+            android:id="@+id/sortAllProgramsBy"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/programslist_sort" />
+    </LinearLayout>
+
+    <ListView
         android:id="@+id/listAllPrograms"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:divider="#b5b5b5"
         android:dividerHeight="1dp" >
     </ListView>
-    
+
 </LinearLayout>
