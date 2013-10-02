@@ -25,22 +25,26 @@ public final class R {
     }
     public static final class drawable {
         public static final int content_new=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
+        public static final int gradient=0x7f020001;
+        public static final int ic_action_new=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
         public static final int ExerciseIcon=0x7f090003;
-        public static final int action_add=0x7f09000d;
-        public static final int action_settings=0x7f09000e;
+        public static final int action_add=0x7f09000f;
+        public static final int action_settings=0x7f090010;
         public static final int exerciseDesc=0x7f090005;
         public static final int exerciseName=0x7f090004;
         public static final int layout2=0x7f090002;
         public static final int listAllExercises=0x7f090006;
-        public static final int listAllPrograms=0x7f09000a;
-        public static final int programDesc=0x7f09000c;
-        public static final int programName=0x7f09000b;
-        public static final int sortAllProgramsBy=0x7f090009;
-        public static final int sortAllProgramsByText=0x7f090008;
-        public static final int sortAllProgramsWrapper=0x7f090007;
+        public static final int listAllPrograms=0x7f09000c;
+        public static final int programDesc=0x7f09000e;
+        public static final int programName=0x7f09000d;
+        public static final int sortAllProgramsSortBy=0x7f090009;
+        public static final int sortAllProgramsText=0x7f09000a;
+        public static final int sortAllProgramsWrapper=0x7f090008;
+        public static final int sortAndAddPrograms=0x7f090007;
+        public static final int sortBottom=0x7f09000b;
         public static final int viewpager_main=0x7f090001;
         public static final int viewpager_second=0x7f090000;
     }

@@ -8,8 +8,11 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AllProgramsFragment {
@@ -27,6 +30,24 @@ public class AllProgramsFragment {
 	public View initView() {
 		view = inflater
 				.inflate(R.layout.fragment_allprograms, container, false);
+		
+		// Set sorter clickable
+		LinearLayout sortLay = (LinearLayout) view.findViewById(R.id.sortAllProgramsWrapper);
+		sortLay.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				TextView sortBy = (TextView) view.findViewById(R.id.sortAllProgramsText);
+				if (sortBy.getText().toString().equalsIgnoreCase("Date")) {
+					sortBy.setText("Client");
+				} else {
+					sortBy.setText("Date");
+				}
+			}
+			
+		});
+		
+		
 		return view;
 	}
 

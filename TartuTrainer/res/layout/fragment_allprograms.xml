@@ -4,7 +4,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/sortAllProgramsWrapper"
+        android:id="@+id/sortAndAddPrograms"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -13,23 +13,52 @@
         android:paddingRight="20dp"
         android:paddingTop="10dp" >
 
-        <TextView
-            android:id="@+id/sortAllProgramsByText"
+        <LinearLayout
+            android:id="@+id/sortAllProgramsWrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="5dp"
-            android:fontFamily="sans"
-            android:text="@string/sort_by"
-            android:textSize="17sp"
-            android:textStyle="normal" />
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal" >
 
-        <Spinner
-            android:id="@+id/sortAllProgramsBy"
-            android:layout_width="150dp"
+            <TextView
+                android:id="@+id/sortAllProgramsSortBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans"
+                android:paddingRight="5dp"
+                android:text="Sort By :  "
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/sortAllProgramsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans"
+                android:paddingRight="5dp"
+                android:text="Date"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/programslist_sort" />
+            android:layout_gravity="right"
+            android:contentDescription="plus_icon"
+            android:src="@drawable/ic_action_new" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/sortBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/gradient" >
+    </View>
 
     <ListView
         android:id="@+id/listAllPrograms"
