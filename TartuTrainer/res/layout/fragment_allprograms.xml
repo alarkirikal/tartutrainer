@@ -44,12 +44,13 @@
                 android:textStyle="normal" />
         </LinearLayout>
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/toClientsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:contentDescription="plus_icon"
-            android:src="@drawable/ic_action_new" />
+            android:background="@drawable/ic_action_new" />
     </LinearLayout>
 
     <View

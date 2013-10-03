@@ -30,31 +30,35 @@ public final class R {
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int ExerciseIcon=0x7f090003;
-        public static final int action_add=0x7f09000f;
-        public static final int action_settings=0x7f090010;
-        public static final int exerciseDesc=0x7f090005;
-        public static final int exerciseName=0x7f090004;
-        public static final int layout2=0x7f090002;
-        public static final int listAllExercises=0x7f090006;
-        public static final int listAllPrograms=0x7f09000c;
-        public static final int programDesc=0x7f09000e;
-        public static final int programName=0x7f09000d;
-        public static final int sortAllProgramsSortBy=0x7f090009;
-        public static final int sortAllProgramsText=0x7f09000a;
-        public static final int sortAllProgramsWrapper=0x7f090008;
-        public static final int sortAndAddPrograms=0x7f090007;
-        public static final int sortBottom=0x7f09000b;
+        public static final int ExerciseIcon=0x7f090005;
+        public static final int action_add=0x7f090012;
+        public static final int action_settings=0x7f090013;
+        public static final int clientsLabel=0x7f090002;
+        public static final int exerciseDesc=0x7f090007;
+        public static final int exerciseName=0x7f090006;
+        public static final int layout2=0x7f090004;
+        public static final int listAllClients=0x7f090003;
+        public static final int listAllExercises=0x7f090008;
+        public static final int listAllPrograms=0x7f09000f;
+        public static final int programDesc=0x7f090011;
+        public static final int programName=0x7f090010;
+        public static final int sortAllProgramsSortBy=0x7f09000b;
+        public static final int sortAllProgramsText=0x7f09000c;
+        public static final int sortAllProgramsWrapper=0x7f09000a;
+        public static final int sortAndAddPrograms=0x7f090009;
+        public static final int sortBottom=0x7f09000e;
+        public static final int toClientsList=0x7f09000d;
         public static final int viewpager_main=0x7f090001;
         public static final int viewpager_second=0x7f090000;
     }
     public static final class layout {
         public static final int activity_editprogram=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int exercise_list_item=0x7f030002;
-        public static final int fragment_allexercises=0x7f030003;
-        public static final int fragment_allprograms=0x7f030004;
-        public static final int program_list_item=0x7f030005;
+        public static final int client_select=0x7f030002;
+        public static final int exercise_list_item=0x7f030003;
+        public static final int fragment_allexercises=0x7f030004;
+        public static final int fragment_allprograms=0x7f030005;
+        public static final int program_list_item=0x7f030006;
     }
     public static final class menu {
         public static final int actionbar_programslist=0x7f080000;
