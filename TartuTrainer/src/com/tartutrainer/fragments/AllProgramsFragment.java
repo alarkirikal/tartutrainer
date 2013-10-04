@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.tartutrainer.R;
 import com.tartutrainer.activities.ClientsActivity;
+import com.tartutrainer.activities.ProgramNotesActivity;
 import com.tartutrainer.adapters.ProgramListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
@@ -152,11 +153,19 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
 			long id) {
+		Intent intent = new Intent(getActivity(), ProgramNotesActivity.class);
+		intent.putExtra("pgr_name", nameArray.get(pos));
+		startActivity(intent);
+		
 		Toast.makeText(getActivity(), "selected view: " + nameArray.get(pos),
 				Toast.LENGTH_SHORT).show();
+		
+		// DO NOT DELETE YET
+		/*
 		SharedPreferences levelsPrefs = getActivity().getSharedPreferences(
 				"levels", Context.MODE_PRIVATE);
 		Log.d("level in pos", "Pos " + Integer.toString(pos) + " - "
 				+ levelsPrefs.getString(Integer.toString(pos), "None"));
+		*/
 	}
 }
