@@ -9,15 +9,19 @@ import com.tartutrainer.adapters.PageAdapter;
 import com.tartutrainer.database.DBAdapter;
 import com.tartutrainer.fragments.AllExercisesFragment;
 import com.tartutrainer.fragments.AllProgramsFragment;
+import com.tartutrainer.helpers.SharedPreferencesDefaultValues;
 import com.tartutrainer.helpers.ZoomOutPageTransformer;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 
 public class MainActivity extends FragmentActivity {
 
@@ -28,11 +32,26 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// Set initial values to SharedPrefs after installation
+		setInitialPreferenceValues();
+		
 		// Check database files
 		checkDB();
 		
 		// Build fragments
 		buildMainFragment();
+	}
+	
+	private void setInitialPreferenceValues() {
+		SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean isFirstRun = p.getBoolean("FIRSTRUN", true);
+		if (isFirstRun)
+		{
+		    SharedPreferences.Editor editor = p.edit();
+		    editor.putBoolean("FIRSTRUN", false);
+		    SharedPreferencesDefaultValues.init(this);
+		    editor.commit();
+		}
 	}
 
 	private void buildMainFragment() {

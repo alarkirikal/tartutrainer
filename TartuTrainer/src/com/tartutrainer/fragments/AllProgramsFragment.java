@@ -7,7 +7,9 @@ import com.tartutrainer.activities.ClientsActivity;
 import com.tartutrainer.adapters.ProgramListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,7 +30,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AllProgramsFragment extends Fragment implements OnClickListener, OnCheckedChangeListener, OnItemClickListener {
+public class AllProgramsFragment extends Fragment implements OnClickListener,
+		OnCheckedChangeListener, OnItemClickListener {
 
 	ProgramListAdapter adapter;
 	ArrayList<String> nameArray;
@@ -79,7 +82,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener, On
 		/* Sort Switch listener */
 		Switch s = (Switch) v.findViewById(R.id.sortBySwitch);
 		s.setOnCheckedChangeListener(this);
-		
+
 		/* Programs list listener */
 		ListView lv = (ListView) v.findViewById(R.id.listAllPrograms);
 		lv.setOnItemClickListener(this);
@@ -99,8 +102,8 @@ public class AllProgramsFragment extends Fragment implements OnClickListener, On
 
 		myCursor.moveToFirst();
 		do {
-			//Toast.makeText(getActivity(), myCursor.getString(1),
-			//		Toast.LENGTH_SHORT).show();
+			// Toast.makeText(getActivity(), myCursor.getString(1),
+			// Toast.LENGTH_SHORT).show();
 			myCursor.moveToNext();
 		} while (!myCursor.isLast());
 
@@ -134,19 +137,26 @@ public class AllProgramsFragment extends Fragment implements OnClickListener, On
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		switch(buttonView.getId()) 
-		{
+		switch (buttonView.getId()) {
 		case R.id.sortBySwitch:
 			if (isChecked) {
-				Toast.makeText(getActivity(), "Sort by client", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Sort by client",
+						Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(getActivity(), "Sort by date", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Sort by date",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parentView, View childView, int pos, long id) {
-		Toast.makeText(getActivity(), "selected view: " + nameArray.get(pos), Toast.LENGTH_SHORT).show();
+	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
+			long id) {
+		Toast.makeText(getActivity(), "selected view: " + nameArray.get(pos),
+				Toast.LENGTH_SHORT).show();
+		SharedPreferences levelsPrefs = getActivity().getSharedPreferences(
+				"levels", Context.MODE_PRIVATE);
+		Log.d("level in pos", "Pos " + Integer.toString(pos) + " - "
+				+ levelsPrefs.getString(Integer.toString(pos), "None"));
 	}
 }

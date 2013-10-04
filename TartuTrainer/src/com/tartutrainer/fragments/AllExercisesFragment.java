@@ -17,8 +17,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -26,9 +28,16 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 		OnItemClickListener {
 
 	ExerciseListAdapter adapter;
+	
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
 
+	ArrayList<String> levelArray;
+	ArrayList<String> equipArray;
+	ArrayList<String> musclesArray;
+	ArrayList<String> modalityArray;
+	
+	
 	public static AllExercisesFragment newInstance() {
 
 		final AllExercisesFragment f = new AllExercisesFragment();
@@ -59,8 +68,49 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 				container, false);
 
 		populateList(view);
+		populateSpinners(view);
 		setOnClickListeners(view);
 		return view;
+	}
+	
+	private void populateSpinners(View v) {
+		
+		Spinner levels = (Spinner) v.findViewById(R.id.exercisesSortLevel);
+		Spinner equips = (Spinner) v.findViewById(R.id.exercisesSortEquip);
+		Spinner muscles = (Spinner) v.findViewById(R.id.exercisesSortMuscles);
+		Spinner modalities = (Spinner) v.findViewById(R.id.exercisesSortModality);
+		
+		levelArray = new ArrayList<String>();
+		equipArray = new ArrayList<String>();
+		musclesArray = new ArrayList<String>();
+		modalityArray = new ArrayList<String>();
+		
+		levelArray.add("Level 1");
+		levelArray.add("Level 2");
+		levelArray.add("Level 3");
+		ArrayAdapter<String> levelAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, levelArray);
+	    levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    levels.setAdapter(levelAdapter);
+		
+		equipArray.add("bench 1");
+		equipArray.add("bench 2");
+		ArrayAdapter<String> equipAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, equipArray);
+		equipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    equips.setAdapter(equipAdapter);
+		
+		musclesArray.add("foot 1");
+		musclesArray.add("foot 2");
+		ArrayAdapter<String> muscleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, musclesArray);
+		muscleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    muscles.setAdapter(muscleAdapter);
+		
+		modalityArray.add("mod 1");
+		modalityArray.add("mod 2");
+		modalityArray.add("mod 3");
+		ArrayAdapter<String> modalityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, modalityArray);
+		modalityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    modalities.setAdapter(modalityAdapter);
+		
 	}
 
 	private void setOnClickListeners(View v) {
