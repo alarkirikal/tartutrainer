@@ -7,7 +7,8 @@ import java.util.List;
 import com.tartutrainer.R;
 import com.tartutrainer.adapters.PageAdapter;
 import com.tartutrainer.database.DBAdapter;
-import com.tartutrainer.helpers.FragmentBuilder;
+import com.tartutrainer.fragments.AllExercisesFragment;
+import com.tartutrainer.fragments.AllProgramsFragment;
 import com.tartutrainer.helpers.ZoomOutPageTransformer;
 
 import android.app.ActionBar;
@@ -35,6 +36,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private void buildMainFragment() {
+		
 		// Get the fragments and set the data adapters
 		List<Fragment> fragments = getFragments();
 		pageAdapter = new PageAdapter(getSupportFragmentManager(), fragments);
@@ -79,13 +81,15 @@ public class MainActivity extends FragmentActivity {
 				.setTabListener(tabListener));
 	}
 
+	// Add all fragments to the ViewPager object
 	private List<Fragment> getFragments() {
 		List<Fragment> fList = new ArrayList<Fragment>();
-		fList.add(FragmentBuilder.newInstance("allprograms"));
-		fList.add(FragmentBuilder.newInstance("allexercises"));
+		fList.add(Fragment.instantiate(this, AllProgramsFragment.class.getName()));
+		fList.add(Fragment.instantiate(this, AllExercisesFragment.class.getName()));
 		return fList;
 	}
 	
+	// Check if database exists, if not - create one
 	private void checkDB() {
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(this);

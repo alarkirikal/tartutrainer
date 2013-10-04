@@ -3,15 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dip" >
+    android:padding="5dp" >
 
     <TextView
         android:id="@+id/programName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:paddingBottom="2dip"
+        android:paddingBottom="2dp"
         android:textColor="#040404"
         android:textSize="20sp"
         android:typeface="sans" />
@@ -20,11 +18,10 @@
         android:id="@+id/programDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:paddingBottom="2dip"
+        android:paddingLeft="10dp"
+        android:paddingBottom="2dp"
         android:textColor="#040404"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:typeface="sans" />
 
 </LinearLayout>

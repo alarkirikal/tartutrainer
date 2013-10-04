@@ -20,10 +20,10 @@ public class ClientsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_clients);
 		
-		final TextView heading = (TextView) findViewById(R.id.clientsLabel);
-		heading.setText("Clients");
+		TextView t = (TextView) findViewById(R.id.hello_clients);
+		t.setText("Clients");
 				
 		
 		

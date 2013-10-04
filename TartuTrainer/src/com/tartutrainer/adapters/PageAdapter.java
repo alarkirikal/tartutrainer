@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class PageAdapter extends FragmentPagerAdapter {
 	
+	public static int pos = 0;
 	private List<Fragment> fragments;
 	
 	public PageAdapter(FragmentManager fm, List<Fragment> fragments) {
