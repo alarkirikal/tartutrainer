@@ -3,6 +3,7 @@ package com.tartutrainer.activities;
 import java.util.ArrayList;
 
 import com.tartutrainer.R;
+import com.tartutrainer.adapters.ClientListAdapter;
 import com.tartutrainer.adapters.ProgramListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,8 +41,10 @@ public class ClientsActivity extends Activity {
 			nameArray.add("Client #" + i);
 		}
 
-		ListView list = (ListView) findViewById(R.id.listAllPrograms);
+		ListView list = (ListView) findViewById(R.id.listAllClients);
+		ClientListAdapter adapter = new ClientListAdapter(this, nameArray);
 
+		list.setAdapter(adapter);
 	}
 
 	@Override

@@ -4,6 +4,7 @@
     android:baselineAligned="false"
     android:orientation="vertical" >
 
+    
         <RelativeLayout
         android:id="@+id/clientsHeaderWrapper"
         android:layout_width="fill_parent"
@@ -28,7 +29,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/ic_action_new"
+            android:background="@drawable/ic_action_new_white"
             android:contentDescription="addNewClient_icon"
             android:paddingRight="10dp" />
         
@@ -43,5 +44,8 @@
         android:divider="@drawable/gradient_green"
         android:dividerHeight="1px" >
     </ListView>
-        
+
+	
+	
+	
 </LinearLayout>
