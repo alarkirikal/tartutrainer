@@ -1,16 +1,22 @@
 package com.tartutrainer.fragments;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.tartutrainer.R;
+import com.tartutrainer.activities.EditExerciseActivity;
 import com.tartutrainer.adapters.ExerciseListAdapter;
 import com.tartutrainer.adapters.ProgramListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +43,10 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 	ArrayList<String> musclesArray;
 	ArrayList<String> modalityArray;
 	
+	private final static String LEVELS = "levels";
+	private final static String MODALITIES = "modalities";
+	private final static String MUSCLE_GROUPS = "muscle_groups";
+
 	
 	public static AllExercisesFragment newInstance() {
 
@@ -85,28 +95,68 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 		musclesArray = new ArrayList<String>();
 		modalityArray = new ArrayList<String>();
 		
-		levelArray.add("Level 1");
-		levelArray.add("Level 2");
-		levelArray.add("Level 3");
+		int indexCounter = 0;
+		
+		// Levels spinner values
+		boolean levelsToAdd = true;
+		SharedPreferences levelsPrefs = getActivity().getSharedPreferences(
+				LEVELS, Context.MODE_PRIVATE);
+		while(levelsToAdd) {
+			String val = levelsPrefs.getString(Integer.toString(indexCounter), "");
+			if (!val.equalsIgnoreCase("")){
+				levelArray.add(val);
+				indexCounter += 1;
+			} else {
+				indexCounter = 0;
+				levelsToAdd = false;
+			}
+		}
+		
 		ArrayAdapter<String> levelAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, levelArray);
 	    levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    levels.setAdapter(levelAdapter);
 		
-		equipArray.add("bench 1");
-		equipArray.add("bench 2");
+	    // Equipment spinner values
+		equipArray.add("Bench 1");
+		equipArray.add("Bench 2");
 		ArrayAdapter<String> equipAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, equipArray);
 		equipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    equips.setAdapter(equipAdapter);
 		
-		musclesArray.add("foot 1");
-		musclesArray.add("foot 2");
-		ArrayAdapter<String> muscleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, musclesArray);
+	    // Muscles spinner values
+	    boolean musclesToAdd = true;
+	    SharedPreferences musclesPrefs = getActivity().getSharedPreferences(
+				MUSCLE_GROUPS, Context.MODE_PRIVATE);
+	    while(musclesToAdd) {
+			String val = musclesPrefs.getString(Integer.toString(indexCounter), "");
+			if (!val.equalsIgnoreCase("")){
+				musclesArray.add(val);
+				indexCounter += 1;
+			} else {
+				indexCounter = 0;
+				musclesToAdd = false;
+			}
+		}
+		
+	    ArrayAdapter<String> muscleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, musclesArray);
 		muscleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    muscles.setAdapter(muscleAdapter);
 		
-		modalityArray.add("mod 1");
-		modalityArray.add("mod 2");
-		modalityArray.add("mod 3");
+	    // Modality spinner values
+	    boolean modalitiesToAdd = true;
+	    SharedPreferences modalitiesPrefs = getActivity().getSharedPreferences(
+				MODALITIES, Context.MODE_PRIVATE);
+	    while(modalitiesToAdd) {
+			String val = modalitiesPrefs.getString(Integer.toString(indexCounter), "");
+			if (!val.equalsIgnoreCase("")){
+				modalityArray.add(val);
+				indexCounter += 1;
+			} else {
+				indexCounter = 0;
+				modalitiesToAdd = false;
+			}
+		}
+		
 		ArrayAdapter<String> modalityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, modalityArray);
 		modalityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    modalities.setAdapter(modalityAdapter);
@@ -148,7 +198,7 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 		// SQL to get all programs
 		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 20; i++) {
 			nameArray.add("Exercise #" + i);
 			descArray.add("Desc #" + i);
 		}
@@ -161,8 +211,9 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
 			long id) {
-		Toast.makeText(getActivity(), "selected view: " + nameArray.get(pos),
-				Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(getActivity(), EditExerciseActivity.class);
+		intent.putExtra("exc_name", nameArray.get(pos));
+		startActivity(intent);
 	}
 
 	@Override

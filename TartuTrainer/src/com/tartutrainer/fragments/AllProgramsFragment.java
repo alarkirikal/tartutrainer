@@ -114,7 +114,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		// SQL to get all programs
 		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 20; i++) {
 			nameArray.add("Program #" + i);
 			descArray.add("Desc #" + i);
 		}
