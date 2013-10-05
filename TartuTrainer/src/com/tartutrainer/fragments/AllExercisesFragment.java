@@ -213,6 +213,7 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 			long id) {
 		Intent intent = new Intent(getActivity(), EditExerciseActivity.class);
 		intent.putExtra("exc_name", nameArray.get(pos));
+		intent.putExtra("action", "Edit Exercise");
 		startActivity(intent);
 	}
 
@@ -220,8 +221,9 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.toNewExercise:
-			Toast.makeText(getActivity(), "Add a new exercise",
-					Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(getActivity(), EditExerciseActivity.class);
+			intent.putExtra("action", "New Exercise");
+			startActivity(intent);
 		}
 	}
 
