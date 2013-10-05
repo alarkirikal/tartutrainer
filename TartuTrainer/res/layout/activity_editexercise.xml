@@ -1,14 +1,155 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:baselineAligned="false"
-    android:background="@drawable/gradient_bg" >
-    
-    <TextView
-        android:id="@+id/hai_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    android:background="@drawable/gradient_bg"
+    android:baselineAligned="false" >
 
-    
+    <RelativeLayout
+        android:id="@+id/editExerciseHeaderWrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/black"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
+
+        <TextView
+            android:id="@+id/editExerciseAction"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+        <ImageButton
+            android:id="@+id/editExerciseSave"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_action_accept"
+            android:contentDescription="save_icon"
+            android:paddingRight="10dp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/editExerciseHeaderDivider"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/editExerciseHeaderWrapper"
+        android:background="@drawable/gradient_blue" />
+
+    <LinearLayout
+        android:id="@+id/editExerciseContentWrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/editExerciseHeaderDivider"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/editExerciseName"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="Exercise Name" />
+
+        <View
+            android:id="@+id/editExerciseNameDivider"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/gradient_green" />
+
+        <TextView
+            android:id="@+id/editExerciseDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:text="Exercise Description" />
+
+        <View
+            android:id="@+id/editExerciseDescriptionDivider"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/gradient_green" />
+        
+        <LinearLayout
+            android:id="@+id/editExerciseLowerWrapper"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+            
+            <LinearLayout
+                android:id="@+id/editExerciseImagesWrapper"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:layout_weight=".40">
+                
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="images" />
+                
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/editExerciseInformationWrapper"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:layout_weight=".60" >
+                
+                <LinearLayout
+                    android:id="@+id/editExerciseLabelWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    
+                    <TextView
+                        android:id="@+id/editExerciseLabelOne"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".50"
+                        android:text="Label 1" />
+                    
+                    <TextView
+                        android:id="@+id/editExerciseLabelTwo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".50"
+                        android:text="Label 1" />
+                    
+                </LinearLayout>
+                
+                <TextView 
+                    android:id="@+id/editExerciseEquipment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Equipment" />
+                
+                <TextView
+                    android:id="@+id/editExerciseLevel"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Level" />
+                
+                <TextView
+                    android:id="@+id/editExerciseModality"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Modality" />
+                
+                <TextView
+                    android:id="@+id/editExerciseMuscleGroups"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="Muscle Groups" />
+                
+            </LinearLayout>
+            
+            
+            
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

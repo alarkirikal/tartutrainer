@@ -20,11 +20,25 @@ public class EditExerciseActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_editexercise);
 		
-		String exc_name = getIntent().getExtras().getString("exc_name");
+		// Set title
+		String actionString = getIntent().getExtras().getString("action");
+		TextView excAction = (TextView) findViewById(R.id.editExerciseAction);
+		excAction.setText(actionString);
 		
-		TextView hai_edit = (TextView) findViewById(R.id.hai_edit);
-		hai_edit.setText(exc_name);
-
+		if (actionString.equalsIgnoreCase("Edit Exercise")) {
+			fillContentByEdit();
+		} else {
+			fillContentByNew();
+		}
+		
+	}
+	
+	protected void fillContentByEdit() {
+		
+	}
+	
+	protected void fillContentByNew() {
+		
 	}
 
 }
