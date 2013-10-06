@@ -1,11 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:baselineAligned="false"
     android:orientation="vertical" >
 
-    
-        <RelativeLayout
+    <RelativeLayout
         android:id="@+id/clientsHeaderWrapper"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
@@ -15,37 +14,59 @@
         android:paddingRight="5dp" >
 
         <TextView
-            android:id="@+id/clients_name"
+            android:id="@+id/clientsHeader"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:textColor="@android:color/white"
+            android:text="Clients"
             android:textSize="22sp" />
 
         <ImageButton
-            android:id="@+id/addClient"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/goNewProgram"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/ic_action_new_white"
             android:contentDescription="addNewClient_icon"
             android:paddingRight="10dp" />
-        
     </RelativeLayout>
-	
-	<ListView
+    
+    <View
+        android:id="@+id/clientsHeaderDivider"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/clientsHeaderWrapper"
+        android:background="@drawable/gradient_blue" />
+    
+    <TextView
+        android:id="@+id/clientsToDo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clientsHeaderDivider"
+        android:textStyle="italic"
+        android:text="Select a client to associate the new program with.\r\nTo add a new client, press the plus icon."
+        android:gravity="center_horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp" />
+    
+    <View
+        android:id="@+id/clientsToDoDivider"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/clientsToDo"
+        android:background="@drawable/gradient_blue" />
+
+    <ListView
         android:id="@+id/listAllClients"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
+        android:layout_below="@id/clientsToDoDivider"
         android:divider="@drawable/gradient_green"
-        android:dividerHeight="1px" >
-    </ListView>
+        android:dividerHeight="1px"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp" />
 
-	
-	
-	
-</LinearLayout>
+</RelativeLayout>

@@ -15,35 +15,62 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
-public class ClientsActivity extends Activity {
-
-	ArrayList<String> nameArray;
+public class ClientsActivity extends Activity implements OnClickListener,
+		OnItemClickListener {
 
 	/*
 	 * List of clients before creating new program
 	 */
+	
+	ArrayList<String> nameArray;
+	ArrayList<String> emailArray;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_clients);
 
-		TextView test = (TextView) findViewById(R.id.clients_name);
-		test.setText("Clients");
+		fillContent();
+		setOnClickListeners();
 
+	}
+
+	private void setOnClickListeners() {
+
+		/* Go to ClientsActivity */
+		ImageButton toNewProgram = (ImageButton) findViewById(R.id.goNewProgram);
+		toNewProgram.setOnClickListener(this);
+
+		/* Clients list listener */
+		ListView lv = (ListView) findViewById(R.id.listAllClients);
+		lv.setOnItemClickListener(this);
+
+	}
+
+	protected void fillContent() {
+
+		// Get the list of clients
+		// nameArray = getClientsSQL();
 		nameArray = new ArrayList<String>();
+		emailArray = new ArrayList<String>();
 		for (int i = 0; i < 10; i++) {
 			nameArray.add("Client #" + i);
+			emailArray.add("foo_" + i + "@bar.org");
 		}
 
+		// Add the list of clients to the layout
 		ListView list = (ListView) findViewById(R.id.listAllClients);
 		ClientListAdapter adapter = new ClientListAdapter(this, nameArray);
-
 		list.setAdapter(adapter);
 	}
 
@@ -54,7 +81,7 @@ public class ClientsActivity extends Activity {
 		return true;
 	}
 
-	public void populateList() {
+	public void getClientsSQL() {
 
 		// SQL Test blalbalbalbalblabla
 
@@ -74,7 +101,26 @@ public class ClientsActivity extends Activity {
 
 		myCursor.close();
 		db.close();
+	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
+			long id) {
+		Intent intent = new Intent(this, NewProgramActivity.class);
+		intent.putExtra("clientSelected", true);
+		intent.putExtra("clientName", nameArray.get(pos));
+		intent.putExtra("clientEmail", emailArray.get(pos));
+		startActivity(intent);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()) {
+		case R.id.goNewProgram:
+			Intent intent = new Intent(this, NewProgramActivity.class);
+			intent.putExtra("clientSelected", false);
+			startActivity(intent);
+		}
 	}
 
 }
