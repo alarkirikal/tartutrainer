@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -81,12 +82,18 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		}
 
 		boolean musclesToAdd = true;
+		musclesArray = new ArrayList<String>();
 		SharedPreferences musclesPrefs = this.getSharedPreferences(
 				MUSCLE_GROUPS, Context.MODE_PRIVATE);
 		while (musclesToAdd) {
 			String val = musclesPrefs.getString(Integer.toString(indexCounter),
 					"");
 			if (!val.equalsIgnoreCase("")) {
+				if (val == null) {
+					Log.d("null", "val on nul");
+				} else if (musclesArray == null) {
+					Log.d("null", "array on null");
+				}
 				musclesArray.add(val);
 				indexCounter += 1;
 			} else {
