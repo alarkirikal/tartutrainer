@@ -39,8 +39,11 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 	ArrayList<String> musclesArray;
 	private AlertDialog Dialog;
 
+	private final static String LEVELS = "levels";
 	private final static String MODALITIES = "modalities";
 	private final static String MUSCLE_GROUPS = "muscle_groups";
+
+	int levelID = 0;
 
 	int indexCounter = 0;
 
@@ -55,7 +58,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		TextView excAction = (TextView) findViewById(R.id.editExerciseAction);
 		excAction.setText(actionString);
 
-		// creating the labels
+		// creating the arrays
 		labelArray = new ArrayList<String>();
 		for (int i = 0; i < 10; i++) {
 			labelArray.add("Label #" + i);
@@ -64,6 +67,22 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		equipArray = new ArrayList<String>();
 		equipArray.add("Bench 1");
 		equipArray.add("Bench 2");
+
+		levelArray = new ArrayList<String>();
+		boolean levelsToAdd = true;
+		SharedPreferences levelsPrefs = this.getSharedPreferences(LEVELS,
+				Context.MODE_PRIVATE);
+		while (levelsToAdd) {
+			String val = levelsPrefs.getString(Integer.toString(indexCounter),
+					"");
+			if (!val.equalsIgnoreCase("")) {
+				levelArray.add(val);
+				indexCounter += 1;
+			} else {
+				indexCounter = 0;
+				levelsToAdd = false;
+			}
+		}
 
 		modalityArray = new ArrayList<String>();
 		boolean modalitiesToAdd = true;
@@ -132,6 +151,12 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 		ImageView equipment = (ImageView) findViewById(R.id.imageView3);
 		equipment.setOnClickListener(this);
+
+		ImageView levels = (ImageView) findViewById(R.id.imageView4);
+		levels.setOnClickListener(this);
+
+		TextView level = (TextView) findViewById(R.id.editExerciseLevel);
+		level.setOnClickListener(this);
 
 		ImageView modality = (ImageView) findViewById(R.id.imageView5);
 		modality.setOnClickListener(this);
@@ -205,22 +230,55 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			Dialog.show();
 			break;
 
+		case R.id.imageView4:
+			final String[] level_list = levelArray
+					.toArray(new String[levelArray.size()]);
+			final TextView level = (TextView) findViewById(R.id.editExerciseLevel);
+			// dialog builder
+			AlertDialog.Builder builder4 = new AlertDialog.Builder(this);
+			builder4.setTitle("Level");
+			builder4.setItems(level_list,
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							levelID = which;
+							level.setText(level_list[which]);
+						}
+					});
+			builder4.setCancelable(false);
+			Dialog = builder4.create();
+			Dialog.show();
+			break;
+
+		case R.id.editExerciseLevel:
+			TextView text = (TextView) findViewById(R.id.editExerciseLevel);
+			final String[] levels_list = levelArray
+					.toArray(new String[levelArray.size()]);
+			if (levelID < 4) {
+				levelID++;
+				text.setText(levels_list[levelID]);
+			} else if (levelID == 4) {
+				levelID = 0;
+				text.setText(levels_list[levelID]);
+			}
+			break;
+
 		case R.id.imageView5:
 			final String[] modality_list = modalityArray
 					.toArray(new String[modalityArray.size()]);
 			final TextView modality = (TextView) findViewById(R.id.editExerciseModality);
 			// dialog builder
-			AlertDialog.Builder builder4 = new AlertDialog.Builder(this);
-			builder4.setTitle("Modality");
-			builder4.setItems(modality_list,
+			AlertDialog.Builder builder5 = new AlertDialog.Builder(this);
+			builder5.setTitle("Modality");
+			builder5.setItems(modality_list,
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							modality.setText(modality_list[which]);
 						}
 					});
-			builder4.setCancelable(false);
-			Dialog = builder4.create();
+			builder5.setCancelable(false);
+			Dialog = builder5.create();
 			Dialog.show();
 			break;
 
@@ -230,9 +288,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			final TextView muscles = (TextView) findViewById(R.id.editExerciseMuscleGroups);
 			final ArrayList<Integer> selectedItems = new ArrayList<Integer>();
 
-			AlertDialog.Builder builder5 = new AlertDialog.Builder(this);
-			builder5.setTitle("Muscles");
-			builder5.setMultiChoiceItems(muscles_list, null,
+			AlertDialog.Builder builder6 = new AlertDialog.Builder(this);
+			builder6.setTitle("Muscles");
+			builder6.setMultiChoiceItems(muscles_list, null,
 					new DialogInterface.OnMultiChoiceClickListener() {
 
 						@Override
@@ -245,30 +303,39 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							}
 						}
 					})
-					.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							String text = "";
-							for (int i : selectedItems){
-								text += muscles_list[i] + ";";
-							}
-							text = text.substring(0, text.length()-1);
-							muscles.setText(text);
-							dialog.dismiss();							
-						}
-					})
-					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.cancel();
-						}
-					});
-			
-					
-			builder5.setCancelable(false);
-			Dialog = builder5.create();
+					.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									if (selectedItems.size() == 0) {
+										dialog.dismiss();
+									} else {
+										String text = "";
+										for (int i : selectedItems) {
+											text += muscles_list[i] + ";";
+										}
+										text = text.substring(0,
+												text.length() - 1);
+										muscles.setText(text.replaceAll(";",
+												"\r\n"));
+										dialog.dismiss();
+									}
+								}
+							})
+					.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.cancel();
+								}
+							});
+
+			builder6.setCancelable(false);
+			Dialog = builder6.create();
 			Dialog.show();
 			break;
 
