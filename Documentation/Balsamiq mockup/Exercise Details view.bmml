@@ -32,11 +32,11 @@
         <text>Exercise%20notes</text>
       </controlProperties>
     </control>
-    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="406" y="311" w="132" h="146" measuredW="136" measuredH="169" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="406" y="311" w="132" h="146" measuredW="115" measuredH="169" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <hLines>true</hLines>
         <size>10</size>
-        <text>Reps%2C%20Kg%2C%20Reps%2C%20Kg%0A12%2C60%2C%2C%0A10%2C40%2C%2C%0A15%2C20%2C%2C%0A40%2C10%2C%2C%0A%20%0A%7B30%2C%2030%2C%2030%2C%2030%7D</text>
+        <text>L1%2C%20L2%2C%20L1%2C%20L2%0A12%2C60%2C%2C%0A10%2C40%2C%2C%0A15%2C20%2C%2C%0A40%2C10%2C%2C%0A%20%0A%7B30%2C%2030%2C%2030%2C%2030%7D</text>
       </controlProperties>
     </control>
     <control controlID="97" controlTypeID="__group__" x="538" y="310" w="93" h="141" measuredW="93" measuredH="141" zOrder="7" locked="false" isInGroup="-1">
