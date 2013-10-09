@@ -98,7 +98,7 @@
                     android:contentDescription="ad"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
-                    android:src="@drawable/ut_ad" />
+                    android:src="@drawable/exercise_thumb" />
 
                 <ImageView
                     android:id="@+id/imageTwo"
@@ -109,7 +109,7 @@
                     android:contentDescription="ad"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
-                    android:src="@drawable/ut_ad" />
+                    android:src="@drawable/exercise_thumb" />
             </LinearLayout>
 
             <RelativeLayout

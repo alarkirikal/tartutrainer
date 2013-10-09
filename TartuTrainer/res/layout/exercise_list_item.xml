@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp" >
+    android:padding="2dp" >
 
     <LinearLayout
         android:id="@+id/layout2"
@@ -14,15 +14,19 @@
 
         <ImageView
             android:id="@+id/ExerciseIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/app_name" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/app_name"
+            android:adjustViewBounds="true"
+            android:src="@drawable/exercise_thumb" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/exerciseDetails"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:orientation="vertical" >
 
         <TextView

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.tartutrainer.R;
 import com.tartutrainer.activities.ClientsActivity;
 import com.tartutrainer.activities.ProgramNotesActivity;
-import com.tartutrainer.adapters.ProgramListAdapter;
+import com.tartutrainer.adapters.AllProgramsListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
 import android.content.Context;
@@ -34,7 +34,7 @@ import android.widget.Toast;
 public class AllProgramsFragment extends Fragment implements OnClickListener,
 		OnCheckedChangeListener, OnItemClickListener {
 
-	ProgramListAdapter adapter;
+	AllProgramsListAdapter adapter;
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
 
@@ -118,7 +118,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 			nameArray.add("Program #" + i);
 			descArray.add("Desc #" + i);
 		}
-		adapter = new ProgramListAdapter(getActivity(), nameArray, descArray);
+		adapter = new AllProgramsListAdapter(getActivity(), nameArray, descArray);
 
 		ListView list = (ListView) v.findViewById(R.id.listAllPrograms);
 		list.setAdapter(adapter);

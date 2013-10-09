@@ -3,8 +3,8 @@ package com.tartutrainer.activities;
 import java.util.ArrayList;
 
 import com.tartutrainer.R;
-import com.tartutrainer.adapters.ClientListAdapter;
-import com.tartutrainer.adapters.ProgramListAdapter;
+import com.tartutrainer.adapters.ClientsListAdapter;
+import com.tartutrainer.adapters.AllProgramsListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
 import android.os.Bundle;
@@ -70,7 +70,7 @@ public class ClientsActivity extends Activity implements OnClickListener,
 
 		// Add the list of clients to the layout
 		ListView list = (ListView) findViewById(R.id.listAllClients);
-		ClientListAdapter adapter = new ClientListAdapter(this, nameArray);
+		ClientsListAdapter adapter = new ClientsListAdapter(this, nameArray);
 		list.setAdapter(adapter);
 	}
 

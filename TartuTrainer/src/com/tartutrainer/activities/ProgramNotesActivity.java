@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +35,9 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 	private void addListeners() {
 		ImageView ad = (ImageView) findViewById(R.id.ad);
 		ad.setOnClickListener(this);
+		
+		ImageButton toProgram = (ImageButton) findViewById(R.id.programNotesContinue);
+		toProgram.setOnClickListener(this);
 	}
 	
 	private void fillContent() {
@@ -49,6 +53,10 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 		case R.id.ad:
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ut.ee/"));
 			startActivity(browserIntent);
+		case R.id.programNotesContinue:
+			Intent intent = new Intent(this, ProgramActivity.class);
+			intent.putExtra("pgr_name", getIntent().getExtras().getString("pgr_name"));
+			startActivity(intent);
 		}
 	}
 }

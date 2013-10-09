@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.tartutrainer.R;
 import com.tartutrainer.activities.EditExerciseActivity;
-import com.tartutrainer.adapters.ExerciseListAdapter;
-import com.tartutrainer.adapters.ProgramListAdapter;
+import com.tartutrainer.adapters.AllExercisesListAdapter;
+import com.tartutrainer.adapters.AllProgramsListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
 import android.app.Activity;
@@ -33,7 +33,7 @@ import android.widget.Toast;
 public class AllExercisesFragment extends Fragment implements OnClickListener,
 		OnItemClickListener {
 
-	ExerciseListAdapter adapter;
+	AllExercisesListAdapter adapter;
 	
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
@@ -202,7 +202,7 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 			nameArray.add("Exercise #" + i);
 			descArray.add("Desc #" + i);
 		}
-		adapter = new ExerciseListAdapter(getActivity(), nameArray, descArray);
+		adapter = new AllExercisesListAdapter(getActivity(), nameArray, descArray);
 
 		ListView list = (ListView) v.findViewById(R.id.listAllExercises);
 		list.setAdapter(adapter);

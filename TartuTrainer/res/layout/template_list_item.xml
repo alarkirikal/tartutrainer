@@ -3,7 +3,6 @@
     android:id="@+id/templateListItem"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
     android:padding="5dp" >
 
     <TextView
@@ -23,8 +22,6 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:paddingRight="10dp"
-        android:checked="false"
-        android:onClick="setCheckBoxValues"
         android:button="@drawable/btn_check_holo_light" />
 
 </RelativeLayout>

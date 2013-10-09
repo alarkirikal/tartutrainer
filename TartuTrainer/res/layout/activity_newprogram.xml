@@ -63,12 +63,12 @@
                 android:text="Name of the program" />
             
             <EditText
+                android:id="@+id/newProgramName"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:typeface="sans"
-                android:gravity="center"
-                android:text="program name" />
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,6 +86,7 @@
                 android:text="Client Name" />
 
             <EditText
+                android:id="@+id/newProgramClientName"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -109,6 +110,7 @@
                 android:text="Client Email" />
 
             <EditText
+                android:id="@+id/newProgramClientEmail"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
