@@ -52,7 +52,7 @@ public class DBAdapter extends SQLiteOpenHelper {
 		} else {
 			/** Database already exists */
 			Log.d("DATABASE", "DB Existed");
-			copyDataBase();
+			//copyDataBase();
 
 		}
 	}

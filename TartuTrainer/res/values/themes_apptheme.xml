@@ -5,6 +5,10 @@
 
   <style name="AppTheme" parent="android:Theme.Light">
 
+    <item name="android:buttonStyle">@style/ButtonAppTheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
+
   </style>
 
 </resources>

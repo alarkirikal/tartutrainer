@@ -21,6 +21,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 
 public class MainActivity extends FragmentActivity {
@@ -98,6 +99,15 @@ public class MainActivity extends FragmentActivity {
 				.setTabListener(tabListener));
 		actionBar.addTab(actionBar.newTab().setText("Exercises")
 				.setTabListener(tabListener));
+		
+		// Listener for which tab to show
+		try {
+			if (getIntent().getExtras().getString("select_tab").equalsIgnoreCase("exercise")) {
+				actionBar.setSelectedNavigationItem(1);
+			}
+		} catch (Exception e) {
+			Log.d("[MainActivity]", "Initial launch");
+		}
 	}
 
 	// Add all fragments to the ViewPager object

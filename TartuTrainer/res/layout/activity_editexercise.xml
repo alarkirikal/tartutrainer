@@ -53,7 +53,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             android:inputType="text"
-            android:text="Exercise Name" />
+            android:hint="Exercise Name" />
 
         <View
             android:id="@+id/editExerciseNameDivider"
@@ -68,7 +68,7 @@
             android:gravity="top"
             android:singleLine="false"
             android:inputType="textMultiLine"
-            android:text="Exercise Description" />
+            android:hint="Exercise Description" />
 
         <View
             android:id="@+id/editExerciseDescriptionDivider"
@@ -139,17 +139,8 @@
                             android:layout_centerVertical="true"
                             android:inputType="text"
                             android:paddingLeft="5dp"
-                            android:text="Label 1" />
+                            android:hint="Label 1" />
 
-                        <ImageView
-                            android:id="@+id/imageView1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:contentDescription="@string/app_name"
-                            android:paddingRight="10dp"
-                            android:src="@drawable/ic_action_next_item" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -165,10 +156,10 @@
                             android:layout_centerVertical="true"
                             android:inputType="text"
                             android:paddingLeft="5dp"
-                            android:text="Label 2" />
+                            android:hint="Label 2" />
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/editLabelTwoImg"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
@@ -199,10 +190,10 @@
                         android:layout_centerVertical="true"
                         android:inputType="text"
                         android:paddingLeft="10dp"
-                        android:text="Equipment" />
+                        android:hint="Equipment" />
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/editEquipmentImg"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
@@ -230,12 +221,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:background="@drawable/btn_default_holo_light"
                         android:inputType="text"
                         android:paddingLeft="10dp"
                         android:text="Level" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/editLevelImg"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
@@ -263,12 +255,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:background="@drawable/btn_default_holo_light"
                         android:inputType="text"
                         android:paddingLeft="10dp"
                         android:text="Modality" />
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/editModalityImg"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
@@ -297,11 +290,12 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:inputType="textMultiLine"
+                        android:background="@drawable/btn_default_holo_light"
                         android:paddingLeft="10dp"
                         android:text="Muscle Groups" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/editMuscleGroupsImg"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
