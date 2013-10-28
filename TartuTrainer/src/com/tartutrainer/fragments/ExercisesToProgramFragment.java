@@ -85,10 +85,12 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 	
 	private void populateSpinners(View v) {
 		
+		/*
 		Spinner levels = (Spinner) v.findViewById(R.id.exercisesSortLevel);
 		Spinner equips = (Spinner) v.findViewById(R.id.exercisesSortEquip);
 		Spinner muscles = (Spinner) v.findViewById(R.id.exercisesSortMuscles);
 		Spinner modalities = (Spinner) v.findViewById(R.id.exercisesSortModality);
+		*/
 		
 		levelArray = new ArrayList<String>();
 		equipArray = new ArrayList<String>();
@@ -114,14 +116,14 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 		
 		ArrayAdapter<String> levelAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, levelArray);
 	    levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    levels.setAdapter(levelAdapter);
+	    //levels.setAdapter(levelAdapter);
 		
 	    // Equipment spinner values
 		equipArray.add("Bench 1");
 		equipArray.add("Bench 2");
 		ArrayAdapter<String> equipAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, equipArray);
 		equipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    equips.setAdapter(equipAdapter);
+	    //equips.setAdapter(equipAdapter);
 		
 	    // Muscles spinner values
 	    boolean musclesToAdd = true;
@@ -140,7 +142,7 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 		
 	    ArrayAdapter<String> muscleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, musclesArray);
 		muscleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    muscles.setAdapter(muscleAdapter);
+	    //muscles.setAdapter(muscleAdapter);
 		
 	    // Modality spinner values
 	    boolean modalitiesToAdd = true;
@@ -159,7 +161,7 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 		
 		ArrayAdapter<String> modalityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, modalityArray);
 		modalityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    modalities.setAdapter(modalityAdapter);
+	    //modalities.setAdapter(modalityAdapter);
 		
 	}
 

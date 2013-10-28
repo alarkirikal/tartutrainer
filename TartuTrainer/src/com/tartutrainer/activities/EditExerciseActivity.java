@@ -526,6 +526,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			for (String index : selectedMuscles) {
 				if (index != "") {
 					checkedMuscles[Integer.parseInt(index)] = true;
+					selectedItems.add(Integer.parseInt(index));
 				}
 			}
 
@@ -544,6 +545,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 								selectedItems.remove(Integer.valueOf(which));
 								checkedMuscles[which] = false;
 							}
+							
 						}
 					})
 					.setPositiveButton("Ok",
@@ -569,6 +571,8 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 											}
 											counter += 1;
 										}
+										
+										Log.d("muscles", sb.toString());
 
 										musclesToSet = musclesToSet.substring(
 												0, musclesToSet.length() - 1);
@@ -602,5 +606,4 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		}
 
 	}
-
 }

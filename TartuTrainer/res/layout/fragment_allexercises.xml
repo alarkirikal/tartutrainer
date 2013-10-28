@@ -16,10 +16,19 @@
             android:id="@+id/sortAllExercisesWrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:orientation="horizontal" >
-
+            
+            <Button
+                android:id="@+id/filterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/btn_default_holo_light"
+                android:text="Set Filters" />
+            
+            <!--
             <Spinner
                 android:id="@+id/exercisesSortLevel"
                 android:layout_width="wrap_content"
@@ -39,6 +48,8 @@
                 android:id="@+id/exercisesSortModality"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+                
+            -->
             
         </LinearLayout>
 
