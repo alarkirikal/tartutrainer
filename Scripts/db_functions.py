@@ -47,6 +47,7 @@ def create(cursor):
                     ,client_email TEXT
                     ,notes TEXT
                     ,items TEXT
+		    ,owned TEXT
                 );
         """)
         print "Table \"programs\" made"

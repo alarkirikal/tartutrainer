@@ -1,6 +1,59 @@
 import sqlite3
 import os
 
+class Program:
+    id = str()
+    name = str()
+    date = str()
+    author = str()
+    author_email = str()
+    client = str()
+    client_email = str()
+    notes = str()
+    items = str()
+    owned = str()
+	
+    def printProgram(self):
+	print "ID	    	:" + self.id
+	print "Name 		:" + self.name
+	print "Date		:" + self.date
+	print "Author		:" + self.author
+	print "Author mail	:" + self.author_email
+	print "Client		:" + self.client
+	print "Client mail	:" + self.client_email
+	print "Notes		:" + self.notes
+	print "Items		:" + self.items
+	print "Owned		:" + self.owned
+		
+    def addToDb(self):
+	conn = sqlite3.connect(os.getcwd() + "/tartutrainer.db")
+	c = conn.cursor()
+			
+	try:
+	    c.execute("""
+		INSERT INTO
+               	    programs(id, name, date, author, author_email, client, client_email, notes, items, owned)
+		VALUES
+		    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+	    """, (self.id
+		  ,self.name
+		  ,self.date
+	    	  ,self.author
+    	    	  ,self.author_email
+                  ,self.client
+	      	  ,self.client_email
+    	    	  ,self.notes
+                  ,self.items
+		  ,self.owned))
+
+        except:
+            return "not_added"
+			
+	c.close()
+    	conn.commit()
+        conn.close()
+    	return None
+
 class Exercise:
     id = str()
     name = str()

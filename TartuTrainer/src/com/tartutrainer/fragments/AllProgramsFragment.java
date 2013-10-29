@@ -35,6 +35,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		OnCheckedChangeListener, OnItemClickListener {
 
 	AllProgramsListAdapter adapter;
+	ArrayList<String> idArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
 
@@ -91,8 +92,11 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 	}
 
 	public void populateList(View v) {
+		
+		idArray = new ArrayList<String>();
+		nameArray = new ArrayList<String>();
+		descArray = new ArrayList<String>();
 
-		// SQL Test blalbalbalbalblabla
 
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
