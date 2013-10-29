@@ -1,9 +1,11 @@
 package com.tartutrainer.activities;
 
 import com.tartutrainer.R;
+import com.tartutrainer.database.DBAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,9 +43,26 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 	}
 	
 	private void fillContent() {
+		String pgr_id = getIntent().getExtras().getString("pgr_id");
 		String pgr_name = getIntent().getExtras().getString("pgr_name");
-		TextView test = (TextView) findViewById(R.id.pgr_name);
-		test.setText(pgr_name);
+		
+		TextView title = (TextView) findViewById(R.id.pgr_name);
+		title.setText(pgr_name);
+		
+		TextView notes = (TextView) findViewById(R.id.pgr_notes);
+		
+		DBAdapter db = null;
+		db = DBAdapter.getDBAdapterInstance(this);
+		db.openDataBase();
+
+		Cursor myCursor = db.getReadableDatabase().rawQuery(
+				"SELECT notes FROM programs WHERE id LIKE " + pgr_id + ";", null);
+
+		myCursor.moveToFirst();
+		notes.setText(myCursor.getString(0));
+		
+		myCursor.close();
+		db.close();
 	}
 	
 	@Override
@@ -55,8 +74,11 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 			startActivity(browserIntent);
 		case R.id.programNotesContinue:
 			Intent intent = new Intent(this, ProgramActivity.class);
+			intent.putExtra("pgr_id", getIntent().getExtras().getString("pgr_id"));
 			intent.putExtra("pgr_name", getIntent().getExtras().getString("pgr_name"));
 			startActivity(intent);
+		case R.id.pgr_notes:
+			Log.d("notes", "edit meeee");
 		}
 	}
 }

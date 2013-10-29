@@ -132,6 +132,7 @@ public final class R {
         public static final int newProgramHeaderWrapper=0x7f09002d;
         public static final int newProgramName=0x7f090033;
         public static final int pgr_name=0x7f09003b;
+        public static final int pgr_notes=0x7f090040;
         public static final int programDataWrapper=0x7f090031;
         public static final int programDesc=0x7f09005a;
         public static final int programExercisesList=0x7f090058;
@@ -145,7 +146,6 @@ public final class R {
         public static final int programNotesContinue=0x7f09003c;
         public static final int programNotesHeaderDivider=0x7f09003d;
         public static final int programNotesHeaderWrapper=0x7f09003a;
-        public static final int programNotesText=0x7f090040;
         public static final int programNotesWrapper=0x7f09003f;
         public static final int saveProgram=0x7f09002f;
         public static final int sortAllExercisesWrapper=0x7f09004b;

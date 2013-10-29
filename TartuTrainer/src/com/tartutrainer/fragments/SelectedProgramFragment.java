@@ -35,6 +35,7 @@ public class SelectedProgramFragment extends Fragment implements
 		OnItemClickListener {
 
 	AllProgramsListAdapter adapter;
+	ArrayList<String> excArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
 
@@ -63,9 +64,31 @@ public class SelectedProgramFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		nameArray = new ArrayList<String>();
+		excArray = new ArrayList<String>();
 
 		final View view = inflater.inflate(R.layout.fragment_programexercises,
 				container, false);
+
+		DBAdapter db = null;
+		db = DBAdapter.getDBAdapterInstance(getActivity());
+		db.openDataBase();
+
+		Cursor myCursor = db.getReadableDatabase().rawQuery(
+				"SELECT * FROM programs WHERE id LIKE "
+						+ getActivity().getIntent().getExtras()
+								.getString("pgr_id") + ";", null);
+
+		myCursor.moveToFirst();
+		//nameArray.add(myCursor.getString(1));
+		String[] exercises = myCursor.getString(8).split(":");
+		for (int i = 0; i < exercises.length; i++) {
+			excArray.add(exercises[i]);
+		}
+
+		myCursor.close();
+		db.close();
 
 		populateList(view);
 		setOnClickListeners(view);
@@ -82,27 +105,12 @@ public class SelectedProgramFragment extends Fragment implements
 
 	public void populateList(View v) {
 
-		// SQL Test blalbalbalbalblabla
-
-		DBAdapter db = null;
-		db = DBAdapter.getDBAdapterInstance(getActivity());
-		db.openDataBase();
-
-		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT * FROM sqlite_master WHERE type='table';", null);
-
-		myCursor.moveToFirst();
-		do {
-			// Toast.makeText(getActivity(), myCursor.getString(1),
-			// Toast.LENGTH_SHORT).show();
-			myCursor.moveToNext();
-		} while (!myCursor.isLast());
-
-		myCursor.close();
-		db.close();
-
+		for (String excDetails : excArray) {
+			String[] exerciseList = excDetails.split(";");
+			Log.d("Exercise ID in program", exerciseList[0]);
+		}
+		
 		// SQL to get all programs
-		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
 		for (int i = 0; i < 20; i++) {
 			nameArray.add("Exercise #" + i);

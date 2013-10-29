@@ -45,9 +45,9 @@ public class AllExercisesListAdapter extends BaseAdapter {
     @Override
 	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
-        if(convertView==null)
+        if (convertView==null) {
             vi = inflater.inflate(R.layout.exercise_list_item, null);
-        
+        }
         TextView text = (TextView)vi.findViewById(R.id.exerciseName);
         text.setText(name.get(position));
         

@@ -37,7 +37,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 	AllProgramsListAdapter adapter;
 	ArrayList<String> idArray;
 	ArrayList<String> nameArray;
-	ArrayList<String> descArray;
+	ArrayList<String> clientArray;
 
 	public static AllProgramsFragment newInstance() {
 
@@ -95,7 +95,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		
 		idArray = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
-		descArray = new ArrayList<String>();
+		clientArray = new ArrayList<String>();
 
 
 		DBAdapter db = null;
@@ -103,26 +103,21 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		db.openDataBase();
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT * FROM sqlite_master WHERE type='table';", null);
+				"SELECT id, name, client FROM programs;", null);
 
 		myCursor.moveToFirst();
 		do {
-			// Toast.makeText(getActivity(), myCursor.getString(1),
-			// Toast.LENGTH_SHORT).show();
+			idArray.add(myCursor.getString(0));
+			nameArray.add(myCursor.getString(1));
+			clientArray.add(myCursor.getString(2));
 			myCursor.moveToNext();
-		} while (!myCursor.isLast());
+		} while (!myCursor.isAfterLast());
 
 		myCursor.close();
 		db.close();
 
 		// SQL to get all programs
-		nameArray = new ArrayList<String>();
-		descArray = new ArrayList<String>();
-		for (int i = 0; i < 20; i++) {
-			nameArray.add("Program #" + i);
-			descArray.add("Desc #" + i);
-		}
-		adapter = new AllProgramsListAdapter(getActivity(), nameArray, descArray);
+		adapter = new AllProgramsListAdapter(getActivity(), nameArray, clientArray);
 
 		ListView list = (ListView) v.findViewById(R.id.listAllPrograms);
 		list.setAdapter(adapter);
@@ -158,6 +153,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
 			long id) {
 		Intent intent = new Intent(getActivity(), ProgramNotesActivity.class);
+		intent.putExtra("pgr_id", idArray.get(pos));
 		intent.putExtra("pgr_name", nameArray.get(pos));
 		startActivity(intent);
 		
