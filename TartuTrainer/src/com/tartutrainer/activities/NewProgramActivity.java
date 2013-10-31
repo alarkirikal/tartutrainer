@@ -1,13 +1,25 @@
 package com.tartutrainer.activities;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
 import com.tartutrainer.R;
 import com.tartutrainer.adapters.TemplatesListAdapter;
+import com.tartutrainer.database.DBAdapter;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -15,6 +27,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -115,16 +128,55 @@ public class NewProgramActivity extends Activity implements OnClickListener, OnI
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos, long id) {
 		Log.d("on", "item click listener");
-		//ViewGroup item = (ViewGroup)list.getChildAt(pos);
-	    //CheckBox checkbox = (CheckBox)item.findViewById(R.id.templateCheckbox);
-	    //setCheckBoxValues(checkbox);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.saveProgram:
-			Log.d("click", "save clicked");
+			EditText edName = (EditText) findViewById(R.id.newProgramName);
+			EditText edClient = (EditText) findViewById(R.id.newProgramClientName);
+			EditText edClientEmail = (EditText) findViewById(R.id.newProgramClientEmail);
+
+			// User Info
+			Pattern emailPattern = Patterns.EMAIL_ADDRESS;
+			Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
+			for (Account account : accounts) {
+				if (emailPattern.matcher(account.name).matches()) {
+					Log.d("mu email", account.name);
+				}
+			}
+			
+			DBAdapter db = null;
+			db = DBAdapter.getDBAdapterInstance(this);
+			db.openDataBase();
+
+			ContentValues args = new ContentValues();
+			String id = UUID.randomUUID().toString();
+			args.put("id", id);
+			args.put("name", edName.getText().toString());
+			Date date = new Date();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+			args.put("date", dateFormat.format(date));
+			args.put("author", "");
+			args.put("author_email", "");
+			args.put("client", edClient.getText().toString());
+			args.put("client_email", edClientEmail.getText().toString());
+			args.put("notes", "");
+			args.put("items", "");
+			args.put("owned", "true");
+
+			long smth = db.getWritableDatabase().insert("programs", null,
+					args);
+			Log.d("long", Long.toString(smth));
+
+			db.close();
+			
+			finish();
+			Intent intent = new Intent(this, ProgramNotesActivity.class);
+			intent.putExtra("pgr_name", edName.getText().toString());
+			intent.putExtra("pgr_id", id);
+			startActivity(intent);
 		}
 	}
 

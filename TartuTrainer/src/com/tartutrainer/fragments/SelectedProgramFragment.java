@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import com.tartutrainer.R;
 import com.tartutrainer.activities.ClientsActivity;
+import com.tartutrainer.activities.ExerciseActivity;
 import com.tartutrainer.activities.ProgramNotesActivity;
+import com.tartutrainer.adapters.AllExercisesListAdapter;
 import com.tartutrainer.adapters.AllProgramsListAdapter;
+import com.tartutrainer.adapters.SelectedProgramExercisesListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
 import android.content.Context;
@@ -34,10 +37,10 @@ import android.widget.Toast;
 public class SelectedProgramFragment extends Fragment implements
 		OnItemClickListener {
 
-	AllProgramsListAdapter adapter;
+	SelectedProgramExercisesListAdapter adapter;
 	ArrayList<String> excArray;
 	ArrayList<String> nameArray;
-	ArrayList<String> descArray;
+	ArrayList<String> musclesArray;
 
 	public static SelectedProgramFragment newInstance() {
 
@@ -58,31 +61,37 @@ public class SelectedProgramFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 	}
 
+
 	/**
 	 * Run when the fragment view is created (i.e. populated)
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		nameArray = new ArrayList<String>();
-		excArray = new ArrayList<String>();
 
 		final View view = inflater.inflate(R.layout.fragment_programexercises,
 				container, false);
+		
+		TextView infoDate = (TextView) view.findViewById(R.id.programInfoDate);
+		TextView infoClient = (TextView) view.findViewById(R.id.programInfoClient);
+		
+		excArray = new ArrayList<String>();
+
 
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
 		db.openDataBase();
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT * FROM programs WHERE id LIKE "
+				"SELECT * FROM programs WHERE id LIKE '"
 						+ getActivity().getIntent().getExtras()
-								.getString("pgr_id") + ";", null);
+								.getString("pgr_id") + "';", null);
 
 		myCursor.moveToFirst();
-		//nameArray.add(myCursor.getString(1));
+		// nameArray.add(myCursor.getString(1));
 		String[] exercises = myCursor.getString(8).split(":");
+		infoDate.setText(myCursor.getString(2));
+		infoClient.setText(myCursor.getString(5));
 		for (int i = 0; i < exercises.length; i++) {
 			excArray.add(exercises[i]);
 		}
@@ -105,19 +114,53 @@ public class SelectedProgramFragment extends Fragment implements
 
 	public void populateList(View v) {
 
+		ArrayList<String> ids = new ArrayList<String>();
+
+		nameArray = new ArrayList<String>();
+		musclesArray = new ArrayList<String>();
+		
+		DBAdapter db = null;
+		db = DBAdapter.getDBAdapterInstance(getActivity());
+		db.openDataBase();
+
 		for (String excDetails : excArray) {
 			String[] exerciseList = excDetails.split(";");
-			Log.d("Exercise ID in program", exerciseList[0]);
+			ids.add(exerciseList[0]);
+		}
+
+		String sql = "SELECT name, muscles FROM exercises WHERE";
+		int counter = 1;
+		for (String id : ids) {
+			if (counter == ids.size()) {
+				sql += " id LIKE " + id + ";";
+			} else {
+				sql += " id LIKE " + id + " OR";
+			}
+			counter += 1;
+		}
+
+		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
+
+		Log.d("sql", sql);
+		myCursor.moveToFirst();
+		for (int c = 1; c < counter; c++) {
+			nameArray.add(myCursor.getString(0));
+			musclesArray.add(myCursor.getString(1));
+			myCursor.moveToNext();
 		}
 		
+		myCursor.close();
+		db.close();
+
 		// SQL to get all programs
-		descArray = new ArrayList<String>();
+		/*
 		for (int i = 0; i < 20; i++) {
 			nameArray.add("Exercise #" + i);
 			descArray.add("Desc #" + i);
 		}
-		adapter = new AllProgramsListAdapter(getActivity(), nameArray,
-				descArray);
+		*/
+		adapter = new SelectedProgramExercisesListAdapter(getActivity(), nameArray,
+				musclesArray);
 
 		ListView list = (ListView) v.findViewById(R.id.programExercisesList);
 		list.setAdapter(adapter);
@@ -127,14 +170,9 @@ public class SelectedProgramFragment extends Fragment implements
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
 			long id) {
 
-		/*
-		 * Intent intent = new Intent(getActivity(),
-		 * ProgramNotesActivity.class); intent.putExtra("pgr_name",
-		 * nameArray.get(pos)); startActivity(intent);
-		 */
-
-		Toast.makeText(getActivity(), "selected view: " + nameArray.get(pos),
-				Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(getActivity(), ExerciseActivity.class);
+		intent.putExtra("exc_name", nameArray.get(pos));
+		startActivity(intent);
 
 	}
 }

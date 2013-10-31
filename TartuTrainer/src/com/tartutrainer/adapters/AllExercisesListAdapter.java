@@ -14,46 +14,48 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AllExercisesListAdapter extends BaseAdapter {
-    
-    private Activity activity;
-    private ArrayList<String> name;
-    private ArrayList<String> desc;
-    private static LayoutInflater inflater=null;
-    
-    public AllExercisesListAdapter(Activity a, ArrayList<String> e, ArrayList<String> f) {
-        activity = a;
-        name=e;
-        desc=f;
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
 
-    @Override
+	private Activity activity;
+	private ArrayList<String> name;
+	private ArrayList<String> desc;
+	private static LayoutInflater inflater = null;
+
+	public AllExercisesListAdapter(Activity a, ArrayList<String> e,
+			ArrayList<String> f) {
+		activity = a;
+		name = e;
+		desc = f;
+		inflater = (LayoutInflater) activity
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+
+	@Override
 	public int getCount() {
-        return name.size();
-    }
+		return name.size();
+	}
 
-    @Override
+	@Override
 	public Object getItem(int position) {
-        return position;
-    }
+		return position;
+	}
 
-    @Override
+	@Override
 	public long getItemId(int position) {
-        return position;
-    }
-    
-    @Override
+		return position;
+	}
+
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-        View vi=convertView;
-        if (convertView==null) {
-            vi = inflater.inflate(R.layout.exercise_list_item, null);
-        }
-        TextView text = (TextView)vi.findViewById(R.id.exerciseName);
-        text.setText(name.get(position));
-        
-        TextView textDesc = (TextView)vi.findViewById(R.id.exerciseDesc);
-        textDesc.setText(desc.get(position));
-        
-        return vi;
-    }
+		View vi = convertView;
+		if (convertView == null) {
+			vi = inflater.inflate(R.layout.exercise_list_item, null);
+		}
+		TextView text = (TextView) vi.findViewById(R.id.exerciseName);
+		text.setText(name.get(position));
+
+		TextView textDesc = (TextView) vi.findViewById(R.id.exerciseDesc);
+		textDesc.setText(desc.get(position));
+
+		return vi;
+	}
 }

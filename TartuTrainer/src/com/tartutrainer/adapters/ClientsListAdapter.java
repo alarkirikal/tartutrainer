@@ -16,11 +16,13 @@ public class ClientsListAdapter extends BaseAdapter {
     
     private Activity activity;
     private ArrayList<String> name;
+    private ArrayList<String> email;
     private static LayoutInflater inflater=null;
     
-    public ClientsListAdapter(Activity a, ArrayList<String> e) {
+    public ClientsListAdapter(Activity a, ArrayList<String> e, ArrayList<String> em) {
         activity = a;
         name=e;
+        email=em;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -45,8 +47,11 @@ public class ClientsListAdapter extends BaseAdapter {
         if(convertView==null)
             vi = inflater.inflate(R.layout.client_list_item, null);
 
-        TextView text = (TextView)vi.findViewById(R.id.clientName);
+        TextView text = (TextView) vi.findViewById(R.id.clientName);
         text.setText(name.get(position));
+        
+        TextView mail = (TextView) vi.findViewById(R.id.clientEmail);
+        mail.setText(email.get(position));
         return vi;
     }
 }

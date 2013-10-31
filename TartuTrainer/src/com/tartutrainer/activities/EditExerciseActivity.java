@@ -363,20 +363,6 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 				long smth = db.getWritableDatabase().insert("exercises", null,
 						args);
 				Log.d("long", Long.toString(smth));
-				/*
-				 * String sql = "insert into "; sql +=
-				 * "exercises(id, name, description, level, modality, muscles, equipment, label_1, label_2, owned, category) "
-				 * ; sql += "values ("; sql += "'" + exc.getId() + "', "; sql +=
-				 * "'" + exc.getName() + "', "; sql += "'" +
-				 * exc.getDescription() + "', "; sql += "'" + exc.getLevel() +
-				 * "', "; sql += "'" + exc.getModality() + "', "; sql += "'" +
-				 * exc.getMuscles() + "', "; sql += "'" + exc.getEquipment() +
-				 * "', "; sql += "'" + exc.getLabel_1() + "', "; sql += "'" +
-				 * exc.getLabel_2() + "', "; sql += "'" + exc.getOwned() +
-				 * "', "; sql += "'" + exc.getCategory() + "');";
-				 * 
-				 * Log.d("sql", sql); db.getWritableDatabase().execSQL(sql);
-				 */
 			}
 
 			db.close();

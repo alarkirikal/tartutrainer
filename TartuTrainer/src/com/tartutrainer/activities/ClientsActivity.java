@@ -30,7 +30,7 @@ public class ClientsActivity extends Activity implements OnClickListener,
 	/*
 	 * List of clients before creating new program
 	 */
-	
+
 	ArrayList<String> nameArray;
 	ArrayList<String> emailArray;
 
@@ -58,19 +58,31 @@ public class ClientsActivity extends Activity implements OnClickListener,
 	}
 
 	protected void fillContent() {
-
-		// Get the list of clients
-		// nameArray = getClientsSQL();
+		
 		nameArray = new ArrayList<String>();
 		emailArray = new ArrayList<String>();
-		for (int i = 0; i < 10; i++) {
-			nameArray.add("Client #" + i);
-			emailArray.add("foo_" + i + "@bar.org");
-		}
+
+		DBAdapter db = null;
+		db = DBAdapter.getDBAdapterInstance(this);
+		db.openDataBase();
+
+		Cursor myCursor = db.getReadableDatabase().rawQuery(
+				"SELECT client, client_email FROM programs GROUP BY client;",
+				null);
+
+		myCursor.moveToFirst();
+		do {
+			nameArray.add(myCursor.getString(0));
+			emailArray.add(myCursor.getString(1));
+			myCursor.moveToNext();
+		} while(!myCursor.isAfterLast());
+
+		myCursor.close();
+		db.close();
 
 		// Add the list of clients to the layout
 		ListView list = (ListView) findViewById(R.id.listAllClients);
-		ClientsListAdapter adapter = new ClientsListAdapter(this, nameArray);
+		ClientsListAdapter adapter = new ClientsListAdapter(this, nameArray, emailArray);
 		list.setAdapter(adapter);
 	}
 
@@ -115,7 +127,7 @@ public class ClientsActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		switch(v.getId()) {
+		switch (v.getId()) {
 		case R.id.goNewProgram:
 			Intent intent = new Intent(this, NewProgramActivity.class);
 			intent.putExtra("clientSelected", false);

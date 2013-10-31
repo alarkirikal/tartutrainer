@@ -23,7 +23,7 @@
             <Switch 
                 android:id="@+id/sortBySwitch"
                 android:text="Sort by: "
-                android:layout_width="170dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:thumb="@drawable/switch_inner_holo_light"
                 android:track="@drawable/switch_track_holo_light"

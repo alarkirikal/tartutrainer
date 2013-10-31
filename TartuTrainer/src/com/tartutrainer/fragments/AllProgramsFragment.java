@@ -39,6 +39,8 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 	ArrayList<String> nameArray;
 	ArrayList<String> clientArray;
 
+	View view;
+
 	public static AllProgramsFragment newInstance() {
 
 		final AllProgramsFragment f = new AllProgramsFragment();
@@ -48,8 +50,6 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		return f;
 	}
 
-	public AllProgramsFragment() {
-	}
 
 	/**
 	 * Run when fragment itself is created
@@ -66,12 +66,18 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		final View view = inflater.inflate(R.layout.fragment_allprograms,
-				container, false);
+		view = inflater
+				.inflate(R.layout.fragment_allprograms, container, false);
 
-		populateList(view);
+		populateList("date");
 		setOnClickListeners(view);
 		return view;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		populateList("date");
 	}
 
 	private void setOnClickListeners(View v) {
@@ -91,19 +97,25 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 
 	}
 
-	public void populateList(View v) {
-		
+	public void populateList(String orderBy) {
+
 		idArray = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
 		clientArray = new ArrayList<String>();
-
 
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
 		db.openDataBase();
 
-		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT id, name, client FROM programs;", null);
+		String sql = "SELECT id, name, client FROM programs ORDER BY "
+				+ orderBy;
+		if (orderBy.equalsIgnoreCase("date")) {
+			sql += " DESC;";
+		} else {
+			sql += ";";
+		}
+
+		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
 
 		myCursor.moveToFirst();
 		do {
@@ -117,9 +129,10 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		db.close();
 
 		// SQL to get all programs
-		adapter = new AllProgramsListAdapter(getActivity(), nameArray, clientArray);
+		adapter = new AllProgramsListAdapter(getActivity(), nameArray,
+				clientArray);
 
-		ListView list = (ListView) v.findViewById(R.id.listAllPrograms);
+		ListView list = (ListView) view.findViewById(R.id.listAllPrograms);
 		list.setAdapter(adapter);
 	}
 
@@ -140,11 +153,9 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		switch (buttonView.getId()) {
 		case R.id.sortBySwitch:
 			if (isChecked) {
-				Toast.makeText(getActivity(), "Sort by client",
-						Toast.LENGTH_SHORT).show();
+				populateList("client");
 			} else {
-				Toast.makeText(getActivity(), "Sort by date",
-						Toast.LENGTH_SHORT).show();
+				populateList("date");
 			}
 		}
 	}
@@ -156,16 +167,9 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		intent.putExtra("pgr_id", idArray.get(pos));
 		intent.putExtra("pgr_name", nameArray.get(pos));
 		startActivity(intent);
-		
+
 		Toast.makeText(getActivity(), "selected view: " + nameArray.get(pos),
 				Toast.LENGTH_SHORT).show();
-		
-		// DO NOT DELETE YET
-		/*
-		SharedPreferences levelsPrefs = getActivity().getSharedPreferences(
-				"levels", Context.MODE_PRIVATE);
-		Log.d("level in pos", "Pos " + Integer.toString(pos) + " - "
-				+ levelsPrefs.getString(Integer.toString(pos), "None"));
-		*/
+
 	}
 }
