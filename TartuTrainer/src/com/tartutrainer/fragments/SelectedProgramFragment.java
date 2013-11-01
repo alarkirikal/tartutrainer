@@ -38,9 +38,12 @@ public class SelectedProgramFragment extends Fragment implements
 		OnItemClickListener {
 
 	SelectedProgramExercisesListAdapter adapter;
+	ArrayList<String> ids;
 	ArrayList<String> excArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> musclesArray;
+
+	View view;
 
 	public static SelectedProgramFragment newInstance() {
 
@@ -61,7 +64,6 @@ public class SelectedProgramFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 	}
 
-
 	/**
 	 * Run when the fragment view is created (i.e. populated)
 	 */
@@ -69,14 +71,23 @@ public class SelectedProgramFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		final View view = inflater.inflate(R.layout.fragment_programexercises,
-				container, false);
-		
-		TextView infoDate = (TextView) view.findViewById(R.id.programInfoDate);
-		TextView infoClient = (TextView) view.findViewById(R.id.programInfoClient);
-		
-		excArray = new ArrayList<String>();
+		view = inflater.inflate(R.layout.fragment_programexercises, container,
+				false);
 
+		initData();
+		if (excArray.size() > 0) {
+			populateList();
+		}
+		setOnClickListeners();
+		return view;
+	}
+
+	private void initData() {
+		TextView infoDate = (TextView) view.findViewById(R.id.programInfoDate);
+		TextView infoClient = (TextView) view
+				.findViewById(R.id.programInfoClient);
+
+		excArray = new ArrayList<String>();
 
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
@@ -98,27 +109,22 @@ public class SelectedProgramFragment extends Fragment implements
 
 		myCursor.close();
 		db.close();
-
-		populateList(view);
-		setOnClickListeners(view);
-		return view;
 	}
 
-	private void setOnClickListeners(View v) {
+	private void setOnClickListeners() {
 
 		/* Programs list listener */
-		ListView lv = (ListView) v.findViewById(R.id.programExercisesList);
+		ListView lv = (ListView) view.findViewById(R.id.programExercisesList);
 		lv.setOnItemClickListener(this);
 
 	}
 
-	public void populateList(View v) {
+	public void populateList() {
 
-		ArrayList<String> ids = new ArrayList<String>();
-
+		ids = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
 		musclesArray = new ArrayList<String>();
-		
+
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
 		db.openDataBase();
@@ -131,39 +137,43 @@ public class SelectedProgramFragment extends Fragment implements
 		String sql = "SELECT name, muscles FROM exercises WHERE";
 		int counter = 1;
 		for (String id : ids) {
-			if (counter == ids.size()) {
-				sql += " id LIKE " + id + ";";
+			if (id.length() < 1) {
+				break;
 			} else {
-				sql += " id LIKE " + id + " OR";
+				if (counter == ids.size()) {
+					sql += " id LIKE " + id + ";";
+				} else {
+					sql += " id LIKE " + id + " OR";
+				}
+				counter += 1;
 			}
-			counter += 1;
 		}
 
-		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
+		if (counter != 1) {
+			Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
 
-		Log.d("sql", sql);
-		myCursor.moveToFirst();
-		for (int c = 1; c < counter; c++) {
-			nameArray.add(myCursor.getString(0));
-			musclesArray.add(myCursor.getString(1));
-			myCursor.moveToNext();
+			myCursor.moveToFirst();
+			for (int c = 1; c < counter; c++) {
+				nameArray.add(myCursor.getString(0));
+				musclesArray.add(myCursor.getString(1));
+				myCursor.moveToNext();
+			}
+
+			myCursor.close();
+			db.close();
+
+			// SQL to get all programs
+			/*
+			 * for (int i = 0; i < 20; i++) { nameArray.add("Exercise #" + i);
+			 * descArray.add("Desc #" + i); }
+			 */
+			adapter = new SelectedProgramExercisesListAdapter(getActivity(),
+					nameArray, musclesArray);
+
+			ListView list = (ListView) view
+					.findViewById(R.id.programExercisesList);
+			list.setAdapter(adapter);
 		}
-		
-		myCursor.close();
-		db.close();
-
-		// SQL to get all programs
-		/*
-		for (int i = 0; i < 20; i++) {
-			nameArray.add("Exercise #" + i);
-			descArray.add("Desc #" + i);
-		}
-		*/
-		adapter = new SelectedProgramExercisesListAdapter(getActivity(), nameArray,
-				musclesArray);
-
-		ListView list = (ListView) v.findViewById(R.id.programExercisesList);
-		list.setAdapter(adapter);
 	}
 
 	@Override
@@ -172,7 +182,21 @@ public class SelectedProgramFragment extends Fragment implements
 
 		Intent intent = new Intent(getActivity(), ExerciseActivity.class);
 		intent.putExtra("exc_name", nameArray.get(pos));
+		intent.putExtra("pgr_id", getActivity().getIntent().getExtras()
+				.getString("pgr_id"));
+		intent.putExtra("exc_id", ids.get(pos));
+		intent.putExtra("exc_data", excArray.get(pos));
 		startActivity(intent);
 
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		initData();
+		if (excArray.size() > 0) {
+			populateList();
+		}
+		setOnClickListeners();
 	}
 }
