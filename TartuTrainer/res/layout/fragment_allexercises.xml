@@ -71,6 +71,16 @@
         android:background="@drawable/gradient_blue" >
     </View>
     
+    <TextView
+        android:id="@+id/listAllExercisesNoneFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:textStyle="italic"
+        android:text="No results, please change the filter!"
+        android:visibility="gone" />
+    
     <ListView
         android:id="@+id/listAllExercises"
         android:layout_width="fill_parent"

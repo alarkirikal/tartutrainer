@@ -43,6 +43,8 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 	ArrayList<String> musclesArray;
 	ArrayList<String> modalityArray;
 	
+	View view;
+	
 	private final static String LEVELS = "levels";
 	private final static String MODALITIES = "modalities";
 	private final static String MUSCLE_GROUPS = "muscle_groups";
@@ -74,139 +76,51 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		final View view = inflater.inflate(R.layout.fragment_allexercises,
+		view = inflater.inflate(R.layout.fragment_allexercises,
 				container, false);
 
-		populateList(view);
-		populateSpinners(view);
-		setOnClickListeners(view);
+		populateList();
+		setOnClickListeners();
 		return view;
 	}
 	
-	private void populateSpinners(View v) {
-		
-		/*
-		Spinner levels = (Spinner) v.findViewById(R.id.exercisesSortLevel);
-		Spinner equips = (Spinner) v.findViewById(R.id.exercisesSortEquip);
-		Spinner muscles = (Spinner) v.findViewById(R.id.exercisesSortMuscles);
-		Spinner modalities = (Spinner) v.findViewById(R.id.exercisesSortModality);
-		*/
-		
-		levelArray = new ArrayList<String>();
-		equipArray = new ArrayList<String>();
-		musclesArray = new ArrayList<String>();
-		modalityArray = new ArrayList<String>();
-		
-		int indexCounter = 0;
-		
-		// Levels spinner values
-		boolean levelsToAdd = true;
-		SharedPreferences levelsPrefs = getActivity().getSharedPreferences(
-				LEVELS, Context.MODE_PRIVATE);
-		while(levelsToAdd) {
-			String val = levelsPrefs.getString(Integer.toString(indexCounter), "");
-			if (!val.equalsIgnoreCase("")){
-				levelArray.add(val);
-				indexCounter += 1;
-			} else {
-				indexCounter = 0;
-				levelsToAdd = false;
-			}
-		}
-		
-		ArrayAdapter<String> levelAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, levelArray);
-	    levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    //levels.setAdapter(levelAdapter);
-		
-	    // Equipment spinner values
-		equipArray.add("Bench 1");
-		equipArray.add("Bench 2");
-		ArrayAdapter<String> equipAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, equipArray);
-		equipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    //equips.setAdapter(equipAdapter);
-		
-	    // Muscles spinner values
-	    boolean musclesToAdd = true;
-	    SharedPreferences musclesPrefs = getActivity().getSharedPreferences(
-				MUSCLE_GROUPS, Context.MODE_PRIVATE);
-	    while(musclesToAdd) {
-			String val = musclesPrefs.getString(Integer.toString(indexCounter), "");
-			if (!val.equalsIgnoreCase("")){
-				musclesArray.add(val);
-				indexCounter += 1;
-			} else {
-				indexCounter = 0;
-				musclesToAdd = false;
-			}
-		}
-		
-	    ArrayAdapter<String> muscleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, musclesArray);
-		muscleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    //muscles.setAdapter(muscleAdapter);
-		
-	    // Modality spinner values
-	    boolean modalitiesToAdd = true;
-	    SharedPreferences modalitiesPrefs = getActivity().getSharedPreferences(
-				MODALITIES, Context.MODE_PRIVATE);
-	    while(modalitiesToAdd) {
-			String val = modalitiesPrefs.getString(Integer.toString(indexCounter), "");
-			if (!val.equalsIgnoreCase("")){
-				modalityArray.add(val);
-				indexCounter += 1;
-			} else {
-				indexCounter = 0;
-				modalitiesToAdd = false;
-			}
-		}
-		
-		ArrayAdapter<String> modalityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, modalityArray);
-		modalityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    //modalities.setAdapter(modalityAdapter);
-		
-	}
-
-	private void setOnClickListeners(View v) {
+	private void setOnClickListeners() {
 
 		/* Go to ClientsActivity */
-		ImageButton toClients = (ImageButton) v
+		ImageButton toClients = (ImageButton) view
 				.findViewById(R.id.toNewExercise);
 		toClients.setOnClickListener(this);
 
 		/* Programs list listener */
-		ListView lv = (ListView) v.findViewById(R.id.listAllExercises);
+		ListView lv = (ListView) view.findViewById(R.id.listAllExercises);
 		lv.setOnItemClickListener(this);
 
 	}
 
-	public void populateList(View v) {
+	public void populateList() {
 
+		nameArray = new ArrayList<String>();
+		descArray = new ArrayList<String>();
+		
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
 		db.openDataBase();
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT * FROM sqlite_master WHERE type='table';", null);
+				"SELECT name, description FROM exercises WHERE owned LIKE 'true';", null);
 
 		myCursor.moveToFirst();
 		do {
-			// Toast.makeText(getActivity(), myCursor.getString(1),
-			// Toast.LENGTH_SHORT).show();
+			nameArray.add(myCursor.getString(0));
+			descArray.add(myCursor.getString(1));
 			myCursor.moveToNext();
-		} while (!myCursor.isLast());
+		} while (!myCursor.isAfterLast());
 
 		myCursor.close();
 		db.close();
 
-		// SQL to get all programs
-		nameArray = new ArrayList<String>();
-		descArray = new ArrayList<String>();
-		for (int i = 0; i < 20; i++) {
-			nameArray.add("Exercise #" + i);
-			descArray.add("Desc #" + i);
-		}
 		adapter = new AllExercisesListAdapter(getActivity(), nameArray, descArray);
-
-		ListView list = (ListView) v.findViewById(R.id.listAllExercises);
+		ListView list = (ListView) view.findViewById(R.id.listAllExercises);
 		list.setAdapter(adapter);
 	}
 
@@ -219,6 +133,7 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 		startActivity(intent);
 	}
 
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

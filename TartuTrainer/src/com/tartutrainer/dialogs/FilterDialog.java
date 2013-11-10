@@ -11,6 +11,9 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -27,13 +30,14 @@ public class FilterDialog extends Dialog {
 	OnResult filterResult;
 
 	final TextView title_levels;
-	final EditText input_levels;
 	final TextView title_equip;
-	final EditText input_equip;
 	final TextView title_muscles;
-	final EditText input_muscles;
 	final TextView title_modality;
-	final EditText input_modality;
+
+	String cLevel;
+	String cEquip;
+	String cMuscle;
+	String cModality;
 
 	ArrayList<String> levelArray;
 	ArrayList<String> equipArray;
@@ -44,6 +48,8 @@ public class FilterDialog extends Dialog {
 	private final static String MODALITIES = "modalities";
 	private final static String MUSCLE_GROUPS = "muscle_groups";
 
+	private final static String SELECTIONS = "filter_selections";
+
 	public FilterDialog(final Context context) {
 		super(context);
 		this.context = context;
@@ -52,22 +58,19 @@ public class FilterDialog extends Dialog {
 		this.alert.setInverseBackgroundForced(true);
 		linlay = new LinearLayout(context);
 		linlay.setOrientation(LinearLayout.VERTICAL);
+		linlay.setPadding(20, 10, 20, 10);
 
 		// Title
 		alert.setTitle("Search Filters");
 
 		// Input Content
 		title_levels = new TextView(context);
-		input_levels = new EditText(context);
 		title_levels.setText("Level");
 		title_equip = new TextView(context);
-		input_equip = new EditText(context);
 		title_equip.setText("Equipment");
 		title_muscles = new TextView(context);
-		input_muscles = new EditText(context);
 		title_muscles.setText("Muscles");
 		title_modality = new TextView(context);
-		input_modality = new EditText(context);
 		title_modality.setText("Modality");
 
 		// Add content to the Dialog
@@ -93,6 +96,8 @@ public class FilterDialog extends Dialog {
 	}
 
 	public void populateLayout() {
+		
+		final SharedPreferences prefs = context.getSharedPreferences(SELECTIONS, Context.MODE_PRIVATE);
 
 		Spinner levels = new Spinner(context);
 		Spinner equips = new Spinner(context);
@@ -110,6 +115,24 @@ public class FilterDialog extends Dialog {
 		levelAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		levels.setAdapter(levelAdapter);
+		levels.setPadding(0, 0, 0, 10);
+		levels.setSelection(prefs.getInt("0", 0));
+		levels.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View v, int pos,
+					long id) {
+				String item = (String) parent.getItemAtPosition(pos);
+				cLevel = String.valueOf(pos - 1);
+				SharedPreferences.Editor e_first = prefs.edit();
+				e_first.putInt("0", pos);
+				e_first.commit();
+			}
+		});
 
 		// Equipment Spinner
 		ArrayAdapter<String> equipAdapter = new ArrayAdapter<String>(context,
@@ -117,6 +140,24 @@ public class FilterDialog extends Dialog {
 		equipAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		equips.setAdapter(equipAdapter);
+		equips.setPadding(0, 0, 0, 10);
+		equips.setSelection(prefs.getInt("1", 0));
+		equips.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View v, int pos,
+					long id) {
+				String item = (String) parent.getItemAtPosition(pos);
+				cEquip = item;
+				SharedPreferences.Editor e_second = prefs.edit();
+				e_second.putInt("1", pos);
+				e_second.commit();
+			}
+		});
 
 		// Muscles Spinner
 		ArrayAdapter<String> muscleAdapter = new ArrayAdapter<String>(context,
@@ -124,6 +165,25 @@ public class FilterDialog extends Dialog {
 		muscleAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		muscles.setAdapter(muscleAdapter);
+		muscles.setPadding(0, 0, 0, 10);
+		muscles.setSelection(prefs.getInt("2", 0));
+		muscles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View v, int pos,
+					long id) {
+				String item = (String) parent.getItemAtPosition(pos);
+				cMuscle = String.valueOf(pos - 1);
+
+				SharedPreferences.Editor e_third = prefs.edit();
+				e_third.putInt("2", pos);
+				e_third.commit();
+			}
+		});
 
 		// Modality Spinner
 		ArrayAdapter<String> modalityAdapter = new ArrayAdapter<String>(
@@ -131,9 +191,28 @@ public class FilterDialog extends Dialog {
 		modalityAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		modalities.setAdapter(modalityAdapter);
+		modalities.setPadding(0, 0, 0, 10);
+		modalities.setSelection(prefs.getInt("3", 0));
+		modalities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View v, int pos,
+					long id) {
+				String item = (String) parent.getItemAtPosition(pos);
+				cModality = String.valueOf(pos - 1);
+				SharedPreferences.Editor e_fourth = prefs.edit();
+				e_fourth.putInt("3", pos);
+				e_fourth.commit();
+			}
+		});
+		
+		
 		LinearLayout.LayoutParams title_params = new LinearLayout.LayoutParams(
-				150,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
+				150, LinearLayout.LayoutParams.WRAP_CONTENT);
 		LinearLayout.LayoutParams spinner_params = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.FILL_PARENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -161,6 +240,7 @@ public class FilterDialog extends Dialog {
 		modalities.setLayoutParams(spinner_params);
 		hozlay_modalities.addView(title_modality);
 		hozlay_modalities.addView(modalities);
+		
 
 		linlay.addView(hozlay_levels);
 		linlay.addView(hozlay_equips);
@@ -193,6 +273,7 @@ public class FilterDialog extends Dialog {
 
 	protected ArrayList<String> getUsedEquipment() {
 		ArrayList<String> equips = new ArrayList<String>();
+		equips.add("All Equipment");
 
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(context);
@@ -260,8 +341,8 @@ public class FilterDialog extends Dialog {
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			filterResult.finish(FilterDialog.this.input_levels.getText()
-					.toString());
+
+			filterResult.finish(cLevel, cEquip, cMuscle, cModality);
 		}
 
 	}
@@ -270,8 +351,9 @@ public class FilterDialog extends Dialog {
 		filterResult = dialogResult;
 	}
 
+	// Interface for result handling
 	public interface OnResult {
-		void finish(String result);
+		void finish(String level, String equip, String muscle, String modality);
 	}
 
 }

@@ -51,7 +51,7 @@ public class SelectedProgramExercisesListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 		if (convertView == null) {
-			vi = inflater.inflate(R.layout.exercise_list_item, null);
+			vi = inflater.inflate(R.layout.listitem_exercise, null);
 		}
 		TextView name_text = (TextView) vi.findViewById(R.id.exerciseName);
 		TextView muscles_text = (TextView) vi.findViewById(R.id.exerciseDesc);

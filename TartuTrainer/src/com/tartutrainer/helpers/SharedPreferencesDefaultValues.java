@@ -11,7 +11,7 @@ public class SharedPreferencesDefaultValues {
 	private final static String MUSCLE_GROUPS = "muscle_groups";
 	private final static String LABELS = "labels";
 	private final static String CATEGORIES = "categories";
-	
+	private final static String SELECTIONS = "filter_selections";
 	
 	public static void init(Activity a) {
 		setLevels(a);
@@ -19,6 +19,17 @@ public class SharedPreferencesDefaultValues {
 		setMuscleGroups(a);
 		setLabels(a);
 		setCategories(a);
+		setDialogSelections(a);
+	}
+	
+	private static void setDialogSelections(Activity a) {
+		SharedPreferences selectionPrefs = a.getSharedPreferences(SELECTIONS, Context.MODE_PRIVATE);
+		SharedPreferences.Editor e = selectionPrefs.edit();
+		e.putInt("0", 0);
+		e.putInt("1", 1);
+		e.putInt("2", 2);
+		e.putInt("3", 3);
+		e.commit();
 	}
 	
 	private static void setLevels(Activity a) {

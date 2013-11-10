@@ -46,9 +46,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 	ArrayList<String> musclesArray;
 	private AlertDialog Dialog;
 	boolean[] checkedMuscles;
-
+	
 	Exercise exc;
-
+	
 	private final static String LEVELS = "levels";
 	private final static String MODALITIES = "modalities";
 	private final static String MUSCLE_GROUPS = "muscle_groups";

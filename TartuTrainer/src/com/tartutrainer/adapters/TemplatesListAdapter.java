@@ -44,7 +44,7 @@ public class TemplatesListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.template_list_item, null);
+            vi = inflater.inflate(R.layout.listitem_template, null);
 
         TextView text = (TextView)vi.findViewById(R.id.templateName);
         text.setText(name.get(position));

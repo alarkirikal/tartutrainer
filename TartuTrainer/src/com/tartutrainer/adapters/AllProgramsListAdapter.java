@@ -45,7 +45,7 @@ public class AllProgramsListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.program_list_item, null);
+            vi = inflater.inflate(R.layout.listitem_program, null);
 
         TextView text = (TextView)vi.findViewById(R.id.programName);
         TextView textDesc = (TextView)vi.findViewById(R.id.programDesc);

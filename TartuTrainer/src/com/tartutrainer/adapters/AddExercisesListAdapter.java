@@ -13,14 +13,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AllExercisesListAdapter extends BaseAdapter {
+public class AddExercisesListAdapter extends BaseAdapter {
 
 	private Activity activity;
 	private ArrayList<String> name;
 	private ArrayList<String> desc;
 	private static LayoutInflater inflater = null;
 
-	public AllExercisesListAdapter(Activity a, ArrayList<String> e,
+	public AddExercisesListAdapter(Activity a, ArrayList<String> e,
 			ArrayList<String> f) {
 		activity = a;
 		name = e;

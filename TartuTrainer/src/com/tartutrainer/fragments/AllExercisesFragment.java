@@ -34,6 +34,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AllExercisesFragment extends Fragment implements OnClickListener,
@@ -45,6 +46,8 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 	ArrayList<String> idArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
+
+	View view;
 
 	public static AllExercisesFragment newInstance() {
 
@@ -72,10 +75,10 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		final View view = inflater.inflate(R.layout.fragment_allexercises,
-				container, false);
+		view = inflater.inflate(R.layout.fragment_allexercises, container,
+				false);
 
-		populateList(view);
+		populateList("SELECT id, name, description FROM exercises WHERE owned LIKE 'true';");
 		setOnClickListeners(view);
 		return view;
 	}
@@ -86,10 +89,9 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 		ImageButton toClients = (ImageButton) v
 				.findViewById(R.id.toNewExercise);
 		toClients.setOnClickListener(this);
-		
+
 		/* Open Filter Dialog */
-		Button setFilters = (Button) v
-				.findViewById(R.id.filterButton);
+		Button setFilters = (Button) v.findViewById(R.id.filterButton);
 		setFilters.setOnClickListener(this);
 
 		/* Programs list listener */
@@ -98,8 +100,8 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 
 	}
 
-	public void populateList(View v) {
-		
+	public void populateList(String sql) {
+
 		idArray = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
@@ -108,27 +110,31 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 		db = DBAdapter.getDBAdapterInstance(getActivity());
 		db.openDataBase();
 
-		Cursor myCursor = db
-				.getReadableDatabase()
-				.rawQuery(
-						"SELECT id, name, description FROM exercises WHERE owned LIKE 'true';",
-						null);
+		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
 
-		myCursor.moveToFirst();
-		do {
-			idArray.add(myCursor.getString(0));
-			nameArray.add(myCursor.getString(1));
-			descArray.add(myCursor.getString(2));
-			myCursor.moveToNext();
-		} while (!myCursor.isAfterLast());
+		TextView nr = (TextView) view.findViewById(R.id.listAllExercisesNoneFound);
+		
+		if (myCursor.getCount() != 0) {
+			
+			nr.setVisibility(TextView.GONE);
+			myCursor.moveToFirst();
+			do {
+				idArray.add(myCursor.getString(0));
+				nameArray.add(myCursor.getString(1));
+				descArray.add(myCursor.getString(2));
+				myCursor.moveToNext();
+			} while (!myCursor.isAfterLast());
 
-		myCursor.close();
-		db.close();
+			myCursor.close();
+			db.close();
 
+		} else {
+			nr.setVisibility(TextView.VISIBLE);
+		}
 		adapter = new AllExercisesListAdapter(getActivity(), nameArray,
 				descArray);
 
-		ListView list = (ListView) v.findViewById(R.id.listAllExercises);
+		ListView list = (ListView) view.findViewById(R.id.listAllExercises);
 		list.setAdapter(adapter);
 	}
 
@@ -155,8 +161,30 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 			AlertDialog alertDialog = dialog.create();
 			alertDialog.show();
 			dialog.setDialogResult(new OnResult() {
-				public void finish(String result) {
-					Log.d("result", result);
+				public void finish(String level, String equip, String muscle,
+						String modality) {
+
+					// populateList("SELECT id, name, description FROM exercises WHERE owned LIKE 'true';");
+
+					String sql = "SELECT id, name, description FROM exercises WHERE owned LIKE 'true'";
+
+					if (!level.equalsIgnoreCase("-1")) {
+						sql += " AND level LIKE " + level + " ";
+					}
+					if (!equip.contains("All ")) {
+						sql += " AND equipment LIKE '" + equip + "' ";
+					}
+					if (!muscle.equalsIgnoreCase("-1")) {
+						sql += " AND muscles LIKE " + muscle + " ";
+					}
+					if (!modality.equalsIgnoreCase("-1")) {
+						sql += " AND modality LIKE " + modality + " ";
+					}
+
+					sql += ";";
+					Log.d("sql", sql);
+					populateList(sql);
+
 				}
 			});
 			break;

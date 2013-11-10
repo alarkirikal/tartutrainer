@@ -45,7 +45,7 @@ public class ClientsListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.client_list_item, null);
+            vi = inflater.inflate(R.layout.listitem_client, null);
 
         TextView text = (TextView) vi.findViewById(R.id.clientName);
         text.setText(name.get(position));
