@@ -43,6 +43,13 @@ public class PurchaseExercisesActivity extends Activity implements
 		setOnClickListeners();
 
 	}
+	
+	 @Override
+	    public void onResume() {
+	        super.onResume();
+	        fillContent();
+	    }
+	
 
 	private void setOnClickListeners() {
 
@@ -65,9 +72,10 @@ public class PurchaseExercisesActivity extends Activity implements
 		db.openDataBase();
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT * FROM exercises WHERE owned like 'false' GROUP BY category;",
+				"SELECT category FROM exercises WHERE owned like 'false' GROUP BY category;",
 				null);
 
+		try{
 		myCursor.moveToFirst();
 		do {
 			collectionArray.add(myCursor.getString(0));
@@ -76,7 +84,10 @@ public class PurchaseExercisesActivity extends Activity implements
 
 		myCursor.close();
 		db.close();
-
+		}catch (Exception e){
+			Log.d("EXCEPTION", e.toString());
+		}
+		
 		// Add the list of collections to the layout
 				
 		list = (ListView) findViewById(R.id.listAllCollections);
