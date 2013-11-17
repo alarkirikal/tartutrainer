@@ -317,6 +317,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 		ImageView muscles = (ImageView) findViewById(R.id.editMuscleGroupsImg);
 		muscles.setOnClickListener(this);
+		
+		Button purchase = (Button) findViewById(R.id.purchaseExercises);
+		purchase.setOnClickListener(this);
 
 	}
 
@@ -588,7 +591,10 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			Dialog = builder6.create();
 			Dialog.show();
 			break;
-
+		case R.id.purchaseExercises:
+			Intent intent = new Intent(this, PurchaseExercisesActivity.class);
+			startActivity(intent);
+			break;
 		}
 
 	}

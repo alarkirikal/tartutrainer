@@ -50,6 +50,11 @@
             android:name="com.tartutrainer.activities.EditExerciseActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity 
+            android:name="com.tartutrainer.activities.PurchaseExercisesActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        
     </application>
 
 </manifest>

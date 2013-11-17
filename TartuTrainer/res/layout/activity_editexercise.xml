@@ -45,6 +45,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/editExerciseHeaderDivider"
+        android:layout_above="@+id/purchaseExercises"
         android:orientation="vertical" >
 
         <EditText
@@ -306,5 +307,10 @@
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout> <Button
+            android:id="@id/purchaseExercises"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Purchase exercises" />
 </RelativeLayout>
