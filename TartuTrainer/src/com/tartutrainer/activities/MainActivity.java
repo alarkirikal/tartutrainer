@@ -10,7 +10,6 @@ import com.tartutrainer.database.DBAdapter;
 import com.tartutrainer.fragments.AllExercisesFragment;
 import com.tartutrainer.fragments.AllProgramsFragment;
 import com.tartutrainer.helpers.SharedPreferencesDefaultValues;
-import com.tartutrainer.helpers.ZoomOutPageTransformer;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -61,7 +60,6 @@ public class MainActivity extends FragmentActivity {
 		List<Fragment> fragments = getFragments();
 		pageAdapter = new PageAdapter(getSupportFragmentManager(), fragments);
 		final ViewPager pager = (ViewPager) findViewById(R.id.viewpager_main);
-		pager.setPageTransformer(true, new ZoomOutPageTransformer());
 		pager.setAdapter(pageAdapter);
 
 		// Set up ActionBar

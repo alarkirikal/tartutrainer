@@ -631,12 +631,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
                         android:layout_weight=".35"
                         android:background="@drawable/btn_default_holo_light"
                         android:clickable="true"
                         android:gravity="center"
-                        android:text="Del" />
+                        android:maxLines="1"
+                        android:text="X" />
 
                     <TextView
                         android:id="@+id/exc_numpad_0"

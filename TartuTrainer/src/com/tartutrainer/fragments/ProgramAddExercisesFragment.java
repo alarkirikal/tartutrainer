@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tartutrainer.R;
 import com.tartutrainer.activities.EditExerciseActivity;
+import com.tartutrainer.adapters.AddExercisesListAdapter;
 import com.tartutrainer.adapters.AllExercisesListAdapter;
 import com.tartutrainer.adapters.AllProgramsListAdapter;
 import com.tartutrainer.database.DBAdapter;
@@ -30,11 +31,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class ExercisesToProgramFragment extends Fragment implements OnClickListener,
+public class ProgramAddExercisesFragment extends Fragment implements OnClickListener,
 		OnItemClickListener {
 
-	AllExercisesListAdapter adapter;
+	AddExercisesListAdapter adapter;
 	
+	ArrayList<String> idArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
 
@@ -45,21 +47,17 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 	
 	View view;
 	
-	private final static String LEVELS = "levels";
-	private final static String MODALITIES = "modalities";
-	private final static String MUSCLE_GROUPS = "muscle_groups";
-
 	
-	public static ExercisesToProgramFragment newInstance() {
+	public static ProgramAddExercisesFragment newInstance() {
 
-		final ExercisesToProgramFragment f = new ExercisesToProgramFragment();
+		final ProgramAddExercisesFragment f = new ProgramAddExercisesFragment();
 		final Bundle args = new Bundle();
 		args.putString("identifier", "allexercises");
 		f.setArguments(args);
 		return f;
 	}
 
-	public ExercisesToProgramFragment() {
+	public ProgramAddExercisesFragment() {
 	}
 
 	/**
@@ -99,6 +97,7 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 
 	public void populateList() {
 
+		idArray = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
 		
@@ -107,19 +106,20 @@ public class ExercisesToProgramFragment extends Fragment implements OnClickListe
 		db.openDataBase();
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT name, description FROM exercises WHERE owned LIKE 'true';", null);
+				"SELECT id, name, description FROM exercises WHERE owned LIKE 'true';", null);
 
 		myCursor.moveToFirst();
 		do {
-			nameArray.add(myCursor.getString(0));
-			descArray.add(myCursor.getString(1));
+			idArray.add(myCursor.getString(0));
+			nameArray.add(myCursor.getString(1));
+			descArray.add(myCursor.getString(2));
 			myCursor.moveToNext();
 		} while (!myCursor.isAfterLast());
 
 		myCursor.close();
 		db.close();
 
-		adapter = new AllExercisesListAdapter(getActivity(), nameArray, descArray);
+		adapter = new AddExercisesListAdapter(getActivity(), idArray, nameArray, descArray);
 		ListView list = (ListView) view.findViewById(R.id.listAllExercises);
 		list.setAdapter(adapter);
 	}

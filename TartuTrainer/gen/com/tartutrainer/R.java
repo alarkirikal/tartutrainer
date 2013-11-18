@@ -65,9 +65,9 @@ public final class R {
         public static final int ut_ad=0x7f020026;
     }
     public static final class id {
-        public static final int ExerciseIcon=0x7f090082;
-        public static final int action_add=0x7f09008b;
-        public static final int action_settings=0x7f09008c;
+        public static final int ExerciseIcon=0x7f090081;
+        public static final int action_add=0x7f09008d;
+        public static final int action_settings=0x7f09008e;
         public static final int actual_lbs_fifth=0x7f090049;
         public static final int actual_lbs_first=0x7f090039;
         public static final int actual_lbs_fourth=0x7f090045;
@@ -79,9 +79,10 @@ public final class R {
         public static final int actual_reps_second=0x7f09003c;
         public static final int actual_reps_third=0x7f090040;
         public static final int ad=0x7f09006e;
-        public static final int clientEmail=0x7f090080;
+        public static final int addHeaderBtn=0x7f09007e;
+        public static final int clientEmail=0x7f090087;
         public static final int clientEmailWrapper=0x7f090061;
-        public static final int clientName=0x7f09007f;
+        public static final int clientName=0x7f090086;
         public static final int clientNameWrapper=0x7f09005f;
         public static final int clientsHeader=0x7f090001;
         public static final int clientsHeaderDivider=0x7f090003;
@@ -122,6 +123,7 @@ public final class R {
         public static final int editLevelImg=0x7f090022;
         public static final int editModalityImg=0x7f090026;
         public static final int editMuscleGroupsImg=0x7f09002a;
+        public static final int exc_add_to_program=0x7f090085;
         public static final int exc_numpad_0=0x7f090055;
         public static final int exc_numpad_1=0x7f09004b;
         public static final int exc_numpad_2=0x7f09004c;
@@ -135,13 +137,13 @@ public final class R {
         public static final int exc_numpad_del=0x7f090054;
         public static final int exc_numpad_dot=0x7f090056;
         public static final int exerciseContentWrapper=0x7f090034;
-        public static final int exerciseDesc=0x7f090085;
-        public static final int exerciseDetails=0x7f090083;
+        public static final int exerciseDesc=0x7f090084;
+        public static final int exerciseDetails=0x7f090082;
         public static final int exerciseFirstImg=0x7f090030;
         public static final int exerciseHeader=0x7f09002d;
         public static final int exerciseHeaderWrapper=0x7f09002c;
         public static final int exerciseImgWrapper=0x7f09002f;
-        public static final int exerciseName=0x7f090084;
+        public static final int exerciseName=0x7f090083;
         public static final int exerciseNotes=0x7f090032;
         public static final int exerciseSecondImg=0x7f090031;
         public static final int filterAndAddExercises=0x7f09006f;
@@ -150,7 +152,7 @@ public final class R {
         public static final int goSaveChanges=0x7f09002e;
         public static final int imageOne=0x7f090012;
         public static final int imageTwo=0x7f090013;
-        public static final int layout2=0x7f090081;
+        public static final int layout2=0x7f090080;
         public static final int listAllClients=0x7f090006;
         public static final int listAllExercises=0x7f090075;
         public static final int listAllExercisesNoneFound=0x7f090074;
@@ -168,12 +170,12 @@ public final class R {
         public static final int pgr_notes=0x7f09006b;
         public static final int pgr_notes_save=0x7f09006c;
         public static final int programDataWrapper=0x7f09005c;
-        public static final int programDesc=0x7f090087;
-        public static final int programExercisesList=0x7f09007e;
+        public static final int programDesc=0x7f090089;
+        public static final int programExercisesList=0x7f09007f;
         public static final int programInfoClient=0x7f09007d;
         public static final int programInfoDate=0x7f09007c;
         public static final int programInfoWrapper=0x7f09007b;
-        public static final int programName=0x7f090086;
+        public static final int programName=0x7f090088;
         public static final int programNameWrapper=0x7f09005d;
         public static final int programNotesAdDivider=0x7f09006d;
         public static final int programNotesContentWrapper=0x7f090069;
@@ -198,9 +200,9 @@ public final class R {
         public static final int target_reps_fourth=0x7f090042;
         public static final int target_reps_second=0x7f09003a;
         public static final int target_reps_third=0x7f09003e;
-        public static final int templateCheckbox=0x7f09008a;
-        public static final int templateListItem=0x7f090088;
-        public static final int templateName=0x7f090089;
+        public static final int templateCheckbox=0x7f09008c;
+        public static final int templateListItem=0x7f09008a;
+        public static final int templateName=0x7f09008b;
         public static final int toClientsList=0x7f090079;
         public static final int toNewExercise=0x7f090072;
         public static final int viewpager_main=0x7f090057;
@@ -219,10 +221,11 @@ public final class R {
         public static final int fragment_allexercises=0x7f030008;
         public static final int fragment_allprograms=0x7f030009;
         public static final int fragment_programexercises=0x7f03000a;
-        public static final int listitem_client=0x7f03000b;
-        public static final int listitem_exercise=0x7f03000c;
-        public static final int listitem_program=0x7f03000d;
-        public static final int listitem_template=0x7f03000e;
+        public static final int listitem_addexercise=0x7f03000b;
+        public static final int listitem_client=0x7f03000c;
+        public static final int listitem_exercise=0x7f03000d;
+        public static final int listitem_program=0x7f03000e;
+        public static final int listitem_template=0x7f03000f;
     }
     public static final class menu {
         public static final int actionbar_programslist=0x7f080000;

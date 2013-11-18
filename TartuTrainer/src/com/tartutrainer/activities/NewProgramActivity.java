@@ -31,34 +31,36 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class NewProgramActivity extends Activity implements OnClickListener, OnItemClickListener{
-	
+public class NewProgramActivity extends Activity implements OnClickListener,
+		OnItemClickListener {
+
 	/*
-	 * Activity that asks the user to fill up the name of
-	 * the new program and also the client it'll be connected to
+	 * Activity that asks the user to fill up the name of the new program and
+	 * also the client it'll be connected to
 	 */
-	
+
 	ArrayList<String> templateArray;
 	ArrayList<Boolean> checkedArray;
 	ListView list;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_newprogram);
-		
+
 		// Fill the content with client data + available templates
 		fillContent();
 		setOnClickListeners();
 	}
-	
+
 	protected void fillContent() {
-		
+
 		// Initialize CheckBox arraylist
 		checkedArray = new ArrayList<Boolean>();
-		
+
 		// Pre-fill the input data
 		if (getIntent().getExtras().getBoolean("clientSelected")) {
 			TextView cName = (TextView) findViewById(R.id.newProgramClientName);
@@ -66,30 +68,32 @@ public class NewProgramActivity extends Activity implements OnClickListener, OnI
 			TextView cEmail = (TextView) findViewById(R.id.newProgramClientEmail);
 			cEmail.setText(getIntent().getExtras().getString("clientEmail"));
 		}
-		
+
 		// Get the list of available templates
 		// templateArray = getTemplatesSQL();
 		templateArray = new ArrayList<String>();
-		for (int i = 0; i < 20 ; i++) {
+		for (int i = 0; i < 20; i++) {
 			checkedArray.add(false);
 			templateArray.add("Template " + i);
 		}
-		
+
 		// Add the list of templates to the layout
 		list = (ListView) findViewById(R.id.listAllTemplates);
-		TemplatesListAdapter adapter = new TemplatesListAdapter(this, templateArray);
+		TemplatesListAdapter adapter = new TemplatesListAdapter(this,
+				templateArray);
 		list.setAdapter(adapter);
 		list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
-	
+
 	public void setInnerCheckBoxValues(View v) {
 		CheckBox cb = (CheckBox) v.findViewById(R.id.templateCheckbox);
 		if (!cb.isChecked()) {
-			for(int i=0; i < list.getChildCount(); i++){
+			for (int i = 0; i < list.getChildCount(); i++) {
 				if (checkedArray.get(i) == true) {
-					ViewGroup item = (ViewGroup)list.getChildAt(i);
-			    	CheckBox checkbox = (CheckBox)item.findViewById(R.id.templateCheckbox);
-			    	checkbox.setChecked(false);
+					ViewGroup item = (ViewGroup) list.getChildAt(i);
+					CheckBox checkbox = (CheckBox) item
+							.findViewById(R.id.templateCheckbox);
+					checkbox.setChecked(false);
 				}
 			}
 			cb.setChecked(true);
@@ -97,14 +101,15 @@ public class NewProgramActivity extends Activity implements OnClickListener, OnI
 			cb.setChecked(false);
 		}
 	}
-	
+
 	public void setCheckBoxValues(View v) {
 		CheckBox c = (CheckBox) v;
 		if (c.isChecked()) {
-			for(int i=0; i < list.getChildCount(); i++){
-			    ViewGroup item = (ViewGroup)list.getChildAt(i);
-			    CheckBox checkbox = (CheckBox)item.findViewById(R.id.templateCheckbox);
-			    checkbox.setChecked(false);
+			for (int i = 0; i < list.getChildCount(); i++) {
+				ViewGroup item = (ViewGroup) list.getChildAt(i);
+				CheckBox checkbox = (CheckBox) item
+						.findViewById(R.id.templateCheckbox);
+				checkbox.setChecked(false);
 			}
 			Log.d("checking trueks", "checking trueks");
 			c.setChecked(true);
@@ -112,21 +117,22 @@ public class NewProgramActivity extends Activity implements OnClickListener, OnI
 			Log.d("action", "do nothing");
 		}
 	}
-	
+
 	protected void setOnClickListeners() {
-		
+
 		/* Save the program */
 		ImageButton saveProgram = (ImageButton) findViewById(R.id.saveProgram);
 		saveProgram.setOnClickListener(this);
-		
+
 		/* Template list listener */
 		ListView lv = (ListView) findViewById(R.id.listAllTemplates);
 		lv.setOnItemClickListener(this);
-		
+
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parentView, View childView, int pos, long id) {
+	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
+			long id) {
 		Log.d("on", "item click listener");
 	}
 
@@ -138,15 +144,27 @@ public class NewProgramActivity extends Activity implements OnClickListener, OnI
 			EditText edClient = (EditText) findViewById(R.id.newProgramClientName);
 			EditText edClientEmail = (EditText) findViewById(R.id.newProgramClientEmail);
 
+			if (edName.getText().toString().length() < 4) {
+				Toast.makeText(this, "Program name too short", Toast.LENGTH_SHORT).show();				
+				break;
+			} else if (edClient.getText().toString().length() < 4) {
+				Toast.makeText(this, "Client name too short", Toast.LENGTH_SHORT).show();				
+				break;
+			} else if (edClientEmail.getText().toString().length() < 4) {
+				Toast.makeText(this, "Client e-mail too short", Toast.LENGTH_SHORT).show();				
+				break;
+			}
+
 			// User Info
 			Pattern emailPattern = Patterns.EMAIL_ADDRESS;
-			Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
+			Account[] accounts = AccountManager.get(getApplicationContext())
+					.getAccounts();
 			for (Account account : accounts) {
 				if (emailPattern.matcher(account.name).matches()) {
 					Log.d("mu email", account.name);
 				}
 			}
-			
+
 			DBAdapter db = null;
 			db = DBAdapter.getDBAdapterInstance(this);
 			db.openDataBase();
@@ -156,7 +174,8 @@ public class NewProgramActivity extends Activity implements OnClickListener, OnI
 			args.put("id", id);
 			args.put("name", edName.getText().toString());
 			Date date = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd",
+					Locale.US);
 			args.put("date", dateFormat.format(date));
 			args.put("author", "");
 			args.put("author_email", "");
@@ -166,12 +185,11 @@ public class NewProgramActivity extends Activity implements OnClickListener, OnI
 			args.put("items", "");
 			args.put("owned", "true");
 
-			long smth = db.getWritableDatabase().insert("programs", null,
-					args);
+			long smth = db.getWritableDatabase().insert("programs", null, args);
 			Log.d("long", Long.toString(smth));
 
 			db.close();
-			
+
 			finish();
 			Intent intent = new Intent(this, ProgramNotesActivity.class);
 			intent.putExtra("pgr_name", edName.getText().toString());

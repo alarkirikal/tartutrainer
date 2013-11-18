@@ -164,7 +164,7 @@ public class ExerciseActivity extends Activity implements OnLongClickListener,
 		excElements = new ArrayList<String>();
 
 		String[] exc_data = getIntent().getExtras().getString("exc_data")
-				.split(";");
+				.split(";", -1);
 		for (String e : exc_data) {
 			excElements.add(e);
 		}
