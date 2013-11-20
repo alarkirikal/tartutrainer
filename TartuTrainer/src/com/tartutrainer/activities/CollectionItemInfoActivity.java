@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,56 +56,46 @@ public class CollectionItemInfoActivity extends Activity  {
 		
 		myCursor.moveToFirst();
 		
-		Exercise exc = new Exercise();
-		exc.setId(myCursor.getString(0));
-		exc.setName(myCursor.getString(1));
-		exc.setDescription(myCursor.getString(2));
-		exc.setLevel(myCursor.getInt(3));
-		exc.setModality(myCursor.getInt(4));
-		exc.setMuscles(myCursor.getString(5));
-		exc.setEquipment(myCursor.getString(6));
-		exc.setLabel_1(myCursor.getString(7));
-		exc.setLabel_2(myCursor.getString(8));
-		exc.setOwned(myCursor.getString(9));
-		exc.setCategory(myCursor.getInt(10));	
-/*		
-		// Initialize objects
-		EditText excName = (EditText) findViewById(R.id.editExerciseName);
-		EditText excDesc = (EditText) findViewById(R.id.editExerciseDescription);
-		EditText excLabelOne = (EditText) findViewById(R.id.editExerciseLabelOne);
-		EditText excLabelTwo = (EditText) findViewById(R.id.editExerciseLabelTwo);
-		EditText excEquip = (EditText) findViewById(R.id.editExerciseEquipment);
-		TextView excLevel = (TextView) findViewById(R.id.editExerciseLevel);
-		TextView excModality = (TextView) findViewById(R.id.editExerciseModality);
-		TextView excMuscleGroups = (TextView) findViewById(R.id.editExerciseMuscleGroups);
+		final String LEVELS = "levels";
+		SharedPreferences levelsPrefs = this.getSharedPreferences(LEVELS,
+				Context.MODE_PRIVATE);	
+		final String MODALITIES = "modalities";
+		SharedPreferences modsPrefs = getSharedPreferences(MODALITIES,
+				Context.MODE_PRIVATE);
+		final String MUSCLE_GROUPS = "muscle_groups";
+		SharedPreferences musclePrefs = getSharedPreferences(MUSCLE_GROUPS,
+				Context.MODE_PRIVATE);
 
-		// Show the values on the layout
-		excName.setText(exc.getName());
-		excDesc.setText(exc.getDescription());
-		excLabelOne.setText(labelsPrefs.getString(exc.getLabel_1(), ""));
-		excLabelTwo.setText(labelsPrefs.getString(exc.getLabel_2(), ""));
-		excEquip.setText(exc.getEquipment());
-		excLevel.setText(levelsPrefs.getString(
-				Integer.toString(exc.getLevel()), ""));
-		excModality.setText(modsPrefs.getString(
-				Integer.toString(exc.getModality()), ""));
-		String[] musclesIndexes = exc.getMuscles().split(";");
+		
+		// Initialize objects
+		TextView itemName = (TextView) findViewById(R.id.collectionItemInfoName);
+		TextView itemLevel = (TextView) findViewById(R.id.ItemInfoLevelText);
+		TextView itemModality = (TextView) findViewById(R.id.ItemInfoModalityText);
+		TextView itemMuscles = (TextView) findViewById(R.id.ItemInfoMusclesText);
+		TextView itemEquipment = (TextView) findViewById(R.id.ItemInfoEquipmentText);
+		TextView itemInstructions = (TextView) findViewById(R.id.ItemInfoInstructionsText);
+
+		
+		itemName.setText(myCursor.getString(1));
+		itemLevel.setText(levelsPrefs.getString(
+				Integer.toString(myCursor.getInt(3)), ""));
+		itemModality.setText(modsPrefs.getString(
+				Integer.toString(myCursor.getInt(4)), ""));
+		String[] musclesIndexes = myCursor.getString(5).split(";");
 		StringBuilder sb = new StringBuilder();
 		for (String index : musclesIndexes) {
 			sb.append(musclePrefs.getString(index, ""));
-			sb.append(";");
+			sb.append("; ");
 		}
 		String muscles = sb.toString().substring(0, sb.toString().length() - 1);
-		excMuscleGroups.setText(muscles.replaceAll(";", "\r\n"));
-*/
+		itemMuscles.setText(muscles);
+		itemEquipment.setText(myCursor.getString(6));
+		itemInstructions.setText(myCursor.getString(2));
 		
 		
 		
 		myCursor.close();
 		db.close();
 		
-		
-		TextView title = (TextView) findViewById(R.id.collectionItemInfoName);
-		title.setText("");
 	}
 }
