@@ -134,8 +134,6 @@ public class PurchaseExercisesActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.purchase:
 
-			Toast.makeText(PurchaseExercisesActivity.this, "Clicked", Toast.LENGTH_LONG).show();
-
 			DBAdapter db = null;
 			db = DBAdapter.getDBAdapterInstance(this);
 			db.openDataBase();

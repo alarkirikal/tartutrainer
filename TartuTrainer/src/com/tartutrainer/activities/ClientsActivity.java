@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -71,12 +72,15 @@ public class ClientsActivity extends Activity implements OnClickListener,
 				null);
 
 		myCursor.moveToFirst();
+		try{
 		do {
 			nameArray.add(myCursor.getString(0));
 			emailArray.add(myCursor.getString(1));
 			myCursor.moveToNext();
 		} while(!myCursor.isAfterLast());
-
+		}catch (Exception e){
+			Log.d("EXCEPTION", e.toString());
+		}
 		myCursor.close();
 		db.close();
 

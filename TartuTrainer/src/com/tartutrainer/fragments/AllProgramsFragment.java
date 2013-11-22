@@ -8,7 +8,11 @@ import com.tartutrainer.activities.ProgramNotesActivity;
 import com.tartutrainer.adapters.AllProgramsListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -21,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -32,12 +37,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AllProgramsFragment extends Fragment implements OnClickListener,
-		OnCheckedChangeListener, OnItemClickListener {
+		OnCheckedChangeListener, OnItemClickListener, OnItemLongClickListener {
 
 	AllProgramsListAdapter adapter;
 	ArrayList<String> idArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> clientArray;
+	private AlertDialog Dialog;
 
 	View view;
 
@@ -49,7 +55,6 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		f.setArguments(args);
 		return f;
 	}
-
 
 	/**
 	 * Run when fragment itself is created
@@ -73,7 +78,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		setOnClickListeners(view);
 		return view;
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -94,6 +99,8 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		/* Programs list listener */
 		ListView lv = (ListView) v.findViewById(R.id.listAllPrograms);
 		lv.setOnItemClickListener(this);
+		lv.setLongClickable(true);
+		lv.setOnItemLongClickListener(this);
 
 	}
 
@@ -116,15 +123,17 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		}
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
-
-		myCursor.moveToFirst();
-		do {
-			idArray.add(myCursor.getString(0));
-			nameArray.add(myCursor.getString(1));
-			clientArray.add(myCursor.getString(2));
-			myCursor.moveToNext();
-		} while (!myCursor.isAfterLast());
-
+		try {
+			myCursor.moveToFirst();
+			do {
+				idArray.add(myCursor.getString(0));
+				nameArray.add(myCursor.getString(1));
+				clientArray.add(myCursor.getString(2));
+				myCursor.moveToNext();
+			} while (!myCursor.isAfterLast());
+		} catch (Exception e) {
+			Log.d("EXCEPTION", e.toString());
+		}
 		myCursor.close();
 		db.close();
 
@@ -172,4 +181,44 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 				Toast.LENGTH_SHORT).show();
 
 	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parentView, View childView,
+			final int pos, long id) {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+		builder.setTitle(nameArray.get(pos));
+		String[] optionList = { "Delete" };
+		builder.setItems(optionList, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				DBAdapter db = null;
+				db = DBAdapter.getDBAdapterInstance(getActivity());
+				db.openDataBase();
+
+				db.getWritableDatabase().delete("programs", "id=?",
+						new String[] { idArray.get(pos).toString() });
+
+				db.close();
+
+				populateList("date");
+
+			}
+		});
+		builder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		Dialog = builder.create();
+		Dialog.show();
+
+		return true;
+	}
+
 }
