@@ -6,6 +6,7 @@ import com.tartutrainer.R;
 import com.tartutrainer.activities.ClientsActivity;
 import com.tartutrainer.activities.ExerciseActivity;
 import com.tartutrainer.activities.ProgramNotesActivity;
+import com.tartutrainer.activities.SaveTemplateActivity;
 import com.tartutrainer.adapters.AllExercisesListAdapter;
 import com.tartutrainer.adapters.AllProgramsListAdapter;
 import com.tartutrainer.adapters.SelectedProgramExercisesListAdapter;
@@ -136,6 +137,8 @@ public class ProgramExercisesFragment extends Fragment implements
 		TextView tv = (TextView) view.findViewById(R.id.addHeaderBtn);
 		tv.setOnClickListener(this);
 
+		TextView save = (TextView) view.findViewById(R.id.saveHeaderBtn);
+		save.setOnClickListener(this);
 	}
 
 	public void populateList() {
@@ -283,7 +286,13 @@ String header;
 			alert.show();
 			
 			break;
-
+		case R.id.saveHeaderBtn:
+			Intent intent = new Intent(getActivity(), SaveTemplateActivity.class);
+			intent.putExtra("Program", getActivity().getIntent().getExtras()
+					.getString("pgr_id"));
+			startActivity(intent);
+			break;
+			
 		default:
 			break;
 		}

@@ -32,12 +32,23 @@
 		    android:id="@+id/addHeaderBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_alignParentRight="true"
+		    android:layout_toLeftOf="@+id/saveHeaderBtn"
 		    android:layout_centerVertical="true"
 		    android:layout_marginRight="10dp"
 		    android:clickable="true"
 		    android:background="@drawable/btn_default_holo_light"
 		    android:text="Add Headers" />
+		<TextView
+		    android:id="@id/saveHeaderBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_centerVertical="true"
+		    android:layout_marginRight="10dp"
+		    android:clickable="true"
+		    android:background="@drawable/btn_default_holo_light"
+		    android:text="Save" />
+		
 		
     </RelativeLayout>
 

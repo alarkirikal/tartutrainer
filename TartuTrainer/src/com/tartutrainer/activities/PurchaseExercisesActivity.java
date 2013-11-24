@@ -83,7 +83,7 @@ public class PurchaseExercisesActivity extends Activity implements
 		db.openDataBase();
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT category, owned FROM exercises GROUP BY category;",
+				"SELECT category, owned FROM exercises WHERE category>0 GROUP BY category;",
 				null);
 
 		try {
@@ -117,7 +117,7 @@ public class PurchaseExercisesActivity extends Activity implements
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos, long id) {
 
-		if (ownedArray.get(pos).equals("false")){
+		if (ownedArray.get(pos).equals("False")){
 			adapter.toggleChecked(pos);
 		}
 		List l = adapter.getCheckedItems();
@@ -160,7 +160,7 @@ public class PurchaseExercisesActivity extends Activity implements
 
 		public PurchaseArrayAdapter(Context context, int resource, int textViewResourceId, List<String> objects) {
 			super(context, resource, textViewResourceId, objects);
-
+			
 			for (int i = 0; i < objects.size(); i++) {
 				Checked.put(i, false);
 			}
@@ -213,8 +213,7 @@ public class PurchaseExercisesActivity extends Activity implements
 			final int pos = position;
 			CheckedTextView checkedTextView = (CheckedTextView) row.findViewById(R.id.listitem_purchase_Name);
 			checkedTextView.setText("Collection " + collectionArray.get(position));
-			
-			if (ownedArray.get(position).equals("true")){
+			if (ownedArray.get(position).equals("True")){
 				TextView price = (TextView) row.findViewById(R.id.listitem_purchase_Price);
 				price.setText("Owned");
 			}
@@ -224,7 +223,6 @@ public class PurchaseExercisesActivity extends Activity implements
 			
 				@Override
 				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
 					Intent intent = new Intent( getContext(), CollectionItemActivity.class);
 					intent.putExtra("category", collectionArray.get(pos));
 					startActivity(intent);					

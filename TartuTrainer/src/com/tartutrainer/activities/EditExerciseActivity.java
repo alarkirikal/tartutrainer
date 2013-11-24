@@ -262,7 +262,8 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		// Show the values on the layout
 		excName.setText(exc.getName());
 		excDesc.setText(exc.getDescription());
-		String[] labels = exc.getLabels().split(" ", -1);
+		Log.d("LABELS", exc.getLabels());
+		String[] labels = exc.getLabels().split(" ");
 		excLabelOne.setText(labels[0]);
 		excLabelTwo.setText(labels[1]);
 		excEquip.setText(exc.getEquipment());

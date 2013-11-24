@@ -123,12 +123,10 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		}
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
-<<<<<<< HEAD
 
 		if (myCursor.getCount() != 0) {
-=======
+
 		try {
->>>>>>> 1315fe7b05917f793125a8141ebd0e01b3389e77
 			myCursor.moveToFirst();
 			do {
 				idArray.add(myCursor.getString(0));
@@ -136,15 +134,13 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 				clientArray.add(myCursor.getString(2));
 				myCursor.moveToNext();
 			} while (!myCursor.isAfterLast());
-<<<<<<< HEAD
-=======
 		} catch (Exception e) {
 			Log.d("EXCEPTION", e.toString());
->>>>>>> 1315fe7b05917f793125a8141ebd0e01b3389e77
+		}
 		}
 		myCursor.close();
 		db.close();
-
+		
 		// SQL to get all programs
 		adapter = new AllProgramsListAdapter(getActivity(), nameArray,
 				clientArray);

@@ -17,6 +17,7 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -72,10 +73,35 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 		// Get the list of available templates
 		// templateArray = getTemplatesSQL();
 		templateArray = new ArrayList<String>();
-		for (int i = 0; i < 20; i++) {
-			checkedArray.add(false);
-			templateArray.add("Template " + i);
+
+		DBAdapter db = null;
+		db = DBAdapter.getDBAdapterInstance(getApplicationContext());
+		db.openDataBase();
+
+		Cursor myCursor = db.getReadableDatabase().rawQuery(
+				"SELECT title, subtitle FROM templates ;", null);
+		
+		try{
+		myCursor.moveToFirst();
+		do {
+			// Toast.makeText(getActivity(), myCursor.getString(1),
+			// Toast.LENGTH_SHORT).show();
+				checkedArray.add(false);
+				templateArray.add(myCursor.getString(0));
+			
+
+			
+			myCursor.moveToNext();
+		} while (!myCursor.isLast());
+		}catch(Exception e){
+			e.printStackTrace();
 		}
+		
+		
+		myCursor.close();
+		db.close();
+
+		
 
 		// Add the list of templates to the layout
 		list = (ListView) findViewById(R.id.listAllTemplates);
