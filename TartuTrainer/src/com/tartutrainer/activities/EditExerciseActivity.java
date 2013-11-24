@@ -411,6 +411,14 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							+ labels[1].replaceAll(" ", ""));
 				}
 			});
+			builder2.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					dialog.cancel();
+				}
+			});
 			Dialog = builder2.create();
 			Dialog.show();
 			break;
@@ -433,7 +441,14 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							exc.setEquipment(equipment_list[which]);
 						}
 					});
-			builder3.setCancelable(false);
+			builder3.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					dialog.cancel();
+				}
+			});
 			Dialog = builder3.create();
 			Dialog.show();
 			break;
@@ -459,7 +474,14 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							exc.setLevel(which);
 						}
 					});
-			builder4.setCancelable(false);
+			builder4.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					dialog.cancel();
+				}
+			});
 			Dialog = builder4.create();
 			Dialog.show();
 			break;
@@ -498,7 +520,14 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							exc.setModality(which);
 						}
 					});
-			builder5.setCancelable(false);
+			builder5.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					dialog.cancel();
+				}
+			});
 			Dialog = builder5.create();
 			Dialog.show();
 			break;

@@ -28,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,12 +42,13 @@ public class PurchaseExercisesActivity extends Activity implements
 	ArrayList<String> collectionArray;
 	ArrayList<String> ownedArray;
 	PurchaseArrayAdapter adapter;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.purchase_exercises);
+		setContentView(R.layout.activity_purchase_exercises);
 
 		fillContent();
 		setOnClickListeners();
@@ -132,8 +134,6 @@ public class PurchaseExercisesActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.purchase:
 
-			Toast.makeText(PurchaseExercisesActivity.this, "Clicked", Toast.LENGTH_LONG).show();
-
 			DBAdapter db = null;
 			db = DBAdapter.getDBAdapterInstance(this);
 			db.openDataBase();
@@ -202,7 +202,7 @@ public class PurchaseExercisesActivity extends Activity implements
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView,  final ViewGroup parent) {
 			View row = convertView;
 
 			if (row == null) {
@@ -210,18 +210,34 @@ public class PurchaseExercisesActivity extends Activity implements
 				row = inflater.inflate(R.layout.listitem_purchase, parent,
 						false);
 			}
-
+			final int pos = position;
 			CheckedTextView checkedTextView = (CheckedTextView) row.findViewById(R.id.listitem_purchase_Name);
 			checkedTextView.setText("Collection " + collectionArray.get(position));
+			
 			if (ownedArray.get(position).equals("true")){
 				TextView price = (TextView) row.findViewById(R.id.listitem_purchase_Price);
 				price.setText("Owned");
 			}
 			
+			ImageView imageview = (ImageView) row.findViewById(R.id.listitem_purchase_image);
+			imageview.setOnClickListener(new OnClickListener(){
+			
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Intent intent = new Intent( getContext(), CollectionItemActivity.class);
+					intent.putExtra("category", collectionArray.get(pos));
+					startActivity(intent);					
+				}
+				
+			});
+			
 			Boolean checked = Checked.get(position);
 			if (checked != null) {
 				checkedTextView.setChecked(checked);
 			}
+			
+			
 
 			return row;
 		}

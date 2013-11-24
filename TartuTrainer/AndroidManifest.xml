@@ -54,7 +54,14 @@
             android:name="com.tartutrainer.activities.PurchaseExercisesActivity"
             android:screenOrientation="portrait">
         </activity>
-        
+	    <activity
+            android:name="com.tartutrainer.activities.CollectionItemActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        	    <activity
+            android:name="com.tartutrainer.activities.CollectionItemInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>        
     </application>
 
 </manifest>
