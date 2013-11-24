@@ -50,7 +50,6 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		return f;
 	}
 
-
 	/**
 	 * Run when fragment itself is created
 	 */
@@ -73,7 +72,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 		setOnClickListeners(view);
 		return view;
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -117,14 +116,15 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
 
-		myCursor.moveToFirst();
-		do {
-			idArray.add(myCursor.getString(0));
-			nameArray.add(myCursor.getString(1));
-			clientArray.add(myCursor.getString(2));
-			myCursor.moveToNext();
-		} while (!myCursor.isAfterLast());
-
+		if (myCursor.getCount() != 0) {
+			myCursor.moveToFirst();
+			do {
+				idArray.add(myCursor.getString(0));
+				nameArray.add(myCursor.getString(1));
+				clientArray.add(myCursor.getString(2));
+				myCursor.moveToNext();
+			} while (!myCursor.isAfterLast());
+		}
 		myCursor.close();
 		db.close();
 

@@ -9,8 +9,7 @@ public class Exercise {
 	public int modality;
 	public String muscles;
 	public String equipment;
-	public String label_1;
-	public String label_2;
+	public String labels;
 	public String owned;
 	public int category;
 	
@@ -56,17 +55,11 @@ public class Exercise {
 	public void setEquipment(String equipment) {
 		this.equipment = equipment;
 	}
-	public String getLabel_1() {
-		return label_1;
+	public String getLabels() {
+		return labels;
 	}
-	public void setLabel_1(String label_1) {
-		this.label_1 = label_1;
-	}
-	public String getLabel_2() {
-		return label_2;
-	}
-	public void setLabel_2(String label_2) {
-		this.label_2 = label_2;
+	public void setLabels(String labels) {
+		this.labels = labels;
 	}
 	public String getOwned() {
 		return owned;

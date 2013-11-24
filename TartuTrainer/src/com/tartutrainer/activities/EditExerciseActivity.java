@@ -46,9 +46,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 	ArrayList<String> musclesArray;
 	private AlertDialog Dialog;
 	boolean[] checkedMuscles;
-	
+
 	Exercise exc;
-	
+
 	private final static String LEVELS = "levels";
 	private final static String MODALITIES = "modalities";
 	private final static String MUSCLE_GROUPS = "muscle_groups";
@@ -83,8 +83,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			exc.setModality(0);
 			exc.setMuscles("");
 			exc.setEquipment("");
-			exc.setLabel_1("");
-			exc.setLabel_2("");
+			exc.setLabels("");
 			exc.setOwned("true");
 			exc.setCategory(0);
 		}
@@ -198,19 +197,11 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		db.openDataBase();
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT DISTINCT label_1, label_2 FROM exercises;", null);
+				"SELECT DISTINCT labels FROM exercises;", null);
 
 		myCursor.moveToFirst();
 		do {
-			if (myCursor.getString(0).length() == 1
-					&& myCursor.getString(1).length() == 1) {
-				labelPairs.add(labelsPrefs.getString(myCursor.getString(0), "")
-						+ " and "
-						+ labelsPrefs.getString(myCursor.getString(1), ""));
-			} else {
-				labelPairs.add(myCursor.getString(0) + " + "
-						+ myCursor.getString(1));
-			}
+			labelPairs.add(labelsPrefs.getString(myCursor.getString(0), ""));
 			myCursor.moveToNext();
 		} while (!myCursor.isAfterLast());
 
@@ -237,10 +228,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		exc.setModality(myCursor.getInt(4));
 		exc.setMuscles(myCursor.getString(5));
 		exc.setEquipment(myCursor.getString(6));
-		exc.setLabel_1(myCursor.getString(7));
-		exc.setLabel_2(myCursor.getString(8));
-		exc.setOwned(myCursor.getString(9));
-		exc.setCategory(myCursor.getInt(10));
+		exc.setLabels(myCursor.getString(7));
+		exc.setOwned(myCursor.getString(8));
+		exc.setCategory(myCursor.getInt(9));
 
 		myCursor.moveToNext();
 
@@ -272,21 +262,31 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		// Show the values on the layout
 		excName.setText(exc.getName());
 		excDesc.setText(exc.getDescription());
-		excLabelOne.setText(labelsPrefs.getString(exc.getLabel_1(), ""));
-		excLabelTwo.setText(labelsPrefs.getString(exc.getLabel_2(), ""));
+		String[] labels = exc.getLabels().split(" ", -1);
+		excLabelOne.setText(labels[0]);
+		excLabelTwo.setText(labels[1]);
 		excEquip.setText(exc.getEquipment());
 		excLevel.setText(levelsPrefs.getString(
 				Integer.toString(exc.getLevel()), ""));
 		excModality.setText(modsPrefs.getString(
 				Integer.toString(exc.getModality()), ""));
-		String[] musclesIndexes = exc.getMuscles().split(";");
+
+		String musclesIndexes = exc.getMuscles();
+		Log.d("exc muscles", exc.getMuscles());
 		StringBuilder sb = new StringBuilder();
-		for (String index : musclesIndexes) {
-			sb.append(musclePrefs.getString(index, ""));
-			sb.append(";");
+		for (int i = 0; i < musclesIndexes.length(); i++) {
+			if (musclesIndexes.charAt(i) == 1) {
+				sb.append(musclePrefs.getString(Integer.toString(i), ""));
+				sb.append(";");
+			}
 		}
-		String muscles = sb.toString().substring(0, sb.toString().length() - 1);
-		excMuscleGroups.setText(muscles.replaceAll(";", "\r\n"));
+		if (sb.toString().length() != 0) {
+			String muscles = sb.toString().substring(0,
+					sb.toString().length() - 1);
+			excMuscleGroups.setText(muscles.replaceAll(";", "\r\n"));
+		} else {
+			excMuscleGroups.setText("None");
+		}
 	}
 
 	private void setOnClickListeners() {
@@ -317,7 +317,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 		ImageView muscles = (ImageView) findViewById(R.id.editMuscleGroupsImg);
 		muscles.setOnClickListener(this);
-		
+
 		Button purchase = (Button) findViewById(R.id.purchaseExercises);
 		purchase.setOnClickListener(this);
 
@@ -350,8 +350,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			args.put("modality", exc.getModality());
 			args.put("muscles", exc.getMuscles());
 			args.put("equipment", exc.getEquipment());
-			args.put("label_1", exc.getLabel_1());
-			args.put("label_2", exc.getLabel_2());
+			args.put("labels", exc.getLabels());
 			args.put("owned", "true");
 			args.put("category", exc.getCategory());
 
@@ -404,12 +403,12 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			builder2.setItems(labelList, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					String[] labels = labelArray.get(which).split("and");
+					String[] labels = labelArray.get(which).split(" ");
 					labelOne.setText(labels[0].replaceAll(" ", ""));
 					labelTwo.setText(labels[1].replaceAll(" ", ""));
 
-					exc.setLabel_1(labels[0].replaceAll(" ", ""));
-					exc.setLabel_2(labels[1].replaceAll(" ", ""));
+					exc.setLabels(labels[0].replaceAll(" ", "") + " "
+							+ labels[1].replaceAll(" ", ""));
 				}
 			});
 			Dialog = builder2.create();
@@ -534,7 +533,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 								selectedItems.remove(Integer.valueOf(which));
 								checkedMuscles[which] = false;
 							}
-							
+
 						}
 					})
 					.setPositiveButton("Ok",
@@ -560,7 +559,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 											}
 											counter += 1;
 										}
-										
+
 										Log.d("muscles", sb.toString());
 
 										musclesToSet = musclesToSet.substring(
