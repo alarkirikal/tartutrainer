@@ -61,6 +61,14 @@
         	    <activity
             android:name="com.tartutrainer.activities.CollectionItemInfoActivity"
             android:screenOrientation="portrait" >
+        </activity>
+            <activity
+            android:name="com.tartutrainer.activities.SaveTemplateActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.tartutrainer.activities.TemplateItemActivity"
+            android:screenOrientation="portrait" >
         </activity>        
     </application>
 
