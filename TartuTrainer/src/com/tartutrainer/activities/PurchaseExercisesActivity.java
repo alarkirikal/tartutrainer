@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.tartutrainer.R;
 import com.tartutrainer.adapters.ClientsListAdapter;
+import com.tartutrainer.adapters.PurchaseListAdapter;
+
 import com.tartutrainer.database.DBAdapter;
 
 import android.app.Activity;
@@ -41,7 +43,7 @@ public class PurchaseExercisesActivity extends Activity implements
 
 	ArrayList<String> collectionArray;
 	ArrayList<String> ownedArray;
-	PurchaseArrayAdapter adapter;
+	PurchaseListAdapter adapter;
 	
 
 	@Override
@@ -102,7 +104,7 @@ public class PurchaseExercisesActivity extends Activity implements
 		
 		// Add the list of collections to the layout
 		list = (ListView) findViewById(R.id.listAllCollections);
-		adapter = new PurchaseArrayAdapter(this, R.layout.listitem_purchase,R.id.listitem_purchase_Name, collectionArray);
+		adapter = new PurchaseListAdapter(this, R.layout.listitem_purchase, collectionArray, ownedArray);
 		list.setAdapter(adapter);
 		
 	}
@@ -154,92 +156,11 @@ public class PurchaseExercisesActivity extends Activity implements
 	}
 
 
-	private class PurchaseArrayAdapter extends ArrayAdapter<String> {
 
-		private HashMap<Integer, Boolean> Checked = new HashMap<Integer, Boolean>();
-
-		public PurchaseArrayAdapter(Context context, int resource, int textViewResourceId, List<String> objects) {
-			super(context, resource, textViewResourceId, objects);
-			
-			for (int i = 0; i < objects.size(); i++) {
-				Checked.put(i, false);
-			}
-		}
-
-		public void toggleChecked(int position) {
-			if (Checked.get(position)) {
-				Checked.put(position, false);
-			} else {
-				Checked.put(position, true);
-			}
-
-			notifyDataSetChanged();
-		}
-
-		public List<Integer> getCheckedItemPositions() {
-			List<Integer> checkedItemPositions = new ArrayList<Integer>();
-
-			for (int i = 0; i < Checked.size(); i++) {
-				if (Checked.get(i)) {
-					(checkedItemPositions).add(i);
-				}
-			}
-
-			return checkedItemPositions;
-		}
-
-		public List<String> getCheckedItems() {
-			List<String> checkedItems = new ArrayList<String>();
-
-			for (int i = 0; i < Checked.size(); i++) {
-				if (Checked.get(i)) {
-					
-					(checkedItems).add(collectionArray.get(i));
-				}
-			}
-
-			return checkedItems;
-		}
-
-		@Override
-		public View getView(int position, View convertView,  final ViewGroup parent) {
-			View row = convertView;
-
-			if (row == null) {
-				LayoutInflater inflater = getLayoutInflater();
-				row = inflater.inflate(R.layout.listitem_purchase, parent,
-						false);
-			}
-			final int pos = position;
-			CheckedTextView checkedTextView = (CheckedTextView) row.findViewById(R.id.listitem_purchase_Name);
-			checkedTextView.setText("Collection " + collectionArray.get(position));
-			if (ownedArray.get(position).equals("True")){
-				TextView price = (TextView) row.findViewById(R.id.listitem_purchase_Price);
-				price.setText("Owned");
-			}
-			
-			ImageView imageview = (ImageView) row.findViewById(R.id.listitem_purchase_image);
-			imageview.setOnClickListener(new OnClickListener(){
-			
-				@Override
-				public void onClick(View arg0) {
-					Intent intent = new Intent( getContext(), CollectionItemActivity.class);
-					intent.putExtra("category", collectionArray.get(pos));
-					startActivity(intent);					
-				}
-				
-			});
-			
-			Boolean checked = Checked.get(position);
-			if (checked != null) {
-				checkedTextView.setChecked(checked);
-			}
-			
-			
-
-			return row;
-		}
-
-	}
 
 }
+
+
+
+
+

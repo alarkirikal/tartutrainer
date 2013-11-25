@@ -154,18 +154,18 @@ public class ProgramExercisesFragment extends Fragment implements
 
 		// Temporary fix
 		if (excArray.get(0).length() != 0) {
-			
+
 			for (String excDetails : excArray) {
 				String[] exerciseList = excDetails.split(";", -1);
 				ids.add(exerciseList[0]);
 				notes.add(exerciseList[1]);
 			}
-			
+
 			int counter = 0;
 
 			Log.d("ids", ids.toString());
 			Log.d("ids len", String.valueOf(ids.size()));
-			
+
 			for (String id : ids) {
 				if (id.length() > 0) {
 					String sql = "SELECT name, muscles FROM exercises WHERE id LIKE '"
@@ -188,8 +188,8 @@ public class ProgramExercisesFragment extends Fragment implements
 
 		db.close();
 
-		adapter = new SelectedProgramExercisesListAdapter(getActivity(),
-				ids, nameArray, musclesArray);
+		adapter = new SelectedProgramExercisesListAdapter(getActivity(), ids,
+				nameArray, musclesArray);
 
 		ListView list = (ListView) view.findViewById(R.id.programExercisesList);
 		list.setAdapter(adapter);
@@ -223,22 +223,27 @@ public class ProgramExercisesFragment extends Fragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.addHeaderBtn:
-			
+
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			builder.setMessage("Which kind of header should be added?")
-			   .setCancelable(false)
-			   .setPositiveButton("Tri-Set", new DialogInterface.OnClickListener() {
-			       public void onClick(DialogInterface dialog, int id) {
-String header;
-			    	   
-			    	   if (currentPgrItems.length() > 5) {
+			builder.setTitle("Which kind of header should be added?");
+			String[] optionList = { "Tri-Set", "Super-Set" };
+
+			builder.setItems(optionList, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+					if (which == 0) {
+						String header;
+
+						if (currentPgrItems.length() > 5) {
 							header = ":;Tri-Set;;;;;;;;;;;;;;;;;;;";
 						} else {
 							header = ";Tri-Set;;;;;;;;;;;;;;;;;;;";
 						}
-						
+
 						DBAdapter db_write = null;
-						db_write = DBAdapter.getDBAdapterInstance(getActivity());
+						db_write = DBAdapter
+								.getDBAdapterInstance(getActivity());
 						db_write.openDataBase();
 
 						ContentValues args = new ContentValues();
@@ -248,25 +253,24 @@ String header;
 								args,
 								"id LIKE '"
 										+ getActivity().getIntent().getExtras()
-												.getString("pgr_id") + "'", null);
+												.getString("pgr_id") + "'",
+								null);
 
 						db_write.close();
 						onResume();
-			       }
-			   })
-			   .setNegativeButton("Super-Set", new DialogInterface.OnClickListener() {
-			       public void onClick(DialogInterface dialog, int id) {
-			    	   
-			    	   String header;
-			    	   
-			    	   if (currentPgrItems.length() > 5) {
+
+					} else {
+						String header;
+
+						if (currentPgrItems.length() > 5) {
 							header = ":;Super-Set;;;;;;;;;;;;;;;;;;;";
 						} else {
 							header = ";Super-Set;;;;;;;;;;;;;;;;;;;";
 						}
-						
+
 						DBAdapter db_write = null;
-						db_write = DBAdapter.getDBAdapterInstance(getActivity());
+						db_write = DBAdapter
+								.getDBAdapterInstance(getActivity());
 						db_write.openDataBase();
 
 						ContentValues args = new ContentValues();
@@ -276,23 +280,35 @@ String header;
 								args,
 								"id LIKE '"
 										+ getActivity().getIntent().getExtras()
-												.getString("pgr_id") + "'", null);
+												.getString("pgr_id") + "'",
+								null);
 
 						db_write.close();
 						onResume();
-			       }
-			   });
+
+					}
+
+				}
+			});
+
+			builder.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.cancel();
+						}
+					});
 			AlertDialog alert = builder.create();
 			alert.show();
-			
+
 			break;
 		case R.id.saveHeaderBtn:
-			Intent intent = new Intent(getActivity(), SaveTemplateActivity.class);
+			Intent intent = new Intent(getActivity(),
+					SaveTemplateActivity.class);
 			intent.putExtra("Program", getActivity().getIntent().getExtras()
 					.getString("pgr_id"));
 			startActivity(intent);
 			break;
-			
+
 		default:
 			break;
 		}

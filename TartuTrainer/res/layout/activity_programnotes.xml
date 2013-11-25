@@ -83,7 +83,6 @@
             android:layout_weight=".35"
             android:adjustViewBounds="true"
             android:contentDescription="ad"
-            android:onClick="adClicked"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:src="@drawable/ut_ad" />

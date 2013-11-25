@@ -68,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:typeface="sans"
+                android:hint="Program Name"
                 android:gravity="center" />
         </LinearLayout>
 
@@ -92,7 +93,7 @@
                 android:inputType="text"
                 android:typeface="sans"
                 android:gravity="center"
-                android:text="client name" />
+                android:hint="Client Name" />
         </LinearLayout>
 
         <LinearLayout
@@ -116,7 +117,7 @@
                 android:inputType="textEmailAddress"
                 android:gravity="center"
                 android:typeface="sans"
-                android:text="client email" />
+                android:hint="Client Email" />
         </LinearLayout>
     </LinearLayout>
 

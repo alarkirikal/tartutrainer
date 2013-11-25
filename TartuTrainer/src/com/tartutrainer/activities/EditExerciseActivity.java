@@ -542,7 +542,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			checkedMuscles = new boolean[musclesArray.size()];
 			String[] selectedMuscles = exc.getMuscles().split(";");
 			for (String index : selectedMuscles) {
-				if (index != "") {
+				if (!index.equals("")) {
 					checkedMuscles[Integer.parseInt(index)] = true;
 					selectedItems.add(Integer.parseInt(index));
 				}

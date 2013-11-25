@@ -55,8 +55,8 @@ public class SaveTemplateActivity extends Activity implements OnClickListener{
 		ContentValues args = new ContentValues();
 		String id2 = UUID.randomUUID().toString();
 		args.put("id", id2);
-		args.put("title", name.getText().toString());
-		args.put("subtitle", description.getText().toString());
+		args.put("name", name.getText().toString());
+		args.put("description", description.getText().toString());
 		args.put("items", items);
 		
 		db.getWritableDatabase().insert("templates", null , args);

@@ -36,7 +36,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CollectionItemActivity extends Activity implements OnItemClickListener {
+public class TemplateItemActivity extends Activity implements OnItemClickListener {
 
 	AllExercisesListAdapter adapter;
 	ArrayList<String> idArray;
@@ -52,18 +52,28 @@ public class CollectionItemActivity extends Activity implements OnItemClickListe
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_collection_item);
+		setContentView(R.layout.activity_template_item);
 
-		String category = getIntent().getExtras().getString("category");
-		TextView title = (TextView) findViewById(R.id.collection);
+		String name = getIntent().getExtras().getString("name");
+		String items = getIntent().getExtras().getString("items");
 		
-		title.setText("Collection " + category);
-		populateList("SELECT id, name, description FROM exercises WHERE category LIKE '" + category + "' ;");
+		String[] items2= items.split(";");
+		idArray = new ArrayList<String>();
+		
+		Log.d("", "" + items2.length);
+		for (int i = 0; i<items2.length;i++){
+			idArray.add(items2[i]);
+		}
+		
+		TextView title = (TextView) findViewById(R.id.Template_title);
+		
+		title.setText(name);
+		populateList(idArray);
 	}
 
-	public void populateList(String sql) {
+	public void populateList(ArrayList<String> l) {
 
-		idArray = new ArrayList<String>();
+		
 		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
 
@@ -71,24 +81,27 @@ public class CollectionItemActivity extends Activity implements OnItemClickListe
 		db = DBAdapter.getDBAdapterInstance(this);
 		db.openDataBase();
 
-		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
-
+		Cursor myCursor;
+		
+		
+		for(String i: l){
+		myCursor = db.getReadableDatabase().rawQuery("SELECT name, description from exercises where id = ?;" , new String[]{i});
 		
 			myCursor.moveToFirst();
 			do {
-				idArray.add(myCursor.getString(0));
-				nameArray.add(myCursor.getString(1));
-				descArray.add(myCursor.getString(2));
+				nameArray.add(myCursor.getString(0));
+				descArray.add(myCursor.getString(1));
 				myCursor.moveToNext();
 			} while (!myCursor.isAfterLast());
-
 			myCursor.close();
+			}
+
 			db.close();
 
 		adapter = new AllExercisesListAdapter(this, nameArray,
 				descArray);
 
-		ListView list = (ListView) findViewById(R.id.listAllCollections);
+		ListView list = (ListView) findViewById(R.id.listAllTemplates);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
 		

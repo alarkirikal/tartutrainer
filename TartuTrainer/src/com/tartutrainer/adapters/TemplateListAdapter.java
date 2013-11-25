@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +18,25 @@ import android.widget.TextView;
 
 import com.tartutrainer.R;
 import com.tartutrainer.activities.CollectionItemActivity;
+import com.tartutrainer.activities.TemplateItemActivity;
 
 
 
-public class PurchaseListAdapter extends ArrayAdapter<String> {
+public class TemplateListAdapter extends ArrayAdapter<String> {
 
 	private HashMap<Integer, Boolean> Checked = new HashMap<Integer, Boolean>();
 
-	ArrayList<String> collectionArray;
-	ArrayList<String> ownedArray;
+	ArrayList<String> templateArray;
+	ArrayList<String> descArray;
+	ArrayList<String> itemArray;
 	Context c;
 	
 	
-	public PurchaseListAdapter(Context context, int resource,  ArrayList<String> objects, ArrayList<String> owned) {
+	public TemplateListAdapter(Context context, int resource,  ArrayList<String> objects, ArrayList<String> description, ArrayList<String> items) {
 		super(context, resource,  objects);
-		collectionArray = objects;
-		ownedArray= owned;
+		templateArray = objects;
+		descArray = description;
+		itemArray = items;
 		c=context;
 		for (int i = 0; i < objects.size(); i++) {
 			Checked.put(i, false);
@@ -43,6 +47,9 @@ public class PurchaseListAdapter extends ArrayAdapter<String> {
 		if (Checked.get(position)) {
 			Checked.put(position, false);
 		} else {
+			for (int i = 0; i < templateArray.size(); i++) {
+				Checked.put(i, false);
+			}
 			Checked.put(position, true);
 		}
 
@@ -67,7 +74,7 @@ public class PurchaseListAdapter extends ArrayAdapter<String> {
 		for (int i = 0; i < Checked.size(); i++) {
 			if (Checked.get(i)) {
 				
-				(checkedItems).add(collectionArray.get(i));
+				(checkedItems).add(templateArray.get(i));
 			}
 		}
 
@@ -80,24 +87,28 @@ public class PurchaseListAdapter extends ArrayAdapter<String> {
 
 		if (row == null) {
 			LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			row = inflater.inflate(R.layout.listitem_purchase, parent,
+			row = inflater.inflate(R.layout.listitem_template, parent,
 					false);
 		}
+		//Log.d("Template Array", templateArray.toString());
 		final int pos = position;
-		CheckedTextView checkedTextView = (CheckedTextView) row.findViewById(R.id.listitem_purchase_Name);
-		checkedTextView.setText("Collection " + collectionArray.get(position));
-		if (ownedArray.get(position).equals("True")){
-			TextView price = (TextView) row.findViewById(R.id.listitem_purchase_Price);
-			price.setText("Owned");
-		}
+		CheckedTextView checkedTextView = (CheckedTextView) row.findViewById(R.id.listitem_template_check);
+		TextView textview = (TextView) row.findViewById(R.id.listitem_template_Name);
+		textview.setText(templateArray.get(position));
 		
-		ImageView imageview = (ImageView) row.findViewById(R.id.listitem_purchase_image);
+		TextView description = (TextView) row.findViewById(R.id.templateDesc);
+		description.setText(descArray.get(position));
+		
+		
+		
+		ImageView imageview = (ImageView) row.findViewById(R.id.listitem_template_image);
 		imageview.setOnClickListener(new OnClickListener(){
 		
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent( getContext(), CollectionItemActivity.class);
-				intent.putExtra("category", collectionArray.get(pos));
+				Intent intent = new Intent( getContext(), TemplateItemActivity.class);
+				intent.putExtra("name", templateArray.get(pos));
+				intent.putExtra("items", itemArray.get(pos));
 				c.startActivity(intent);					
 			}
 			

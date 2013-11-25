@@ -4,18 +4,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 import com.tartutrainer.R;
+import com.tartutrainer.adapters.TemplateListAdapter;
 import com.tartutrainer.adapters.TemplatesListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -27,6 +32,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,7 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class NewProgramActivity extends Activity implements OnClickListener,
-		OnItemClickListener {
+		OnItemClickListener, OnItemLongClickListener {
 
 	/*
 	 * Activity that asks the user to fill up the name of the new program and
@@ -43,9 +49,15 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 	 */
 
 	ArrayList<String> templateArray;
+	ArrayList<String> descArray;
+	ArrayList<String> itemArray;
+	ArrayList<String> idArray;
 	ArrayList<Boolean> checkedArray;
 	ListView list;
-
+	Context context = this;
+	TemplateListAdapter adapter;
+	private AlertDialog Dialog;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,11 +68,13 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 		fillContent();
 		setOnClickListeners();
 	}
+	
+	public void onResume() {
+		super.onResume();
+		fillContent();
+	}
 
 	protected void fillContent() {
-
-		// Initialize CheckBox arraylist
-		checkedArray = new ArrayList<Boolean>();
 
 		// Pre-fill the input data
 		if (getIntent().getExtras().getBoolean("clientSelected")) {
@@ -73,22 +87,26 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 		// Get the list of available templates
 		// templateArray = getTemplatesSQL();
 		templateArray = new ArrayList<String>();
-
+		descArray = new ArrayList<String>();
+		itemArray = new ArrayList<String>();
+		idArray = new ArrayList<String>();
+		
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getApplicationContext());
 		db.openDataBase();
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT title, subtitle FROM templates ;", null);
+				"SELECT id, name, description, items FROM templates ;", null);
 		
 		try{
 		myCursor.moveToFirst();
 		do {
 			// Toast.makeText(getActivity(), myCursor.getString(1),
 			// Toast.LENGTH_SHORT).show();
-				checkedArray.add(false);
-				templateArray.add(myCursor.getString(0));
-			
+				idArray.add(myCursor.getString(0));
+				templateArray.add(myCursor.getString(1));
+				descArray.add(myCursor.getString(2));
+				itemArray.add(myCursor.getString(3));
 
 			
 			myCursor.moveToNext();
@@ -105,44 +123,14 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 
 		// Add the list of templates to the layout
 		list = (ListView) findViewById(R.id.listAllTemplates);
-		TemplatesListAdapter adapter = new TemplatesListAdapter(this,
-				templateArray);
+		adapter = new TemplateListAdapter(this,
+				R.layout.listitem_template,  templateArray, descArray, itemArray);
 		list.setAdapter(adapter);
-		list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		
 	}
 
-	public void setInnerCheckBoxValues(View v) {
-		CheckBox cb = (CheckBox) v.findViewById(R.id.templateCheckbox);
-		if (!cb.isChecked()) {
-			for (int i = 0; i < list.getChildCount(); i++) {
-				if (checkedArray.get(i) == true) {
-					ViewGroup item = (ViewGroup) list.getChildAt(i);
-					CheckBox checkbox = (CheckBox) item
-							.findViewById(R.id.templateCheckbox);
-					checkbox.setChecked(false);
-				}
-			}
-			cb.setChecked(true);
-		} else {
-			cb.setChecked(false);
-		}
-	}
+	
 
-	public void setCheckBoxValues(View v) {
-		CheckBox c = (CheckBox) v;
-		if (c.isChecked()) {
-			for (int i = 0; i < list.getChildCount(); i++) {
-				ViewGroup item = (ViewGroup) list.getChildAt(i);
-				CheckBox checkbox = (CheckBox) item
-						.findViewById(R.id.templateCheckbox);
-				checkbox.setChecked(false);
-			}
-			Log.d("checking trueks", "checking trueks");
-			c.setChecked(true);
-		} else {
-			Log.d("action", "do nothing");
-		}
-	}
 
 	protected void setOnClickListeners() {
 
@@ -153,13 +141,16 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 		/* Template list listener */
 		ListView lv = (ListView) findViewById(R.id.listAllTemplates);
 		lv.setOnItemClickListener(this);
-
+		lv.setOnItemLongClickListener(this);
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
 			long id) {
-		Log.d("on", "item click listener");
+			
+		adapter.toggleChecked(pos);
+		EditText edName = (EditText) findViewById(R.id.newProgramName);
+		edName.setText(templateArray.get(pos));
 	}
 
 	@Override
@@ -169,7 +160,8 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 			EditText edName = (EditText) findViewById(R.id.newProgramName);
 			EditText edClient = (EditText) findViewById(R.id.newProgramClientName);
 			EditText edClientEmail = (EditText) findViewById(R.id.newProgramClientEmail);
-
+			
+			
 			if (edName.getText().toString().length() < 4) {
 				Toast.makeText(this, "Program name too short", Toast.LENGTH_SHORT).show();				
 				break;
@@ -208,7 +200,9 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 			args.put("client", edClient.getText().toString());
 			args.put("client_email", edClientEmail.getText().toString());
 			args.put("notes", "");
-			args.put("items", "");
+			if (adapter.getCheckedItemPositions().size()==0){
+			args.put("items", "");}
+			else{args.put("items", itemArray.get(adapter.getCheckedItemPositions().get(0)));}
 			args.put("owned", "true");
 
 			long smth = db.getWritableDatabase().insert("programs", null, args);
@@ -223,5 +217,44 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 			startActivity(intent);
 		}
 	}
+	
+	public boolean onItemLongClick(AdapterView<?> parentView, View childView,
+			final int pos, long id) {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle(templateArray.get(pos));
+		String[] optionList = { "Delete" };
+		builder.setItems(optionList, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				DBAdapter db = null;
+				db = DBAdapter.getDBAdapterInstance(context);
+				db.openDataBase();
+
+				db.getWritableDatabase().delete("templates", "id=?",
+						new String[] { idArray.get(pos).toString() });
+
+				db.close();
+
+				fillContent();
+
+			}
+		});
+		builder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		Dialog = builder.create();
+		Dialog.show();
+
+		return true;
+	}
+
 
 }

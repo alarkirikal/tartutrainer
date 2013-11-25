@@ -147,6 +147,7 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 
 		ListView list = (ListView) view.findViewById(R.id.listAllPrograms);
 		list.setAdapter(adapter);
+		
 	}
 
 	@Override
