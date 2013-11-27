@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,7 @@ public class PurchaseListAdapter extends ArrayAdapter<String> {
 		final int pos = position;
 		CheckedTextView checkedTextView = (CheckedTextView) row.findViewById(R.id.listitem_purchase_Name);
 		checkedTextView.setText("Collection " + collectionArray.get(position));
+		Log.d("OWNED", ownedArray.toString());
 		if (ownedArray.get(position).equals("True")){
 			TextView price = (TextView) row.findViewById(R.id.listitem_purchase_Price);
 			price.setText("Owned");

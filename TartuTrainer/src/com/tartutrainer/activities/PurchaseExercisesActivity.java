@@ -142,7 +142,7 @@ public class PurchaseExercisesActivity extends Activity implements
 
 			List<String> args = adapter.getCheckedItems();
 			ContentValues values = new ContentValues();
-			values.put("owned", "true");
+			values.put("owned", "True");
 			for (int i = 0; i < args.size(); i++) {
 				db.getWritableDatabase().update("exercises", values,"category = " + args.get(i), null);
 			}
