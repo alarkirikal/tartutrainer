@@ -201,7 +201,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 		myCursor.moveToFirst();
 		do {
-			labelPairs.add(labelsPrefs.getString(myCursor.getString(0), ""));
+			Log.d("LABEL", myCursor.getString(0));
+			labelPairs.add(myCursor.getString(0));
+			// labelPairs.add(labelsPrefs.getString(myCursor.getString(0), ""));
 			myCursor.moveToNext();
 		} while (!myCursor.isAfterLast());
 
@@ -266,9 +268,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		// Show the values on the layout
 		excName.setText(exc.getName());
 		excDesc.setText(exc.getDescription());
-		Log.d("Here","HERE");
+		Log.d("Here", "HERE");
 		Log.d("LABELS", exc.getLabels());
-		Log.d("Here","HERE");
+		Log.d("Here", "HERE");
 		String[] labels = exc.getLabels().split(" ");
 		excLabelOne.setText(labels[0]);
 		excLabelTwo.setText(labels[1]);
@@ -411,11 +413,18 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					String[] labels = labelArray.get(which).split(" ");
-					labelOne.setText(labels[0].replaceAll(" ", ""));
-					labelTwo.setText(labels[1].replaceAll(" ", ""));
+					if (labels.length == 1) {
+						labelOne.setText(labels[0].replaceAll(" ", ""));
+						labelTwo.setText("");
+						exc.setLabels(labels[0].replaceAll(" ", ""));
 
-					exc.setLabels(labels[0].replaceAll(" ", "") + " "
-							+ labels[1].replaceAll(" ", ""));
+					} else {
+						labelOne.setText(labels[0].replaceAll(" ", ""));
+						labelTwo.setText(labels[1].replaceAll(" ", ""));
+
+						exc.setLabels(labels[0].replaceAll(" ", "") + " "
+								+ labels[1].replaceAll(" ", ""));
+					}
 				}
 			});
 			builder2.setNegativeButton("Cancel",
