@@ -38,7 +38,6 @@ public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> 
 		return exe.size();
 	}
 
-
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
@@ -52,24 +51,27 @@ public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> 
 		SharedPreferences prefs = activity.getSharedPreferences(MUSCLE_GROUPS,
 				Context.MODE_PRIVATE);
 		String musclesText = "";
-		int counter = 1;
-		String[] muscles = exe.get(position).getMuscles().split(";");
-		if (muscles.length > 0) {
-			// Exercise
-			for (String e : muscles) {
-				if(e!=""){
-				Integer index = Integer.parseInt(e) + 1;
-				
-				musclesText += prefs.getString(String.valueOf(index), "");
+
+		Log.d("----", "-------------------");
+
+		String musclesString = exe.get(position).getMuscles();
+		if (musclesString.length() > 0) {
+			for (int i = 0; i < musclesString.length(); i++) {
+				boolean addComma = false;
+				if (String.valueOf(musclesString.charAt(i)).equalsIgnoreCase(
+						"1")) {
+
+					musclesText += prefs.getString(String.valueOf(i + 1), "");
+					addComma = true;
+
+					name_text.setPadding(0, 0, 0, 2);
+					exc_img.setVisibility(ImageView.VISIBLE);
+					muscles_text.setVisibility(TextView.VISIBLE);
 				}
-				if (counter < muscles.length) {
+				if (addComma) {
 					musclesText += ", ";
 				}
-				counter++;
 			}
-			name_text.setPadding(0, 0, 0, 2);
-			exc_img.setVisibility(ImageView.VISIBLE);
-			muscles_text.setVisibility(TextView.VISIBLE);
 		} else {
 			// Header
 			exc_img.setVisibility(ImageView.GONE);
@@ -77,8 +79,13 @@ public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> 
 			name_text.setPadding(10, 10, 10, 10);
 		}
 
-		muscles_text.setText(musclesText);
+		Log.d("----", "-------------------");
+
+		if (musclesText.length() > 0) {
+			muscles_text.setText(musclesText.substring(0, musclesText.length()-1));
+		} else {
+			muscles_text.setText("");
+		}
 		return vi;
 	}
-
 }

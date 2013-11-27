@@ -63,7 +63,7 @@
         xmlns:dslv="http://schemas.android.com/apk/res-auto"
         android:id="@+id/programExercisesList"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:divider="@drawable/gradient_green"
         android:dividerHeight="1px"
         dslv:collapsed_height="2dp"
