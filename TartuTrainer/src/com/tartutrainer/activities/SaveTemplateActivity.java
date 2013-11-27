@@ -58,7 +58,7 @@ public class SaveTemplateActivity extends Activity implements OnClickListener{
 		args.put("name", name.getText().toString());
 		args.put("description", description.getText().toString());
 		args.put("items", items);
-		
+		Log.d("ITEMS", items);
 		db.getWritableDatabase().insert("templates", null , args);
 		
 		db.getWritableDatabase().delete("programs", "id like ?", new String[]{id});

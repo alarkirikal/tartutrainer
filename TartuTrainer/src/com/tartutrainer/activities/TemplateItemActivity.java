@@ -57,12 +57,12 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 		String name = getIntent().getExtras().getString("name");
 		String items = getIntent().getExtras().getString("items");
 		
-		String[] items2= items.split(";");
+		String[] items2= items.split(":");
 		idArray = new ArrayList<String>();
 		
 		Log.d("", "" + items2.length);
 		for (int i = 0; i<items2.length;i++){
-			idArray.add(items2[i]);
+			idArray.add(items2[i].replaceAll(";", ""));
 		}
 		
 		TextView title = (TextView) findViewById(R.id.Template_title);
@@ -83,8 +83,12 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 
 		Cursor myCursor;
 		
-		
+		Log.d("TEMPLATE ITEMS",l.toString());
 		for(String i: l){
+		if (i.equals("Tri-Set") || i.equals("Super-Set")){
+			nameArray.add(i);
+			descArray.add("");
+		}else{
 		myCursor = db.getReadableDatabase().rawQuery("SELECT name, description from exercises where id = ?;" , new String[]{i});
 		
 			myCursor.moveToFirst();
@@ -97,7 +101,7 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 			}
 
 			db.close();
-
+		}
 		adapter = new AllExercisesListAdapter(this, nameArray,
 				descArray);
 
@@ -109,10 +113,15 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
 			long id) {
+		Log.d("NAME", nameArray.get(pos));
+		if(nameArray.get(pos).equals("Tri-Set") || nameArray.get(pos).equals("Super-Set")){
+		}else{
+			Intent intent = new Intent(this, CollectionItemInfoActivity.class);
 		
-		Intent intent = new Intent(this, CollectionItemInfoActivity.class);
-		intent.putExtra("item_id", idArray.get(pos));
-		startActivity(intent);
+			intent.putExtra("item_id", idArray.get(pos));
+		
+			startActivity(intent);
+		}
 	}
 
 
