@@ -166,7 +166,7 @@ public class ProgramExercisesFragment extends Fragment implements
 	    }
 	};
 	
-
+	
 	
 	
 	private void initData() {

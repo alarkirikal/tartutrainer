@@ -67,6 +67,8 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
+	
+	
 
 	/**
 	 * Run when the fragment view is created (i.e. populated)
