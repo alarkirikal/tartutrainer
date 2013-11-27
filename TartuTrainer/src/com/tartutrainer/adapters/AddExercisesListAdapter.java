@@ -65,7 +65,34 @@ public class AddExercisesListAdapter extends BaseAdapter {
 
 		TextView textDesc = (TextView) vi.findViewById(R.id.exerciseDesc);
 		textDesc.setText(desc.get(position));
+		
+		DBAdapter db = null;
+		db = DBAdapter.getDBAdapterInstance(activity);
+		db.openDataBase();
 
+		Cursor myCursor = db.getReadableDatabase().rawQuery(
+				"SELECT items FROM programs WHERE id LIKE '"
+						+ activity.getIntent().getExtras()
+								.getString("pgr_id") + "';", null);
+
+		myCursor.moveToFirst();
+		String[] oldItems = myCursor.getString(0).split(":");
+		ArrayList<String> it = new ArrayList<String>();
+		for(String s : oldItems){
+			it.add(s.replaceAll(";", ""));
+		}
+		if(it.contains(id.get(position))){
+			vi.setBackgroundColor(0xffcccccc);
+		}
+		else{
+			vi.setBackgroundColor(-1);
+		}
+		
+		myCursor.close();
+		db.close();
+
+		
+		
 		ImageView imgAdd = (ImageView) vi.findViewById(R.id.exc_add_to_program);
 		imgAdd.setOnClickListener(new OnClickListener() {
 
