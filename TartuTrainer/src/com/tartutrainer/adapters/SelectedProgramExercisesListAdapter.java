@@ -52,8 +52,6 @@ public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> 
 				Context.MODE_PRIVATE);
 		String musclesText = "";
 
-		Log.d("----", "-------------------");
-
 		String musclesString = exe.get(position).getMuscles();
 		if (musclesString.length() > 0) {
 			for (int i = 0; i < musclesString.length(); i++) {
@@ -79,12 +77,10 @@ public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> 
 			name_text.setPadding(10, 10, 10, 10);
 		}
 
-		Log.d("----", "-------------------");
-
 		if (musclesText.length() > 0) {
-			muscles_text.setText(musclesText.substring(0, musclesText.length()-1));
+			muscles_text.setText(musclesText.substring(0, musclesText.length()-2));
 		} else {
-			muscles_text.setText("");
+			muscles_text.setText("No musclegroups assigned");
 		}
 		return vi;
 	}
