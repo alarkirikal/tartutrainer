@@ -83,7 +83,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			exc.setModality(0);
 			exc.setMuscles("");
 			exc.setEquipment("");
-			exc.setLabels("");
+			exc.setLabels(" ");
 			exc.setOwned("true");
 			exc.setCategory(0);
 		}
@@ -207,7 +207,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 		myCursor.close();
 		db.close();
-
+		Log.d("LABEL PAIRS", labelPairs.toString());
 		return labelPairs;
 	}
 
@@ -215,27 +215,31 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(this);
 		db.openDataBase();
-
 		Cursor myCursor = db.getReadableDatabase().rawQuery(
 				"SELECT * FROM exercises WHERE id LIKE '" + id + "';", null);
 
-		myCursor.moveToFirst();
-		exc = new Exercise();
-		exc.setId(myCursor.getString(0));
-		exc.setName(myCursor.getString(1));
-		exc.setDescription(myCursor.getString(2));
-		exc.setLevel(myCursor.getInt(3));
-		exc.setModality(myCursor.getInt(4));
-		exc.setMuscles(myCursor.getString(5));
-		exc.setEquipment(myCursor.getString(6));
-		exc.setLabels(myCursor.getString(7));
-		exc.setOwned(myCursor.getString(8));
-		exc.setCategory(myCursor.getInt(9));
+		try {
 
-		myCursor.moveToNext();
+			myCursor.moveToFirst();
+			exc = new Exercise();
+			exc.setId(myCursor.getString(0));
+			exc.setName(myCursor.getString(1));
+			exc.setDescription(myCursor.getString(2));
+			exc.setLevel(myCursor.getInt(3));
+			exc.setModality(myCursor.getInt(4));
+			exc.setMuscles(myCursor.getString(5));
+			exc.setEquipment(myCursor.getString(6));
+			exc.setLabels(myCursor.getString(7));
+			exc.setOwned(myCursor.getString(8));
+			exc.setCategory(myCursor.getInt(9));
 
+			myCursor.moveToNext();
+		} catch (Exception e) {
+			e.toString();
+		}
 		myCursor.close();
 		db.close();
+
 	}
 
 	protected void fillContentByEdit() {
@@ -262,7 +266,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		// Show the values on the layout
 		excName.setText(exc.getName());
 		excDesc.setText(exc.getDescription());
+		Log.d("Here","HERE");
 		Log.d("LABELS", exc.getLabels());
+		Log.d("Here","HERE");
 		String[] labels = exc.getLabels().split(" ");
 		excLabelOne.setText(labels[0]);
 		excLabelTwo.setText(labels[1]);
@@ -412,14 +418,14 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							+ labels[1].replaceAll(" ", ""));
 				}
 			});
-			builder2.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+			builder2.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog,
-						int which) {
-					dialog.cancel();
-				}
-			});
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
 			Dialog = builder2.create();
 			Dialog.show();
 			break;
@@ -442,14 +448,14 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							exc.setEquipment(equipment_list[which]);
 						}
 					});
-			builder3.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+			builder3.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog,
-						int which) {
-					dialog.cancel();
-				}
-			});
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
 			Dialog = builder3.create();
 			Dialog.show();
 			break;
@@ -475,14 +481,14 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							exc.setLevel(which);
 						}
 					});
-			builder4.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+			builder4.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog,
-						int which) {
-					dialog.cancel();
-				}
-			});
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
 			Dialog = builder4.create();
 			Dialog.show();
 			break;
@@ -521,14 +527,14 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							exc.setModality(which);
 						}
 					});
-			builder5.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+			builder5.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog,
-						int which) {
-					dialog.cancel();
-				}
-			});
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
 			Dialog = builder5.create();
 			Dialog.show();
 			break;

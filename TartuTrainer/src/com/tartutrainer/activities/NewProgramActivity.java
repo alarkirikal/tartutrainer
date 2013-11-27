@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 import com.tartutrainer.R;
 import com.tartutrainer.adapters.TemplateListAdapter;
-import com.tartutrainer.adapters.TemplatesListAdapter;
 import com.tartutrainer.database.DBAdapter;
 
 import android.accounts.Account;

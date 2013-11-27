@@ -128,7 +128,7 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
 			long id) {
 		Intent intent = new Intent(getActivity(), EditExerciseActivity.class);
-		intent.putExtra("exc_name", nameArray.get(pos));
+		intent.putExtra("exc_id", idArray.get(pos));
 		intent.putExtra("action", "Edit Exercise");
 		startActivity(intent);
 	}
