@@ -3,6 +3,7 @@ package com.tartutrainer.adapters;
 import java.util.ArrayList;
 
 import com.tartutrainer.R;
+import com.tartutrainer.models.Exercise;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,44 +12,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SelectedProgramExercisesListAdapter extends BaseAdapter {
+public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> {
 
 	private Activity activity;
-	private ArrayList<String> ids;
-	private ArrayList<String> name;
-	private ArrayList<String> muscles;
+	private ArrayList<Exercise> exe;
 	private static LayoutInflater inflater;
 
 	private final static String MUSCLE_GROUPS = "muscle_groups";
 
-	public SelectedProgramExercisesListAdapter(Activity a, ArrayList<String> i,
-			ArrayList<String> e, ArrayList<String> f) {
+	public SelectedProgramExercisesListAdapter(Activity a, ArrayList<Exercise> f) {
+		super(a, R.layout.listitem_exercise, f);
+		exe = f;
 		activity = a;
-		ids = i;
-		name = e;
-		muscles = f;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override
 	public int getCount() {
-		return name.size();
+		return exe.size();
 	}
 
-	@Override
-	public Object getItem(int position) {
-		return position;
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -59,17 +48,21 @@ public class SelectedProgramExercisesListAdapter extends BaseAdapter {
 		TextView name_text = (TextView) vi.findViewById(R.id.exerciseName);
 		TextView muscles_text = (TextView) vi.findViewById(R.id.exerciseDesc);
 		ImageView exc_img = (ImageView) vi.findViewById(R.id.ExerciseIcon);
-		name_text.setText(name.get(position));
+		name_text.setText(exe.get(position).getName());
 		SharedPreferences prefs = activity.getSharedPreferences(MUSCLE_GROUPS,
 				Context.MODE_PRIVATE);
 		String musclesText = "";
 		int counter = 1;
-		if (ids.get(position).length() > 0) {
+		String[] muscles = exe.get(position).getMuscles().split(";");
+		if (muscles.length > 0) {
 			// Exercise
-			for (String e : muscles.get(position).split(";")) {
+			for (String e : muscles) {
+				if(e!=""){
 				Integer index = Integer.parseInt(e) + 1;
+				
 				musclesText += prefs.getString(String.valueOf(index), "");
-				if (counter < muscles.get(position).split(";").length) {
+				}
+				if (counter < muscles.length) {
 					musclesText += ", ";
 				}
 				counter++;
@@ -87,4 +80,5 @@ public class SelectedProgramExercisesListAdapter extends BaseAdapter {
 		muscles_text.setText(musclesText);
 		return vi;
 	}
+
 }

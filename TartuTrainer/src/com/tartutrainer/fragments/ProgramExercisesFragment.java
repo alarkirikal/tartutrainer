@@ -1,7 +1,10 @@
 package com.tartutrainer.fragments;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import com.mobeta.android.dslv.DragSortController;
+import com.mobeta.android.dslv.DragSortListView;
 import com.tartutrainer.R;
 import com.tartutrainer.activities.ClientsActivity;
 import com.tartutrainer.activities.ExerciseActivity;
@@ -11,6 +14,7 @@ import com.tartutrainer.adapters.AllExercisesListAdapter;
 import com.tartutrainer.adapters.AllProgramsListAdapter;
 import com.tartutrainer.adapters.SelectedProgramExercisesListAdapter;
 import com.tartutrainer.database.DBAdapter;
+import com.tartutrainer.models.Exercise;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -43,14 +47,15 @@ public class ProgramExercisesFragment extends Fragment implements
 		OnItemClickListener, OnClickListener {
 
 	SelectedProgramExercisesListAdapter adapter;
+	DragSortListView listView;
 	ArrayList<String> ids;
+	ArrayList<Exercise> exeArray;
 	ArrayList<String> notes;
 	ArrayList<String> excArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> musclesArray;
 
 	String currentPgrItems;
-
 	View view;
 
 	public static ProgramExercisesFragment newInstance() {
@@ -78,6 +83,11 @@ public class ProgramExercisesFragment extends Fragment implements
 		e.commit();
 	}
 
+	
+	
+	
+	
+	
 	/**
 	 * Run when the fragment view is created (i.e. populated)
 	 */
@@ -96,6 +106,66 @@ public class ProgramExercisesFragment extends Fragment implements
 		return view;
 	}
 
+	
+	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
+	{
+	    @Override
+	    public void drop(int from, int to)
+	    {
+	    	
+			if (from != to)
+	        {
+				
+				DBAdapter db = null;
+				db = DBAdapter.getDBAdapterInstance(getActivity());
+				db.openDataBase();
+
+				Cursor myCursor = db.getReadableDatabase().rawQuery(
+						"SELECT * FROM programs WHERE id == ?;"
+								, new String[]{getActivity().getIntent().getExtras()
+										.getString("pgr_id")});
+
+				myCursor.moveToFirst();
+				
+				ArrayList<String> items = new ArrayList<String>();
+				String[] a  = (myCursor.getString(8).split(":"));
+				for (String b : a){
+					items.add(b);
+				}
+	            Exercise item = (Exercise) adapter.getItem(from);
+	            adapter.remove(item);
+	            adapter.insert(item, to);
+	            
+	            String moved= items.get(from);
+	            items.remove(from);
+	            items.add(to, moved);
+	            
+	            String toDataBase = "";
+	            for(int c = 0;  c< items.size();c++){
+	            	if(items.size()-c==1){
+	            		toDataBase+=items.get(c);
+	            	}
+	            	else{
+	            		toDataBase += items.get(c)+":";
+	            	}
+	            }
+				myCursor.close();
+				ContentValues args = new ContentValues();
+				args.put("items", toDataBase.toString());
+				db.getWritableDatabase().update("programs", args, "id like ?" , new String[]{ getActivity().getIntent().getExtras()
+						.getString("pgr_id")});
+				db.close();
+				
+	        }
+			
+
+	        
+	    }
+	};
+	
+
+	
+	
 	private void initData() {
 		TextView infoDate = (TextView) view.findViewById(R.id.programInfoDate);
 		TextView infoClient = (TextView) view
@@ -130,8 +200,8 @@ public class ProgramExercisesFragment extends Fragment implements
 	private void setOnClickListeners() {
 
 		/* Programs list listener */
-		ListView lv = (ListView) view.findViewById(R.id.programExercisesList);
-		lv.setOnItemClickListener(this);
+		listView = listView = (DragSortListView) view.findViewById(R.id.programExercisesList);
+		listView.setOnItemClickListener(this);
 
 		/* Header listener */
 		TextView tv = (TextView) view.findViewById(R.id.addHeaderBtn);
@@ -147,6 +217,7 @@ public class ProgramExercisesFragment extends Fragment implements
 		notes = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
 		musclesArray = new ArrayList<String>();
+		exeArray = new ArrayList<Exercise>();
 
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
@@ -187,12 +258,34 @@ public class ProgramExercisesFragment extends Fragment implements
 		}
 
 		db.close();
+		
+		for (int i = 0 ; i<nameArray.size();i++){
+			Exercise exc = new Exercise();
+			exc.setId(ids.get(i));
+			exc.setName(nameArray.get(i));
+			exc.setMuscles(musclesArray.get(i));
+			exeArray.add(exc);
+		}
+		
+		adapter = new SelectedProgramExercisesListAdapter(getActivity(), exeArray);
 
-		adapter = new SelectedProgramExercisesListAdapter(getActivity(), ids,
-				nameArray, musclesArray);
+		
+		listView = listView = (DragSortListView) view.findViewById(R.id.programExercisesList);
+		listView.setAdapter(adapter);
+		listView.setDropListener(onDrop);
+	    
+	    DragSortController controller = new DragSortController(listView);
+	    controller.setDragHandleId(R.id.ExerciseIcon);
+	    
+	    //controller.setClickRemoveId(R.id.);
+	    controller.setRemoveEnabled(false);
+	    controller.setSortEnabled(true);
+	    controller.setDragInitMode(1);
+	            //controller.setRemoveMode(removeMode);
 
-		ListView list = (ListView) view.findViewById(R.id.programExercisesList);
-		list.setAdapter(adapter);
+	    listView.setFloatViewManager(controller);
+	    listView.setOnTouchListener(controller);
+	    listView.setDragEnabled(true);
 	}
 
 	@Override

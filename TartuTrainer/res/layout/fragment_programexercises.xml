@@ -14,42 +14,41 @@
             android:id="@+id/programInfoDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textStyle="italic"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/programInfoClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/programInfoDate"
             android:layout_centerVertical="true"
-            android:textStyle="italic"
-            android:paddingLeft="5dp" />
+            android:layout_toRightOf="@id/programInfoDate"
+            android:paddingLeft="5dp"
+            android:textStyle="italic" />
 
-		<TextView
-		    android:id="@+id/addHeaderBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_toLeftOf="@+id/saveHeaderBtn"
-		    android:layout_centerVertical="true"
-		    android:layout_marginRight="10dp"
-		    android:clickable="true"
-		    android:background="@drawable/btn_default_holo_light"
-		    android:text="Add Headers" />
-		<TextView
-		    android:id="@id/saveHeaderBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentRight="true"
-		    android:layout_centerVertical="true"
-		    android:layout_marginRight="10dp"
-		    android:clickable="true"
-		    android:background="@drawable/btn_default_holo_light"
-		    android:text="Save" />
-		
-		
+        <TextView
+            android:id="@+id/addHeaderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/saveHeaderBtn"
+            android:background="@drawable/btn_default_holo_light"
+            android:clickable="true"
+            android:text="Add Headers" />
+
+        <TextView
+            android:id="@id/saveHeaderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_default_holo_light"
+            android:clickable="true"
+            android:text="Save" />
     </RelativeLayout>
 
     <View
@@ -60,14 +59,23 @@
         android:background="@drawable/gradient_blue" >
     </View>
 
-    <ListView
+    <com.mobeta.android.dslv.DragSortListView
+        xmlns:dslv="http://schemas.android.com/apk/res-auto"
         android:id="@+id/programExercisesList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:divider="@drawable/gradient_green"
         android:dividerHeight="1px"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp" >
-    </ListView>
+        dslv:collapsed_height="2dp"
+        dslv:drag_enabled="true"
+        dslv:drag_scroll_start="0.33"
+        dslv:drag_start_mode="onMove"
+        dslv:float_alpha="0.6"
+        dslv:max_drag_scroll_speed="0.5"
+        dslv:remove_enabled="false"
+        dslv:slide_shuffle_speed="0.3"
+        dslv:sort_enabled="true"
+        dslv:track_drag_sort="false"
+        dslv:use_default_controller="true" />
 
 </LinearLayout>
