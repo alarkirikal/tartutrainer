@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +83,7 @@ public class AddExercisesListAdapter extends BaseAdapter {
 			it.add(s.replaceAll(";", ""));
 		}
 		if(it.contains(id.get(position))){
-			vi.setBackgroundColor(0xffcccccc);
+			vi.setBackgroundColor(Color.parseColor("#00ccff"));
 		}
 		else{
 			vi.setBackgroundColor(-1);
