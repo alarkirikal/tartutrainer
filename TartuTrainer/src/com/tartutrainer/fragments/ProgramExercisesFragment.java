@@ -17,6 +17,7 @@ import com.tartutrainer.database.DBAdapter;
 import com.tartutrainer.models.Exercise;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,6 +34,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -44,7 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProgramExercisesFragment extends Fragment implements
-		OnItemClickListener, OnClickListener {
+		OnItemClickListener, OnClickListener, OnItemLongClickListener {
 
 	SelectedProgramExercisesListAdapter adapter;
 	DragSortListView listView;
@@ -54,6 +56,7 @@ public class ProgramExercisesFragment extends Fragment implements
 	ArrayList<String> excArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> musclesArray;
+	private Dialog dialog;
 
 	String currentPgrItems;
 	View view;
@@ -270,12 +273,12 @@ public class ProgramExercisesFragment extends Fragment implements
 		adapter = new SelectedProgramExercisesListAdapter(getActivity(), exeArray);
 
 		
-		listView = listView = (DragSortListView) view.findViewById(R.id.programExercisesList);
+		listView = (DragSortListView) view.findViewById(R.id.programExercisesList);
 		listView.setAdapter(adapter);
 		listView.setDropListener(onDrop);
 	    
 	    DragSortController controller = new DragSortController(listView);
-	    controller.setDragHandleId(R.id.ExerciseIcon);
+	    controller.setDragHandleId(R.id.dragger);
 	    
 	    //controller.setClickRemoveId(R.id.);
 	    controller.setRemoveEnabled(false);
@@ -286,6 +289,7 @@ public class ProgramExercisesFragment extends Fragment implements
 	    listView.setFloatViewManager(controller);
 	    listView.setOnTouchListener(controller);
 	    listView.setDragEnabled(true);
+	    listView.setOnItemLongClickListener(this);
 	}
 
 	@Override
@@ -405,5 +409,79 @@ public class ProgramExercisesFragment extends Fragment implements
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parentView, View childView, final int pos,
+			long id) {
+						
+		
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+		builder.setTitle(nameArray.get(pos));
+		String[] optionList = { "Delete" };
+		builder.setItems(optionList, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+
+
+				DBAdapter db = null;
+				db = DBAdapter.getDBAdapterInstance(getActivity());
+				db.openDataBase();
+
+				Cursor myCursor = db.getReadableDatabase().rawQuery(
+						"SELECT * FROM programs WHERE id == ?;"
+								, new String[]{getActivity().getIntent().getExtras()
+										.getString("pgr_id")});
+
+				myCursor.moveToFirst();
+				
+				ArrayList<String> items = new ArrayList<String>();
+				String[] a  = (myCursor.getString(8).split(":"));
+				for (String b : a){
+					items.add(b);
+				}
+		        
+		        items.remove(pos);
+		        
+		        String toDataBase = "";
+		        for(int c = 0;  c< items.size();c++){
+		        	if(items.size()-c==1){
+		        		toDataBase+=items.get(c);
+		        	}
+		        	else{
+		        		toDataBase += items.get(c)+":";
+		        	}
+		        }
+				myCursor.close();
+				ContentValues args = new ContentValues();
+				args.put("items", toDataBase.toString());
+				db.getWritableDatabase().update("programs", args, "id like ?" , new String[]{ getActivity().getIntent().getExtras()
+						.getString("pgr_id")});
+				db.close();
+				
+				onResume();
+				
+				
+				
+			}
+		});
+		builder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		dialog = builder.create();
+		dialog.show();
+
+		
+		
+				
+		return true;
 	}
 }

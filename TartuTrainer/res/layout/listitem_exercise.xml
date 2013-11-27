@@ -6,47 +6,53 @@
     android:padding="2dp" >
 
     <LinearLayout
-        android:id="@+id/layout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:padding="2dp" >
-
-        <ImageView
-            android:id="@+id/ExerciseIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/app_name"
-            android:adjustViewBounds="true"
-            android:src="@drawable/exercise_thumb" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/exerciseDetails"
+        android:id="@+id/dragger"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:orientation="vertical" >
+        android:layout_height="fill_parent" >
 
-        <TextView
-            android:id="@+id/exerciseName"
+        <LinearLayout
+            android:id="@+id/layout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="2dp"
-            android:textColor="#040404"
-            android:textSize="20sp"
-            android:typeface="sans" />
+            android:layout_marginRight="5dp"
+            android:padding="2dp" >
 
-        <TextView
-            android:id="@+id/exerciseDesc"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/ExerciseIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/exercise_thumb" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/exerciseDetails"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="2dp"
-            android:textColor="#040404"
-            android:textSize="13sp"
-            android:textStyle="italic"
-            android:typeface="sans" />
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
+
+            <TextView
+                android:id="@+id/exerciseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:textColor="#040404"
+                android:textSize="20sp"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/exerciseDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:textColor="#040404"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                android:typeface="sans" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
