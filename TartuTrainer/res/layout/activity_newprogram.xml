@@ -44,7 +44,8 @@
     <LinearLayout
         android:id="@+id/programDataWrapper"
         android:layout_width="fill_parent"
-        android:layout_height="240dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
         android:layout_below="@id/newProgramHeaderDivider"
         android:orientation="vertical" >
 
@@ -52,47 +53,49 @@
             android:id="@+id/programNameWrapper"
             android:layout_width="fill_parent"
             android:paddingTop="20dp"
-            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="horizontal" >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".25"
                 android:typeface="sans"
-                android:text="Name of the program" />
+                android:paddingLeft="5dp"
+                android:text="Name" />
             
             <EditText
                 android:id="@+id/newProgramName"
-                android:layout_width="220dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".75"
                 android:inputType="text"
                 android:typeface="sans"
-                android:hint="Program Name"
-                android:gravity="center" />
+                android:hint="Program Name" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/clientNameWrapper"
             android:layout_width="fill_parent"
             android:paddingTop="20dp"
-            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="horizontal" >
             
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".25"
                 android:typeface="sans"
+                android:paddingLeft="5dp"
                 android:text="Client Name" />
 
             <EditText
                 android:id="@+id/newProgramClientName"
-                android:layout_width="220dp"
+                android:layout_width="0dp"
+                android:layout_weight=".75"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:typeface="sans"
-                android:gravity="center"
                 android:hint="Client Name" />
         </LinearLayout>
 
@@ -100,22 +103,23 @@
             android:id="@+id/clientEmailWrapper"
             android:layout_width="fill_parent"
             android:paddingTop="20dp"
-            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="horizontal" >
             
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".25"
                 android:typeface="sans"
+                android:paddingLeft="5dp"
                 android:text="Client Email" />
 
             <EditText
                 android:id="@+id/newProgramClientEmail"
-                android:layout_width="220dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".75"
                 android:inputType="textEmailAddress"
-                android:gravity="center"
                 android:typeface="sans"
                 android:hint="Client Email" />
         </LinearLayout>
