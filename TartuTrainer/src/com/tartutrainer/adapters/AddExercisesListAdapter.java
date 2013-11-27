@@ -54,10 +54,10 @@ public class AddExercisesListAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
-
+	View vi;
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		View vi = convertView;
+		 vi = convertView;
 		if (convertView == null) {
 			vi = inflater.inflate(R.layout.listitem_addexercise, null);
 		}
@@ -141,7 +141,8 @@ public class AddExercisesListAdapter extends BaseAdapter {
 
 				Toast.makeText(activity, "Exercise added to the program!",
 						Toast.LENGTH_SHORT).show();
-
+				vi.setBackgroundColor(Color.parseColor("#00ccff"));
+				vi.refreshDrawableState();
 			}
 
 		});
