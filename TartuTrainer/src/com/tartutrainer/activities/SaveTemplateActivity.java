@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class SaveTemplateActivity extends Activity implements OnClickListener{
 		
@@ -40,6 +41,14 @@ public class SaveTemplateActivity extends Activity implements OnClickListener{
 		
 		EditText name = (EditText) findViewById(R.id.templateName);
 		EditText description = (EditText) findViewById(R.id.templateDescription);
+		
+		if (name.getText().toString().length() < 4) {
+			Toast.makeText(this, "Template name too short", Toast.LENGTH_SHORT).show();				
+			return;
+		} 
+
+		
+		
 		String items;
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(this);

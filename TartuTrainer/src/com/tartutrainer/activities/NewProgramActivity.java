@@ -47,7 +47,7 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 	 * also the client it'll be connected to
 	 */
 
-	ArrayList<String> templateArray;
+	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
 	ArrayList<String> itemArray;
 	ArrayList<String> idArray;
@@ -56,7 +56,7 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 	Context context = this;
 	TemplateListAdapter adapter;
 	private AlertDialog Dialog;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 		fillContent();
 		setOnClickListeners();
 	}
-	
+
 	public void onResume() {
 		super.onResume();
 		fillContent();
@@ -85,51 +85,47 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 
 		// Get the list of available templates
 		// templateArray = getTemplatesSQL();
-		templateArray = new ArrayList<String>();
+		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
 		itemArray = new ArrayList<String>();
 		idArray = new ArrayList<String>();
-		
+
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getApplicationContext());
 		db.openDataBase();
 
-		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT id, name, description, items FROM templates ;", null);
-		
-		try{
-		myCursor.moveToFirst();
-		do {
-			// Toast.makeText(getActivity(), myCursor.getString(1),
-			// Toast.LENGTH_SHORT).show();
+
+		try {
+			Cursor myCursor = db.getReadableDatabase().rawQuery(
+					"SELECT * FROM templates;", null);
+
+			myCursor.moveToFirst();
+			do {
 				idArray.add(myCursor.getString(0));
-				templateArray.add(myCursor.getString(1));
+				nameArray.add(myCursor.getString(1));
 				descArray.add(myCursor.getString(2));
 				itemArray.add(myCursor.getString(3));
 
+				myCursor.moveToNext();
+			} while (!myCursor.isAfterLast());
 			
-			myCursor.moveToNext();
-		} while (!myCursor.isLast());
-		}catch(Exception e){
+			myCursor.close();
+			db.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		myCursor.close();
-		db.close();
 
+		Log.d("Namearray", nameArray.toString());
 		
-
 		// Add the list of templates to the layout
 		list = (ListView) findViewById(R.id.listAllTemplates);
-		adapter = new TemplateListAdapter(this,
-				R.layout.listitem_template,  templateArray, descArray, itemArray);
+		Log.d("Sent", nameArray.toString());
+		adapter = new TemplateListAdapter(this, R.layout.listitem_template,
+				nameArray, descArray, itemArray);
 		list.setAdapter(adapter);
-		
+
 	}
-
-	
-
 
 	protected void setOnClickListeners() {
 
@@ -146,10 +142,10 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parentView, View childView, int pos,
 			long id) {
-			
+
 		adapter.toggleChecked(pos);
 		EditText edName = (EditText) findViewById(R.id.newProgramName);
-		edName.setText(templateArray.get(pos));
+		edName.setText(nameArray.get(pos));
 	}
 
 	@Override
@@ -159,16 +155,18 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 			EditText edName = (EditText) findViewById(R.id.newProgramName);
 			EditText edClient = (EditText) findViewById(R.id.newProgramClientName);
 			EditText edClientEmail = (EditText) findViewById(R.id.newProgramClientEmail);
-			
-			
+
 			if (edName.getText().toString().length() < 4) {
-				Toast.makeText(this, "Program name too short", Toast.LENGTH_SHORT).show();				
+				Toast.makeText(this, "Program name too short",
+						Toast.LENGTH_SHORT).show();
 				break;
 			} else if (edClient.getText().toString().length() < 4) {
-				Toast.makeText(this, "Client name too short", Toast.LENGTH_SHORT).show();				
+				Toast.makeText(this, "Client name too short",
+						Toast.LENGTH_SHORT).show();
 				break;
 			} else if (edClientEmail.getText().toString().length() < 4) {
-				Toast.makeText(this, "Client e-mail too short", Toast.LENGTH_SHORT).show();				
+				Toast.makeText(this, "Client e-mail too short",
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 
@@ -199,9 +197,12 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 			args.put("client", edClient.getText().toString());
 			args.put("client_email", edClientEmail.getText().toString());
 			args.put("notes", "");
-			if (adapter.getCheckedItemPositions().size()==0){
-			args.put("items", "");}
-			else{args.put("items", itemArray.get(adapter.getCheckedItemPositions().get(0)));}
+			if (adapter.getCheckedItemPositions().size() == 0) {
+				args.put("items", "");
+			} else {
+				args.put("items",
+						itemArray.get(adapter.getCheckedItemPositions().get(0)));
+			}
 			args.put("owned", "true");
 
 			long smth = db.getWritableDatabase().insert("programs", null, args);
@@ -216,13 +217,13 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 			startActivity(intent);
 		}
 	}
-	
+
 	public boolean onItemLongClick(AdapterView<?> parentView, View childView,
 			final int pos, long id) {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-		builder.setTitle(templateArray.get(pos));
+		builder.setTitle(nameArray.get(pos));
 		String[] optionList = { "Delete" };
 		builder.setItems(optionList, new DialogInterface.OnClickListener() {
 			@Override
@@ -254,6 +255,5 @@ public class NewProgramActivity extends Activity implements OnClickListener,
 
 		return true;
 	}
-
 
 }

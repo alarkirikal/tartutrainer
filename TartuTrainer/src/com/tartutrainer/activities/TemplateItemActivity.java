@@ -82,7 +82,7 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 		db.openDataBase();
 
 		Cursor myCursor;
-		
+		try{
 		Log.d("TEMPLATE ITEMS",l.toString());
 		for(String i: l){
 		if (i.equals("Tri-Set") || i.equals("Super-Set")){
@@ -101,6 +101,9 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 			}
 
 			db.close();
+		}
+		}catch (Exception e){
+			e.printStackTrace();
 		}
 		adapter = new AllExercisesListAdapter(this, nameArray,
 				descArray);

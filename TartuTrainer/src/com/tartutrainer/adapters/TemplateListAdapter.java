@@ -35,8 +35,11 @@ public class TemplateListAdapter extends ArrayAdapter<String> {
 	public TemplateListAdapter(Context context, int resource,  ArrayList<String> objects, ArrayList<String> description, ArrayList<String> items) {
 		super(context, resource,  objects);
 		templateArray = objects;
+		Log.d("Template size", templateArray.size()+"");
 		descArray = description;
+		Log.d("desc size", descArray.size()+"");
 		itemArray = items;
+		Log.d("item size", itemArray.size()+"");
 		c=context;
 		for (int i = 0; i < objects.size(); i++) {
 			Checked.put(i, false);
