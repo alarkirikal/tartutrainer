@@ -8,6 +8,7 @@ import com.mobeta.android.dslv.DragSortListView;
 import com.tartutrainer.R;
 import com.tartutrainer.activities.ClientsActivity;
 import com.tartutrainer.activities.ExerciseActivity;
+import com.tartutrainer.activities.ProgramActivity;
 import com.tartutrainer.activities.ProgramNotesActivity;
 import com.tartutrainer.activities.SaveTemplateActivity;
 import com.tartutrainer.adapters.AllExercisesListAdapter;
@@ -26,7 +27,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProgramExercisesFragment extends Fragment implements
-		OnItemClickListener, OnClickListener, OnItemLongClickListener {
+		OnItemClickListener, OnItemLongClickListener {
 
 	SelectedProgramExercisesListAdapter adapter;
 	DragSortListView listView;
@@ -170,10 +171,6 @@ public class ProgramExercisesFragment extends Fragment implements
 	
 	
 	private void initData() {
-		TextView infoDate = (TextView) view.findViewById(R.id.programInfoDate);
-		TextView infoClient = (TextView) view
-				.findViewById(R.id.programInfoClient);
-
 		excArray = new ArrayList<String>();
 
 		DBAdapter db = null;
@@ -190,8 +187,8 @@ public class ProgramExercisesFragment extends Fragment implements
 		currentPgrItems = myCursor.getString(8);
 		Log.d("currentPgrItems", currentPgrItems);
 		String[] exercises = myCursor.getString(8).split(":", -1);
-		infoDate.setText(myCursor.getString(2));
-		infoClient.setText(myCursor.getString(5));
+		ProgramActivity activity = (ProgramActivity) getActivity();
+		activity.actionBar.setTitle(myCursor.getString(2) + " " + myCursor.getString(5));
 		for (int i = 0; i < exercises.length; i++) {
 			excArray.add(exercises[i]);
 		}
@@ -206,12 +203,6 @@ public class ProgramExercisesFragment extends Fragment implements
 		listView = listView = (DragSortListView) view.findViewById(R.id.programExercisesList);
 		listView.setOnItemClickListener(this);
 
-		/* Header listener */
-		TextView tv = (TextView) view.findViewById(R.id.addHeaderBtn);
-		tv.setOnClickListener(this);
-
-		TextView save = (TextView) view.findViewById(R.id.saveHeaderBtn);
-		save.setOnClickListener(this);
 	}
 
 	public void populateList() {
@@ -315,101 +306,94 @@ public class ProgramExercisesFragment extends Fragment implements
 		}
 		setOnClickListeners();
 	}
+	
+	public void addHeader() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle("Which kind of header should be added?");
+		String[] optionList = { "Tri-Set", "Super-Set" };
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.addHeaderBtn:
+		builder.setItems(optionList, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			builder.setTitle("Which kind of header should be added?");
-			String[] optionList = { "Tri-Set", "Super-Set" };
+				if (which == 0) {
+					String header;
 
-			builder.setItems(optionList, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-
-					if (which == 0) {
-						String header;
-
-						if (currentPgrItems.length() > 5) {
-							header = ":;Tri-Set;;;;;;;;;;;;;;;;;;;";
-						} else {
-							header = ";Tri-Set;;;;;;;;;;;;;;;;;;;";
-						}
-
-						DBAdapter db_write = null;
-						db_write = DBAdapter
-								.getDBAdapterInstance(getActivity());
-						db_write.openDataBase();
-
-						ContentValues args = new ContentValues();
-						args.put("items", currentPgrItems + header);
-						db_write.getWritableDatabase().update(
-								"programs",
-								args,
-								"id LIKE '"
-										+ getActivity().getIntent().getExtras()
-												.getString("pgr_id") + "'",
-								null);
-
-						db_write.close();
-						onResume();
-
+					if (currentPgrItems.length() > 5) {
+						header = ":;Tri-Set;;;;;;;;;;;;;;;;;;;";
 					} else {
-						String header;
-
-						if (currentPgrItems.length() > 5) {
-							header = ":;Super-Set;;;;;;;;;;;;;;;;;;;";
-						} else {
-							header = ";Super-Set;;;;;;;;;;;;;;;;;;;";
-						}
-
-						DBAdapter db_write = null;
-						db_write = DBAdapter
-								.getDBAdapterInstance(getActivity());
-						db_write.openDataBase();
-
-						ContentValues args = new ContentValues();
-						args.put("items", currentPgrItems + header);
-						db_write.getWritableDatabase().update(
-								"programs",
-								args,
-								"id LIKE '"
-										+ getActivity().getIntent().getExtras()
-												.getString("pgr_id") + "'",
-								null);
-
-						db_write.close();
-						onResume();
-
+						header = ";Tri-Set;;;;;;;;;;;;;;;;;;;";
 					}
 
+					DBAdapter db_write = null;
+					db_write = DBAdapter
+							.getDBAdapterInstance(getActivity());
+					db_write.openDataBase();
+
+					ContentValues args = new ContentValues();
+					args.put("items", currentPgrItems + header);
+					db_write.getWritableDatabase().update(
+							"programs",
+							args,
+							"id LIKE '"
+									+ getActivity().getIntent().getExtras()
+											.getString("pgr_id") + "'",
+							null);
+
+					db_write.close();
+					onResume();
+
+				} else {
+					String header;
+
+					if (currentPgrItems.length() > 5) {
+						header = ":;Super-Set;;;;;;;;;;;;;;;;;;;";
+					} else {
+						header = ";Super-Set;;;;;;;;;;;;;;;;;;;";
+					}
+
+					DBAdapter db_write = null;
+					db_write = DBAdapter
+							.getDBAdapterInstance(getActivity());
+					db_write.openDataBase();
+
+					ContentValues args = new ContentValues();
+					args.put("items", currentPgrItems + header);
+					db_write.getWritableDatabase().update(
+							"programs",
+							args,
+							"id LIKE '"
+									+ getActivity().getIntent().getExtras()
+											.getString("pgr_id") + "'",
+							null);
+
+					db_write.close();
+					onResume();
+
 				}
-			});
 
-			builder.setNegativeButton("Cancel",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.cancel();
-						}
-					});
-			AlertDialog alert = builder.create();
-			alert.show();
+			}
+		});
 
-			break;
-		case R.id.saveHeaderBtn:
-			Intent intent = new Intent(getActivity(),
-					SaveTemplateActivity.class);
-			intent.putExtra("Program", getActivity().getIntent().getExtras()
-					.getString("pgr_id"));
-			startActivity(intent);
-			break;
+		builder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
 
-		default:
-			break;
-		}
 	}
+	
+	public void saveTemplate() {
+		Intent intent = new Intent(getActivity(),
+				SaveTemplateActivity.class);
+		intent.putExtra("Program", getActivity().getIntent().getExtras()
+				.getString("pgr_id"));
+		startActivity(intent);
+	}
+
 
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parentView, View childView, final int pos,

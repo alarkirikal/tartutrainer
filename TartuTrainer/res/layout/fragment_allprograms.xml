@@ -3,46 +3,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/sortAndAddPrograms"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp" >
-
-        <LinearLayout
-            android:id="@+id/sortAllProgramsWrapper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal" >
-
-            <Switch 
-                android:id="@+id/sortBySwitch"
-                android:text="Sort by: "
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:thumb="@drawable/switch_inner_holo_light"
-                android:track="@drawable/switch_track_holo_light"
-                android:switchTextAppearance="@android:style/TextAppearance.Small"
-                android:textOn="Client"
-                android:textOff="Date" /> 
-            
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/toClientsList"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="plus_icon"
-            android:background="@drawable/ic_action_new" />
-    </RelativeLayout>
-
     <View
         android:id="@+id/sortBottom"
         android:layout_width="wrap_content"

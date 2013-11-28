@@ -60,13 +60,8 @@
                 android:gravity="top|left"
                 android:inputType="textMultiLine"
                 android:scrollHorizontally="false"
+                android:hint="This area is for extra notes from the trainer or the trainee to keep in mind with this selected program."
                 android:layout_weight="1" />
-            
-            <Button 
-                android:id="@+id/pgr_notes_save"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="Save Notes" />
             
         </LinearLayout>
 

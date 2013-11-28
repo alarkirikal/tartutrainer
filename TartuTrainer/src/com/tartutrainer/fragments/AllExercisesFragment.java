@@ -20,7 +20,7 @@ import android.content.SharedPreferences;
 import android.content.DialogInterface.OnCancelListener;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +37,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AllExercisesFragment extends Fragment implements OnClickListener,
+public class AllExercisesFragment extends Fragment implements
 		OnItemClickListener {
 
 	AllExercisesListAdapter adapter;
@@ -85,15 +85,6 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 
 	private void setOnClickListeners(View v) {
 
-		/* Go to ClientsActivity */
-		ImageButton toClients = (ImageButton) v
-				.findViewById(R.id.toNewExercise);
-		toClients.setOnClickListener(this);
-
-		/* Open Filter Dialog */
-		Button setFilters = (Button) v.findViewById(R.id.filterButton);
-		setFilters.setOnClickListener(this);
-
 		/* Programs list listener */
 		ListView lv = (ListView) v.findViewById(R.id.listAllExercises);
 		lv.setOnItemClickListener(this);
@@ -112,10 +103,11 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 
 		Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
 
-		TextView nr = (TextView) view.findViewById(R.id.listAllExercisesNoneFound);
-		
+		TextView nr = (TextView) view
+				.findViewById(R.id.listAllExercisesNoneFound);
+
 		if (myCursor.getCount() != 0) {
-			
+
 			nr.setVisibility(TextView.GONE);
 			myCursor.moveToFirst();
 			do {
@@ -147,48 +139,37 @@ public class AllExercisesFragment extends Fragment implements OnClickListener,
 		startActivity(intent);
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.toNewExercise:
-			Intent intent = new Intent(getActivity(),
-					EditExerciseActivity.class);
-			intent.putExtra("action", "New Exercise");
-			startActivity(intent);
-			break;
-		case R.id.filterButton:
-			dialog = new FilterDialog(getActivity());
-			AlertDialog alertDialog = dialog.create();
-			alertDialog.show();
-			dialog.setDialogResult(new OnResult() {
-				public void finish(String level, String equip, String muscle,
-						String modality) {
+	public void filterExerciseDialog() {
+		dialog = new FilterDialog(getActivity());
+		AlertDialog alertDialog = dialog.create();
+		alertDialog.show();
+		dialog.setDialogResult(new OnResult() {
+			public void finish(String level, String equip, String muscle,
+					String modality) {
 
-					// populateList("SELECT id, name, description FROM exercises WHERE owned LIKE 'true';");
+				// populateList("SELECT id, name, description FROM exercises WHERE owned LIKE 'true';");
 
-					String sql = "SELECT id, name, description FROM exercises WHERE owned LIKE 'true'";
+				String sql = "SELECT id, name, description FROM exercises WHERE owned LIKE 'true'";
 
-					if (!level.equalsIgnoreCase("-1")) {
-						sql += " AND level LIKE " + level + " ";
-					}
-					if (!equip.contains("All ")) {
-						sql += " AND equipment LIKE '" + equip + "' ";
-					}
-					if (!muscle.equalsIgnoreCase("-1")) {
-						sql += " AND muscles LIKE " + muscle + " ";
-					}
-					if (!modality.equalsIgnoreCase("-1")) {
-						sql += " AND modality LIKE " + modality + " ";
-					}
-
-					sql += ";";
-					Log.d("sql", sql);
-					populateList(sql);
-
+				if (!level.equalsIgnoreCase("-1")) {
+					sql += " AND level LIKE " + level + " ";
 				}
-			});
-			break;
-		}
+				if (!equip.contains("All ")) {
+					sql += " AND equipment LIKE '" + equip + "' ";
+				}
+				if (!muscle.equalsIgnoreCase("-1")) {
+					sql += " AND muscles LIKE " + muscle + " ";
+				}
+				if (!modality.equalsIgnoreCase("-1")) {
+					sql += " AND modality LIKE " + modality + " ";
+				}
+
+				sql += ";";
+				Log.d("sql", sql);
+				populateList(sql);
+
+			}
+		});
 	}
 
 }

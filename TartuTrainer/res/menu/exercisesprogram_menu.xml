@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/action_newheader"
+          android:icon="@drawable/ic_action_new_white"
+          android:showAsAction="always"
+          android:title="New Header"/>
+    <item android:id="@+id/action_saveprogram"
+          android:icon="@drawable/ic_action_save"
+          android:showAsAction="always"
+          android:title="Save Template" />
+</menu>

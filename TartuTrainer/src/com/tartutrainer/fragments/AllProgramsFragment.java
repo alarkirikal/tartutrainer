@@ -17,7 +17,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,13 +36,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AllProgramsFragment extends Fragment implements OnClickListener,
-		OnCheckedChangeListener, OnItemClickListener, OnItemLongClickListener {
+public class AllProgramsFragment extends Fragment implements
+		OnItemClickListener, OnItemLongClickListener {
 
 	AllProgramsListAdapter adapter;
 	ArrayList<String> idArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> clientArray;
+	ArrayList<Integer> excCountArray;
+	ArrayList<String> dateArray;
 	private AlertDialog Dialog;
 
 	View view;
@@ -87,15 +89,6 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 
 	private void setOnClickListeners(View v) {
 
-		/* Go to ClientsActivity */
-		ImageButton toClients = (ImageButton) v
-				.findViewById(R.id.toClientsList);
-		toClients.setOnClickListener(this);
-
-		/* Sort Switch listener */
-		Switch s = (Switch) v.findViewById(R.id.sortBySwitch);
-		s.setOnCheckedChangeListener(this);
-
 		/* Programs list listener */
 		ListView lv = (ListView) v.findViewById(R.id.listAllPrograms);
 		lv.setOnItemClickListener(this);
@@ -108,13 +101,15 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 
 		idArray = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
+		excCountArray = new ArrayList<Integer>();
 		clientArray = new ArrayList<String>();
+		dateArray = new ArrayList<String>();
 
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
 		db.openDataBase();
 
-		String sql = "SELECT id, name, client FROM programs ORDER BY "
+		String sql = "SELECT id, name, client, items, date FROM programs ORDER BY "
 				+ orderBy;
 		if (orderBy.equalsIgnoreCase("date")) {
 			sql += " DESC;";
@@ -126,51 +121,39 @@ public class AllProgramsFragment extends Fragment implements OnClickListener,
 
 		if (myCursor.getCount() != 0) {
 
-		try {
-			myCursor.moveToFirst();
-			do {
-				idArray.add(myCursor.getString(0));
-				nameArray.add(myCursor.getString(1));
-				clientArray.add(myCursor.getString(2));
-				myCursor.moveToNext();
-			} while (!myCursor.isAfterLast());
-		} catch (Exception e) {
-			Log.d("EXCEPTION", e.toString());
-		}
+			try {
+				myCursor.moveToFirst();
+				do {
+					idArray.add(myCursor.getString(0));
+					nameArray.add(myCursor.getString(1));
+					clientArray.add(myCursor.getString(2));
+					excCountArray.add(myCursor.getString(3).split(":", -1).length);
+					dateArray.add(myCursor.getString(4));
+					myCursor.moveToNext();
+				} while (!myCursor.isAfterLast());
+			} catch (Exception e) {
+				Log.d("EXCEPTION", e.toString());
+			}
 		}
 		myCursor.close();
 		db.close();
-		
+
+		Log.d("sql", sql);
+		Log.d("nameArray", nameArray.toString());
 		// SQL to get all programs
 		adapter = new AllProgramsListAdapter(getActivity(), nameArray,
-				clientArray);
+				clientArray, excCountArray, dateArray);
 
 		ListView list = (ListView) view.findViewById(R.id.listAllPrograms);
 		list.setAdapter(adapter);
-		
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-
-		case R.id.toClientsList:
-			Intent intent = new Intent(getActivity(), ClientsActivity.class);
-			startActivity(intent);
-
-		}
 
 	}
 
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		switch (buttonView.getId()) {
-		case R.id.sortBySwitch:
-			if (isChecked) {
-				populateList("client");
-			} else {
-				populateList("date");
-			}
+	public void onSort(boolean isChecked) {
+		if (isChecked) {
+			populateList("client");
+		} else {
+			populateList("date");
 		}
 	}
 

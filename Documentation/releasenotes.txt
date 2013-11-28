@@ -1,24 +1,33 @@
 Release notes:
-added cancel button to all dialogs in “edit exercises”
-added purchase button to “edit exercises” screen
-added purchase collections
-changed the layout of “new program” screen
-delete program
-delete program items
-enabled back button on all dialogs in “edit exercises”
-fixed filters
-program name automatically filled, when template is selected
-removed instructions from “clients” screen
-reorder program items
-save program as template
-set exercises used in program to different colour
-update database with real data
-view collection item info
-view collection items
-view template items
++ added cancel button to all dialogs in “edit exercises”
++ added purchase button to “edit exercises” screen
++ added purchase collections
+* changed the layout of “new program” screen
++ added the possibility to delete a program
++ added the possibility to delete program items
++ enabled back button on all dialogs in “edit exercises”
+* fixed filters
+* program name automatically filled, when template is selected
+* removed instructions from “clients” screen
++ added reordering of program items
++ added possibility to save program as a template
+* set exercises used in program to different colour
++ added actual exercise data (with no images yet)
+* view collection item info
+* view collection items
+* view template items
+* modified program notes screen, as now no extra "Save" button is required. (auto-save)
+* modified application behaviour so pressing "Back" on program items activity will now return to "notes"
+  instead of going back to the program list.
++ program notes explanation text added, when notes are empty.
++ fragment views now have tabs as requested with actionbars
++ fragment views now have actionbars with menus
++ sorting bug fixed (as seen by peer review)
++ filtering exercises bug fixed
+
 
 Known bugs:
-reordering headers removes icon from exercises (sometimes)
-when adding an exercise to the program, wrong list rows colour changes
-text alignment on screens is off
-
+* reordering headers removes icon from exercises (sometimes)
+* when adding an exercise to the program, wrong list rows colour changes
+* text alignment on screens is off
+* filtering exercises doesn't work with muscle groups selected (must be all to work currently)

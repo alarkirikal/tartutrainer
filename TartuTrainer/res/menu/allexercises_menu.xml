@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_addexercise"
+        android:icon="@drawable/ic_action_new_white"
+        android:showAsAction="always"
+        android:title="Add Exercise"/>
+    <item
+        android:id="@+id/action_filterexercises"
+        android:icon="@drawable/ic_action_expand"
+        android:showAsAction="always|withText"
+        android:title="Filters"/>
+
+</menu>

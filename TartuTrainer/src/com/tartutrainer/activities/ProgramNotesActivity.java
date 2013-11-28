@@ -52,9 +52,6 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 
 		ImageButton toProgram = (ImageButton) findViewById(R.id.programNotesContinue);
 		toProgram.setOnClickListener(this);
-		
-		Button saveNotes = (Button) findViewById(R.id.pgr_notes_save);
-		saveNotes.setOnClickListener(this);
 	}
 
 	private void fillContent() {
@@ -86,7 +83,35 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 		}
 
 	}
+	
+	public void saveNotes() {
+		EditText notes = (EditText) findViewById(R.id.pgr_notes);
 
+		DBAdapter db = null;
+		db = DBAdapter.getDBAdapterInstance(this);
+		db.openDataBase();
+
+		ContentValues args = new ContentValues();
+		args.put("notes", notes.getText().toString());
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd",
+				Locale.US);
+		args.put("date", dateFormat.format(date));
+		db.getWritableDatabase().update(
+				"programs",
+				args,
+				"id LIKE '" + getIntent().getExtras().getString("pgr_id")
+						+ "'", null);
+
+		db.close();
+
+	}
+
+	public void onBackPressed() {
+		super.onBackPressed();
+		saveNotes();
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -97,7 +122,7 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 			break;
 
 		case R.id.programNotesContinue:
-			finish();
+			saveNotes();
 			Intent intent = new Intent(this, ProgramActivity.class);
 			intent.putExtra("pgr_id",
 					getIntent().getExtras().getString("pgr_id"));
@@ -106,31 +131,6 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 
-		case R.id.pgr_notes_save:
-
-			EditText notes = (EditText) findViewById(R.id.pgr_notes);
-
-			DBAdapter db = null;
-			db = DBAdapter.getDBAdapterInstance(this);
-			db.openDataBase();
-
-			ContentValues args = new ContentValues();
-			args.put("notes", notes.getText().toString());
-			Date date = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd",
-					Locale.US);
-			args.put("date", dateFormat.format(date));
-			db.getWritableDatabase().update(
-					"programs",
-					args,
-					"id LIKE '" + getIntent().getExtras().getString("pgr_id")
-							+ "'", null);
-
-			db.close();
-
-			Toast.makeText(getApplicationContext(), "Notes have been updated",
-					Toast.LENGTH_SHORT).show();
-			break;
 		}
 	}
 }

@@ -20,7 +20,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,11 +36,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class ProgramAddExercisesFragment extends Fragment implements OnClickListener,
+public class ProgramAddExercisesFragment extends Fragment implements
 		OnItemClickListener {
 
 	AddExercisesListAdapter adapter;
-	
+
 	ArrayList<String> idArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
@@ -51,8 +51,7 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 	ArrayList<String> modalityArray;
 	Dialog dialog;
 	View view;
-	
-	
+
 	public static ProgramAddExercisesFragment newInstance() {
 
 		final ProgramAddExercisesFragment f = new ProgramAddExercisesFragment();
@@ -72,8 +71,6 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-	
-	
 
 	/**
 	 * Run when the fragment view is created (i.e. populated)
@@ -81,25 +78,16 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_allexercises,
-				container, false);
+		view = inflater.inflate(R.layout.fragment_allexercises, container,
+				false);
 
 		populateList();
 		setOnClickListeners();
 		return view;
 	}
-	
+
 	private void setOnClickListeners() {
 
-		/* Go to ClientsActivity */
-		ImageButton toClients = (ImageButton) view
-				.findViewById(R.id.toNewExercise);
-		toClients.setOnClickListener(this);
-
-		/* Open Filter Dialog */
-		Button setFilters = (Button) view.findViewById(R.id.filterButton);
-		setFilters.setOnClickListener(this);
-		
 		/* Programs list listener */
 		ListView lv = (ListView) view.findViewById(R.id.listAllExercises);
 		lv.setOnItemClickListener(this);
@@ -111,13 +99,16 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 		idArray = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
-		
+
 		DBAdapter db = null;
 		db = DBAdapter.getDBAdapterInstance(getActivity());
 		db.openDataBase();
 
-		Cursor myCursor = db.getReadableDatabase().rawQuery(
-				"SELECT id, name, description FROM exercises WHERE owned LIKE 'true';", null);
+		Cursor myCursor = db
+				.getReadableDatabase()
+				.rawQuery(
+						"SELECT id, name, description FROM exercises WHERE owned LIKE 'true';",
+						null);
 
 		myCursor.moveToFirst();
 		do {
@@ -130,7 +121,8 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 		myCursor.close();
 		db.close();
 
-		adapter = new AddExercisesListAdapter(getActivity(), idArray, nameArray, descArray);
+		adapter = new AddExercisesListAdapter(getActivity(), idArray,
+				nameArray, descArray);
 		ListView list = (ListView) view.findViewById(R.id.listAllExercises);
 		list.setAdapter(adapter);
 	}
@@ -144,55 +136,42 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 		startActivity(intent);
 	}
 
-	
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.toNewExercise:
-			Intent intent = new Intent(getActivity(), EditExerciseActivity.class);
-			intent.putExtra("action", "New Exercise");
-			startActivity(intent);
-			
-			break;
-		case R.id.filterButton:
-			dialog = new FilterDialog(getActivity());
-			AlertDialog alertDialog = ((FilterDialog) dialog).create();
-			alertDialog.show();
-			((FilterDialog) dialog).setDialogResult(new OnResult() {
-				public void finish(String level, String equip, String muscle,
-						String modality) {
+	public void filterExercisesToAdd() {
+		dialog = new FilterDialog(getActivity());
+		AlertDialog alertDialog = ((FilterDialog) dialog).create();
+		alertDialog.show();
+		((FilterDialog) dialog).setDialogResult(new OnResult() {
+			public void finish(String level, String equip, String muscle,
+					String modality) {
 
-					// populateList("SELECT id, name, description FROM exercises WHERE owned LIKE 'true';");
+				String sql = "SELECT id, name, description FROM exercises WHERE owned LIKE 'true'";
 
-					String sql = "SELECT id, name, description FROM exercises WHERE owned LIKE 'true'";
+				if (!level.equalsIgnoreCase("-1")) {
+					sql += " AND level LIKE " + level + " ";
+				}
+				if (!equip.contains("All ")) {
+					sql += " AND equipment LIKE '" + equip + "' ";
+				}
+				if (!muscle.equalsIgnoreCase("-1")) {
+					sql += " AND muscles LIKE " + muscle + " ";
+				}
+				if (!modality.equalsIgnoreCase("-1")) {
+					sql += " AND modality LIKE " + modality + " ";
+				}
 
-					if (!level.equalsIgnoreCase("-1")) {
-						sql += " AND level LIKE " + level + " ";
-					}
-					if (!equip.contains("All ")) {
-						sql += " AND equipment LIKE '" + equip + "' ";
-					}
-					if (!muscle.equalsIgnoreCase("-1")) {
-						sql += " AND muscles LIKE " + muscle + " ";
-					}
-					if (!modality.equalsIgnoreCase("-1")) {
-						sql += " AND modality LIKE " + modality + " ";
-					}
+				sql += ";";
 
-					sql += ";";
-					
-					
-					idArray = new ArrayList<String>();
-					nameArray = new ArrayList<String>();
-					descArray = new ArrayList<String>();
-					
-					DBAdapter db = null;
-					db = DBAdapter.getDBAdapterInstance(getActivity());
-					db.openDataBase();
+				idArray = new ArrayList<String>();
+				nameArray = new ArrayList<String>();
+				descArray = new ArrayList<String>();
 
-					Cursor myCursor = db.getReadableDatabase().rawQuery(
-							sql, null);
+				DBAdapter db = null;
+				db = DBAdapter.getDBAdapterInstance(getActivity());
+				db.openDataBase();
 
+				Cursor myCursor = db.getReadableDatabase().rawQuery(sql, null);
+
+				if (myCursor.getCount() > 0) {
 					myCursor.moveToFirst();
 					do {
 						idArray.add(myCursor.getString(0));
@@ -200,20 +179,18 @@ public class ProgramAddExercisesFragment extends Fragment implements OnClickList
 						descArray.add(myCursor.getString(2));
 						myCursor.moveToNext();
 					} while (!myCursor.isAfterLast());
-
-					myCursor.close();
-					db.close();
-
-					adapter = new AddExercisesListAdapter(getActivity(), idArray, nameArray, descArray);
-					ListView list = (ListView) view.findViewById(R.id.listAllExercises);
-					list.setAdapter(adapter);
-
-					
 				}
-			});
-			break;
-			
-		}
+				myCursor.close();
+				db.close();
+
+				adapter = new AddExercisesListAdapter(getActivity(), idArray,
+						nameArray, descArray);
+				ListView list = (ListView) view
+						.findViewById(R.id.listAllExercises);
+				list.setAdapter(adapter);
+
+			}
+		});
 	}
 
 }
