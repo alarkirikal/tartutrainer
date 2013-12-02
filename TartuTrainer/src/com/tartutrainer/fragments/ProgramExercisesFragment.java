@@ -293,8 +293,11 @@ public class ProgramExercisesFragment extends Fragment implements
 				.getString("pgr_id"));
 		intent.putExtra("exc_id", ids.get(pos));
 		intent.putExtra("exc_data", excArray.get(pos));
-		startActivity(intent);
-
+		if(nameArray.get(pos).equals("Tri-Set")|| nameArray.get(pos).equals("Super-Set")){
+		
+		}else{
+			startActivity(intent);
+		}
 	}
 
 	@Override

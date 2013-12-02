@@ -98,6 +98,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		// Set listeners
 		setOnClickListeners();
 	}
+	
+	
+	
 
 	protected ArrayList<String> getMusclesArray() {
 		ArrayList<String> muscles = new ArrayList<String>();
@@ -268,12 +271,15 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		// Show the values on the layout
 		excName.setText(exc.getName());
 		excDesc.setText(exc.getDescription());
-		Log.d("Here", "HERE");
-		Log.d("LABELS", exc.getLabels());
-		Log.d("Here", "HERE");
+
 		String[] labels = exc.getLabels().split(" ");
+		if(labels.length==2){
 		excLabelOne.setText(labels[0]);
 		excLabelTwo.setText(labels[1]);
+		}
+		else{
+			excLabelOne.setText(labels[0]);
+		}
 		excEquip.setText(exc.getEquipment());
 		excLevel.setText(levelsPrefs.getString(
 				Integer.toString(exc.getLevel()), ""));
@@ -281,11 +287,11 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 				Integer.toString(exc.getModality()), ""));
 
 		String musclesIndexes = exc.getMuscles();
-		Log.d("exc muscles", exc.getMuscles());
+
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < musclesIndexes.length(); i++) {
-			if (musclesIndexes.charAt(i) == 1) {
-				sb.append(musclePrefs.getString(Integer.toString(i), ""));
+			if (("" + musclesIndexes.charAt(i)).equals("1")) {
+				sb.append(musclePrefs.getString(Integer.toString(i+1), ""));
 				sb.append(";");
 			}
 		}
@@ -293,7 +299,11 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			String muscles = sb.toString().substring(0,
 					sb.toString().length() - 1);
 			excMuscleGroups.setText(muscles.replaceAll(";", "\r\n"));
-		} else {
+		} 
+		else if(sb.equals("111111111111")){
+			excMuscleGroups.setText("All muscles");
+		}
+		else {
 			excMuscleGroups.setText("None");
 		}
 	}
@@ -550,19 +560,24 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 		case R.id.editExerciseMuscleGroups:
 		case R.id.editMuscleGroupsImg:
+			
 			final String[] muscles_list = musclesArray
 					.toArray(new String[musclesArray.size()]);
+			Log.d("",musclesArray.toString());
+			Log.d("",exc.getMuscles());
 			final TextView muscles = (TextView) findViewById(R.id.editExerciseMuscleGroups);
 			final ArrayList<Integer> selectedItems = new ArrayList<Integer>();
+			
 			checkedMuscles = new boolean[musclesArray.size()];
-			String[] selectedMuscles = exc.getMuscles().split(";");
-			for (String index : selectedMuscles) {
-				if (!index.equals("")) {
-					checkedMuscles[Integer.parseInt(index)] = true;
-					selectedItems.add(Integer.parseInt(index));
+			String musclesIndexes = "0" + exc.getMuscles();
+			for (int i = 0; i<musclesIndexes.length(); i++) {
+				if (("" + musclesIndexes.charAt(i)).equals("1") ) {
+					checkedMuscles[i] = true;
+					selectedItems.add(i);
 				}
 			}
-
+			
+			Log.d("",selectedItems.toString());
 			AlertDialog.Builder builder6 = new AlertDialog.Builder(this);
 			builder6.setTitle("Muscles");
 			builder6.setMultiChoiceItems(muscles_list, checkedMuscles,
@@ -589,6 +604,8 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 										int which) {
 
 									if (selectedItems.size() == 0) {
+										exc.setMuscles("000000000000");
+										muscles.setText("None");
 										dialog.dismiss();
 									} else {
 										StringBuilder sb = new StringBuilder();
@@ -598,26 +615,31 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 											if (checked) {
 												sb.append(muscles_list[counter]
 														+ ";");
-												musclesToSet += Integer
-														.toString(counter)
-														+ ";";
+												musclesToSet += 1;
+											}
+											else{
+												musclesToSet += 0;
 											}
 											counter += 1;
 										}
 
-										Log.d("muscles", sb.toString());
 
 										musclesToSet = musclesToSet.substring(
 												0, musclesToSet.length() - 1);
-										exc.setMuscles(musclesToSet);
-
+										if(checkedMuscles[0]==true){
+											exc.setMuscles("111111111111");
+											muscles.setText("All Muscles");
+										}else{
+										exc.setMuscles(musclesToSet.substring(1, musclesToSet.length()));
+										
 										String musclesString = sb
 												.toString()
 												.substring(
 														0,
-														sb.toString().length() - 1);
+														sb.toString().length() );
 										muscles.setText(musclesString
 												.replaceAll(";", "\r\n"));
+										}
 										dialog.dismiss();
 									}
 								}

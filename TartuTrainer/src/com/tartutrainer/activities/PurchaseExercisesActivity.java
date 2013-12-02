@@ -1,39 +1,27 @@
 package com.tartutrainer.activities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.tartutrainer.R;
-import com.tartutrainer.adapters.ClientsListAdapter;
 import com.tartutrainer.adapters.PurchaseListAdapter;
 
 import com.tartutrainer.database.DBAdapter;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class PurchaseExercisesActivity extends Activity implements
 		OnClickListener, OnItemClickListener {

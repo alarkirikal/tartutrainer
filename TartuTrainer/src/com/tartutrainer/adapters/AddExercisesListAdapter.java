@@ -141,8 +141,9 @@ public class AddExercisesListAdapter extends BaseAdapter {
 
 				Toast.makeText(activity, "Exercise added to the program!",
 						Toast.LENGTH_SHORT).show();
-				vi.setBackgroundColor(Color.parseColor("#00ccff"));
-				vi.refreshDrawableState();
+				//Currently broken
+				//vi.setBackgroundColor(Color.parseColor("#00ccff"));
+				//vi.refreshDrawableState();
 			}
 
 		});
