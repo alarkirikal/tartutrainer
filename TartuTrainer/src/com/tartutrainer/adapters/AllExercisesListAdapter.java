@@ -62,12 +62,20 @@ public class AllExercisesListAdapter extends BaseAdapter {
 			Drawable res = mActivity.getResources().getDrawable(imgRes);
 			img.setImageDrawable(res);
 		} catch (NotFoundException n) {
+			
 			ImageView img = (ImageView) vi.findViewById(R.id.ExerciseIcon);
+			if (tName.get(position).equals("Tri-Set") || tName.get(position).equals("Super-Set")){
+				img.setVisibility(vi.GONE);
+			}
+			else{
 			String uri = "@drawable/img_notavailable";
 			int imgRes = mActivity.getResources().getIdentifier(uri, null, mActivity.getPackageName());
 			Drawable res = mActivity.getResources().getDrawable(imgRes);
 			img.setImageDrawable(res);
+			}
 		}
+
+		
 		
 		TextView text = (TextView) vi.findViewById(R.id.exerciseName);
 		text.setText(tName.get(position));
