@@ -17,8 +17,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -98,9 +100,6 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		// Set listeners
 		setOnClickListeners();
 	}
-	
-	
-	
 
 	protected ArrayList<String> getMusclesArray() {
 		ArrayList<String> muscles = new ArrayList<String>();
@@ -267,19 +266,47 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		TextView excLevel = (TextView) findViewById(R.id.editExerciseLevel);
 		TextView excModality = (TextView) findViewById(R.id.editExerciseModality);
 		TextView excMuscleGroups = (TextView) findViewById(R.id.editExerciseMuscleGroups);
+		ImageView imgOne = (ImageView) findViewById(R.id.imageOne);
+		ImageView imgTwo = (ImageView) findViewById(R.id.imageTwo);
 
 		// Show the values on the layout
 		excName.setText(exc.getName());
 		excDesc.setText(exc.getDescription());
 
-		String[] labels = exc.getLabels().split(" ");
-		if(labels.length==2){
+		try {
+			String uriFirst = "@drawable/img_"
+					+ exc.getId().replaceAll("-", "_") + "1";
+			int imageResourceFirst = getResources().getIdentifier(uriFirst,
+					null, getPackageName());
+			Drawable resOne = getResources().getDrawable(imageResourceFirst);
+			imgOne.setImageDrawable(resOne);
+		} catch (NotFoundException n) {
+			String uriFirst = "@drawable/img_notavailable";
+			int imgRes = getResources().getIdentifier(uriFirst, null,
+					getPackageName());
+			Drawable res = getResources().getDrawable(imgRes);
+			imgOne.setImageDrawable(res);
+		}
+
+		try {
+			String uriSecond = "@drawable/img_"
+					+ exc.getId().replaceAll("-", "_") + "2";
+			int imageResourceSecond = getResources().getIdentifier(uriSecond,
+					null, getPackageName());
+			Drawable resTwo = getResources().getDrawable(imageResourceSecond);
+			imgTwo.setImageDrawable(resTwo);
+		} catch (NotFoundException n) {
+			String uriSecond = "@drawable/img_notavailable";
+			int imgRes = getResources().getIdentifier(uriSecond, null,
+					getPackageName());
+			Drawable res = getResources().getDrawable(imgRes);
+			imgTwo.setImageDrawable(res);
+		}
+
+		String[] labels = exc.getLabels().split(" ", -1);
 		excLabelOne.setText(labels[0]);
 		excLabelTwo.setText(labels[1]);
-		}
-		else{
-			excLabelOne.setText(labels[0]);
-		}
+
 		excEquip.setText(exc.getEquipment());
 		excLevel.setText(levelsPrefs.getString(
 				Integer.toString(exc.getLevel()), ""));
@@ -291,7 +318,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < musclesIndexes.length(); i++) {
 			if (("" + musclesIndexes.charAt(i)).equals("1")) {
-				sb.append(musclePrefs.getString(Integer.toString(i+1), ""));
+				sb.append(musclePrefs.getString(Integer.toString(i + 1), ""));
 				sb.append(";");
 			}
 		}
@@ -299,11 +326,9 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			String muscles = sb.toString().substring(0,
 					sb.toString().length() - 1);
 			excMuscleGroups.setText(muscles.replaceAll(";", "\r\n"));
-		} 
-		else if(sb.equals("111111111111")){
+		} else if (sb.equals("111111111111")) {
 			excMuscleGroups.setText("All muscles");
-		}
-		else {
+		} else {
 			excMuscleGroups.setText("None");
 		}
 	}
@@ -560,24 +585,24 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 		case R.id.editExerciseMuscleGroups:
 		case R.id.editMuscleGroupsImg:
-			
+
 			final String[] muscles_list = musclesArray
 					.toArray(new String[musclesArray.size()]);
-			Log.d("",musclesArray.toString());
-			Log.d("",exc.getMuscles());
+			Log.d("", musclesArray.toString());
+			Log.d("", exc.getMuscles());
 			final TextView muscles = (TextView) findViewById(R.id.editExerciseMuscleGroups);
 			final ArrayList<Integer> selectedItems = new ArrayList<Integer>();
-			
+
 			checkedMuscles = new boolean[musclesArray.size()];
 			String musclesIndexes = "0" + exc.getMuscles();
-			for (int i = 0; i<musclesIndexes.length(); i++) {
-				if (("" + musclesIndexes.charAt(i)).equals("1") ) {
+			for (int i = 0; i < musclesIndexes.length(); i++) {
+				if (("" + musclesIndexes.charAt(i)).equals("1")) {
 					checkedMuscles[i] = true;
 					selectedItems.add(i);
 				}
 			}
-			
-			Log.d("",selectedItems.toString());
+
+			Log.d("", selectedItems.toString());
 			AlertDialog.Builder builder6 = new AlertDialog.Builder(this);
 			builder6.setTitle("Muscles");
 			builder6.setMultiChoiceItems(muscles_list, checkedMuscles,
@@ -616,29 +641,29 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 												sb.append(muscles_list[counter]
 														+ ";");
 												musclesToSet += 1;
-											}
-											else{
+											} else {
 												musclesToSet += 0;
 											}
 											counter += 1;
 										}
 
-
 										musclesToSet = musclesToSet.substring(
 												0, musclesToSet.length() - 1);
-										if(checkedMuscles[0]==true){
+										if (checkedMuscles[0] == true) {
 											exc.setMuscles("111111111111");
 											muscles.setText("All Muscles");
-										}else{
-										exc.setMuscles(musclesToSet.substring(1, musclesToSet.length()));
-										
-										String musclesString = sb
-												.toString()
-												.substring(
-														0,
-														sb.toString().length() );
-										muscles.setText(musclesString
-												.replaceAll(";", "\r\n"));
+										} else {
+											exc.setMuscles(musclesToSet
+													.substring(1, musclesToSet
+															.length()));
+
+											String musclesString = sb
+													.toString().substring(
+															0,
+															sb.toString()
+																	.length());
+											muscles.setText(musclesString
+													.replaceAll(";", "\r\n"));
 										}
 										dialog.dismiss();
 									}

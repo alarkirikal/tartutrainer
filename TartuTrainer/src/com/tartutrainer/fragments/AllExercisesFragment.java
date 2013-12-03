@@ -123,7 +123,7 @@ public class AllExercisesFragment extends Fragment implements
 		} else {
 			nr.setVisibility(TextView.VISIBLE);
 		}
-		adapter = new AllExercisesListAdapter(getActivity(), nameArray,
+		adapter = new AllExercisesListAdapter(getActivity(), idArray, nameArray,
 				descArray);
 
 		ListView list = (ListView) view.findViewById(R.id.listAllExercises);

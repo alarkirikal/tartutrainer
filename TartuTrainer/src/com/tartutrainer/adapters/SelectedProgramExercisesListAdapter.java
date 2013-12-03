@@ -8,6 +8,8 @@ import com.tartutrainer.models.Exercise;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources.NotFoundException;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,9 +46,33 @@ public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> 
 		if (convertView == null) {
 			vi = inflater.inflate(R.layout.listitem_exercise, null);
 		}
+
 		TextView name_text = (TextView) vi.findViewById(R.id.exerciseName);
 		TextView muscles_text = (TextView) vi.findViewById(R.id.exerciseDesc);
 		ImageView exc_img = (ImageView) vi.findViewById(R.id.ExerciseIcon);
+
+		if (!exe.get(position).getId().equalsIgnoreCase("")) {
+			try {
+				String uri = "@drawable/img_"
+						+ exe.get(position).getId().replaceAll("-", "_") + "1";
+				int imgRes = activity.getResources().getIdentifier(uri, null,
+						activity.getPackageName());
+				Drawable res = activity.getResources().getDrawable(imgRes);
+				exc_img.setImageDrawable(res);
+			} catch (NotFoundException n) {
+				String uri = "@drawable/img_notavailable";
+				int imgRes = activity.getResources().getIdentifier(uri, null,
+						activity.getPackageName());
+				Drawable res = activity.getResources().getDrawable(imgRes);
+				exc_img.setImageDrawable(res);
+			}
+			exc_img.setVisibility(ImageView.VISIBLE);
+			muscles_text.setVisibility(TextView.VISIBLE);
+		} else {
+			exc_img.setVisibility(ImageView.GONE);
+			muscles_text.setVisibility(TextView.GONE);
+		}
+
 		name_text.setText(exe.get(position).getName());
 		SharedPreferences prefs = activity.getSharedPreferences(MUSCLE_GROUPS,
 				Context.MODE_PRIVATE);
@@ -63,8 +89,6 @@ public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> 
 					addComma = true;
 
 					name_text.setPadding(0, 0, 0, 2);
-					exc_img.setVisibility(ImageView.VISIBLE);
-					muscles_text.setVisibility(TextView.VISIBLE);
 				}
 				if (addComma) {
 					musclesText += ", ";
@@ -72,13 +96,12 @@ public class SelectedProgramExercisesListAdapter extends ArrayAdapter<Exercise> 
 			}
 		} else {
 			// Header
-			exc_img.setVisibility(ImageView.GONE);
-			muscles_text.setVisibility(TextView.GONE);
 			name_text.setPadding(10, 10, 10, 10);
 		}
 
 		if (musclesText.length() > 0) {
-			muscles_text.setText(musclesText.substring(0, musclesText.length()-2));
+			muscles_text.setText(musclesText.substring(0,
+					musclesText.length() - 2));
 		} else {
 			muscles_text.setText("No musclegroups assigned");
 		}

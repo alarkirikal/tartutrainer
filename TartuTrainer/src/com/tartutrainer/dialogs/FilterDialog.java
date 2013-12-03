@@ -180,7 +180,7 @@ public class FilterDialog extends Dialog {
 				cMuscle = String.valueOf(pos - 1);
 
 				SharedPreferences.Editor e_third = prefs.edit();
-				e_third.putInt("2", pos);
+				e_third.putInt("2", pos + 1);
 				e_third.commit();
 			}
 		});

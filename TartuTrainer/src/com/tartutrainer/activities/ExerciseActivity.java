@@ -12,8 +12,10 @@ import com.tartutrainer.database.DBAdapter;
 import android.R.color;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ExerciseActivity extends Activity implements OnLongClickListener,
@@ -176,6 +179,40 @@ public class ExerciseActivity extends Activity implements OnLongClickListener,
 		// Notes
 		TextView notes = (TextView) findViewById(R.id.exerciseNotes);
 		notes.setText(excElements.get(1));
+		
+		// First Image
+		ImageView imgOne = (ImageView) findViewById(R.id.exerciseFirstImg);
+		try {
+			String uriFirst = "@drawable/img_"
+					+ getIntent().getExtras().getString("exc_id").replaceAll("-", "_") + "1";
+			int imageResourceFirst = getResources().getIdentifier(uriFirst,
+					null, getPackageName());
+			Drawable resOne = getResources().getDrawable(imageResourceFirst);
+			imgOne.setImageDrawable(resOne);
+		} catch (NotFoundException n) {
+			String uriFirst = "@drawable/img_notavailable";
+			int imgRes = getResources().getIdentifier(uriFirst, null,
+					getPackageName());
+			Drawable res = getResources().getDrawable(imgRes);
+			imgOne.setImageDrawable(res);
+		}
+		
+		// Second Image
+		ImageView imgTwo = (ImageView) findViewById(R.id.exerciseSecondImg);
+		try {
+			String uriSecond = "@drawable/img_"
+					+ getIntent().getExtras().getString("exc_id").replaceAll("-", "_") + "2";
+			int imageResourceSecond = getResources().getIdentifier(uriSecond,
+					null, getPackageName());
+			Drawable resTwo = getResources().getDrawable(imageResourceSecond);
+			imgTwo.setImageDrawable(resTwo);
+		} catch (NotFoundException n) {
+			String uriSecond = "@drawable/img_notavailable";
+			int imgRes = getResources().getIdentifier(uriSecond, null,
+					getPackageName());
+			Drawable res = getResources().getDrawable(imgRes);
+			imgTwo.setImageDrawable(res);
+		}
 
 		// Table elements
 		TextView tRepsFirst = (TextView) findViewById(R.id.target_reps_first);

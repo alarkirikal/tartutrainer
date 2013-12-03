@@ -40,6 +40,7 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 
 	AllExercisesListAdapter adapter;
 	ArrayList<String> idArray;
+	ArrayList<String> excIdArray;
 	ArrayList<String> nameArray;
 	ArrayList<String> descArray;
 	
@@ -73,7 +74,7 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 
 	public void populateList(ArrayList<String> l) {
 
-		
+		excIdArray = new ArrayList<String>();
 		nameArray = new ArrayList<String>();
 		descArray = new ArrayList<String>();
 
@@ -86,15 +87,17 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 		Log.d("TEMPLATE ITEMS",l.toString());
 		for(String i: l){
 		if (i.equals("Tri-Set") || i.equals("Super-Set")){
+			excIdArray.add("");
 			nameArray.add(i);
 			descArray.add("");
 		}else{
-		myCursor = db.getReadableDatabase().rawQuery("SELECT name, description from exercises where id = ?;" , new String[]{i});
+		myCursor = db.getReadableDatabase().rawQuery("SELECT id, name, description from exercises where id = ?;" , new String[]{i});
 		
 			myCursor.moveToFirst();
 			do {
-				nameArray.add(myCursor.getString(0));
-				descArray.add(myCursor.getString(1));
+				excIdArray.add(myCursor.getString(0));
+				nameArray.add(myCursor.getString(1));
+				descArray.add(myCursor.getString(2));
 				myCursor.moveToNext();
 			} while (!myCursor.isAfterLast());
 			myCursor.close();
@@ -105,7 +108,7 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		adapter = new AllExercisesListAdapter(this, nameArray,
+		adapter = new AllExercisesListAdapter(this, excIdArray, nameArray,
 				descArray);
 
 		ListView list = (ListView) findViewById(R.id.listAllTemplates);

@@ -200,7 +200,7 @@ public class ProgramExercisesFragment extends Fragment implements
 	private void setOnClickListeners() {
 
 		/* Programs list listener */
-		listView = listView = (DragSortListView) view.findViewById(R.id.programExercisesList);
+		listView = (DragSortListView) view.findViewById(R.id.programExercisesList);
 		listView.setOnItemClickListener(this);
 
 	}

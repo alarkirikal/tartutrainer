@@ -85,7 +85,7 @@ public class CollectionItemActivity extends Activity implements OnItemClickListe
 			myCursor.close();
 			db.close();
 
-		adapter = new AllExercisesListAdapter(this, nameArray,
+		adapter = new AllExercisesListAdapter(this, idArray, nameArray,
 				descArray);
 
 		ListView list = (ListView) findViewById(R.id.listAllCollections);

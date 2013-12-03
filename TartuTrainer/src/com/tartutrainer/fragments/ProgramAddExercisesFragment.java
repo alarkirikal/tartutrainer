@@ -107,7 +107,7 @@ public class ProgramAddExercisesFragment extends Fragment implements
 		Cursor myCursor = db
 				.getReadableDatabase()
 				.rawQuery(
-						"SELECT id, name, description FROM exercises WHERE owned LIKE 'true';",
+						"SELECT id, name, muscles FROM exercises WHERE owned LIKE 'true';",
 						null);
 
 		myCursor.moveToFirst();
@@ -144,7 +144,7 @@ public class ProgramAddExercisesFragment extends Fragment implements
 			public void finish(String level, String equip, String muscle,
 					String modality) {
 
-				String sql = "SELECT id, name, description FROM exercises WHERE owned LIKE 'true'";
+				String sql = "SELECT id, name, muscles FROM exercises WHERE owned LIKE 'true'";
 
 				if (!level.equalsIgnoreCase("-1")) {
 					sql += " AND level LIKE " + level + " ";
@@ -183,6 +183,7 @@ public class ProgramAddExercisesFragment extends Fragment implements
 				myCursor.close();
 				db.close();
 
+				Log.d("descarray", descArray.toString());
 				adapter = new AddExercisesListAdapter(getActivity(), idArray,
 						nameArray, descArray);
 				ListView list = (ListView) view
