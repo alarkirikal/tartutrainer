@@ -15,7 +15,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -74,6 +76,40 @@ public class CollectionItemInfoActivity extends Activity  {
 		TextView itemMuscles = (TextView) findViewById(R.id.ItemInfoMusclesText);
 		TextView itemEquipment = (TextView) findViewById(R.id.ItemInfoEquipmentText);
 		TextView itemInstructions = (TextView) findViewById(R.id.ItemInfoInstructionsText);
+		
+		ImageView imgOne = (ImageView) findViewById(R.id.InfoimageOne);
+		ImageView imgTwo = (ImageView) findViewById(R.id.InfoimageTwo);
+		
+		
+		try {
+			String uriFirst = "@drawable/img_"
+					+ id.replaceAll("-", "_") + "1";
+			int imageResourceFirst = getResources().getIdentifier(uriFirst,
+					null, getPackageName());
+			Drawable resOne = getResources().getDrawable(imageResourceFirst);
+			imgOne.setImageDrawable(resOne);
+		} catch (NotFoundException n) {
+			String uriFirst = "@drawable/img_notavailable";
+			int imgRes = getResources().getIdentifier(uriFirst, null,
+					getPackageName());
+			Drawable res = getResources().getDrawable(imgRes);
+			imgOne.setImageDrawable(res);
+		}
+
+		try {
+			String uriSecond = "@drawable/img_"
+					+ id.replaceAll("-", "_") + "2";
+			int imageResourceSecond = getResources().getIdentifier(uriSecond,
+					null, getPackageName());
+			Drawable resTwo = getResources().getDrawable(imageResourceSecond);
+			imgTwo.setImageDrawable(resTwo);
+		} catch (NotFoundException n) {
+			String uriSecond = "@drawable/img_notavailable";
+			int imgRes = getResources().getIdentifier(uriSecond, null,
+					getPackageName());
+			Drawable res = getResources().getDrawable(imgRes);
+			imgTwo.setImageDrawable(res);
+		}
 
 		
 		itemName.setText(myCursor.getString(1));
@@ -81,15 +117,37 @@ public class CollectionItemInfoActivity extends Activity  {
 				Integer.toString(myCursor.getInt(3)), ""));
 		itemModality.setText(modsPrefs.getString(
 				Integer.toString(myCursor.getInt(4)), ""));
-		String[] musclesIndexes = myCursor.getString(5).split(";");
+
+		
+		String musclesIndexes = myCursor.getString(5);
+
 		StringBuilder sb = new StringBuilder();
-		for (String index : musclesIndexes) {
-			sb.append(musclePrefs.getString(index, ""));
-			sb.append("; ");
+		for (int i = 0; i < musclesIndexes.length(); i++) {
+			if (("" + musclesIndexes.charAt(i)).equals("1")) {
+				sb.append(musclePrefs.getString(Integer.toString(i + 1), ""));
+				sb.append("; ");
+			}
 		}
-		String muscles = sb.toString().substring(0, sb.toString().length() - 1);
-		itemMuscles.setText(muscles);
-		itemEquipment.setText(myCursor.getString(6));
+		if (sb.toString().length() != 0) {
+			String muscles = sb.toString().substring(0,
+					sb.toString().length() - 3);
+			itemMuscles.setText(muscles);
+		} else if (sb.equals("111111111111")) {
+			itemMuscles.setText("All muscles");
+		} else {
+
+			itemMuscles.setText("None");
+		}
+
+		
+		
+		if (myCursor.getString(6).equals("")){
+			itemEquipment.setText("None");
+		}
+		else{
+			itemEquipment.setText(myCursor.getString(6));
+		}
+
 		itemInstructions.setText(myCursor.getString(2));
 		
 		
