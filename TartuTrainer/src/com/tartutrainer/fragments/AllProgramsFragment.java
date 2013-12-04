@@ -127,7 +127,11 @@ public class AllProgramsFragment extends Fragment implements
 					idArray.add(myCursor.getString(0));
 					nameArray.add(myCursor.getString(1));
 					clientArray.add(myCursor.getString(2));
+					if(myCursor.getString(3).equals("")){
+						excCountArray.add(0);
+					}else{
 					excCountArray.add(myCursor.getString(3).split(":", -1).length);
+					}
 					dateArray.add(myCursor.getString(4));
 					myCursor.moveToNext();
 				} while (!myCursor.isAfterLast());
