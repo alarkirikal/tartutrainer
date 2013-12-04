@@ -647,8 +647,8 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 											counter += 1;
 										}
 
-										musclesToSet = musclesToSet.substring(
-												0, musclesToSet.length() - 1);
+								/*		musclesToSet = musclesToSet.substring(
+												0, musclesToSet.length() - 1);*/
 										if (checkedMuscles[0] == true) {
 											exc.setMuscles("111111111111");
 											muscles.setText("All Muscles");
