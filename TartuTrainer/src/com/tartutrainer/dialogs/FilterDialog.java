@@ -166,7 +166,7 @@ public class FilterDialog extends Dialog {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		muscles.setAdapter(muscleAdapter);
 		muscles.setPadding(0, 0, 0, 10);
-		muscles.setSelection(prefs.getInt("2", 0));
+		muscles.setSelection(prefs.getInt("1", 0));
 		muscles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 			@Override

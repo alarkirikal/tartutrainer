@@ -144,21 +144,31 @@ public class ProgramAddExercisesFragment extends Fragment implements
 			public void finish(String level, String equip, String muscle,
 					String modality) {
 
-				String sql = "SELECT id, name, muscles FROM exercises WHERE owned LIKE 'true'";
+				String sql = "SELECT id, name, description FROM exercises WHERE owned LIKE 'true'";
 
 				if (!level.equalsIgnoreCase("-1")) {
-					sql += " AND level LIKE " + level + " ";
+					sql += " AND level LIKE " + (Integer.parseInt(level)+1) + " ";
 				}
 				if (!equip.contains("All ")) {
 					sql += " AND equipment LIKE '" + equip + "' ";
 				}
 				if (!muscle.equalsIgnoreCase("-1")) {
-					sql += " AND muscles LIKE " + muscle + " ";
+					ArrayList<String> MusclesArray = new ArrayList<String>(); 
+					for (int i = 0; i<12;i++){
+						MusclesArray.add("_");
+					}
+					MusclesArray.set(Integer.parseInt(muscle), "1");
+					String musclesIndex = "";
+					for (String index : MusclesArray){
+						musclesIndex += index;
+					}
+					sql += " AND muscles LIKE '" + musclesIndex + "' ";
+					
 				}
 				if (!modality.equalsIgnoreCase("-1")) {
-					sql += " AND modality LIKE " + modality + " ";
+					sql += " AND modality LIKE " + (Integer.parseInt(modality)+1) + " ";
+					
 				}
-
 				sql += ";";
 
 				idArray = new ArrayList<String>();
