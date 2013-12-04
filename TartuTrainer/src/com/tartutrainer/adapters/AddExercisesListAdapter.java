@@ -107,7 +107,7 @@ public class AddExercisesListAdapter extends BaseAdapter {
 		}
 
 		TextView textDesc = (TextView) vi.findViewById(R.id.exerciseDesc);
-		if (musclesText.length() > 3) {
+		if (musclesText.length() > 0) {
 			textDesc.setText(musclesText.substring(0, musclesText.length() - 2));
 		} else {
 			textDesc.setText("No musclegroups assigned");
