@@ -1,6 +1,13 @@
 package com.tartutrainer.activities;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,8 +27,14 @@ import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,6 +69,10 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 	private final static String MUSCLE_GROUPS = "muscle_groups";
 	private final static String LABELS = "labels";
 
+	private static final int SELECT_PHOTO = 100;
+
+	int idToReplace;
+	String whichOneToReplace;
 	int levelID = 0;
 
 	@Override
@@ -246,6 +263,75 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent imageReturnedIntent) {
+		super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+		switch (requestCode) {
+		case SELECT_PHOTO:
+			if (resultCode == RESULT_OK) {
+				Uri selectedImage = imageReturnedIntent.getData();
+				InputStream imageStream;
+				try {
+					imageStream = getContentResolver().openInputStream(
+							selectedImage);
+					Bitmap yourSelectedImage = BitmapFactory
+							.decodeStream(imageStream);
+					ImageView img = (ImageView) findViewById(idToReplace);
+					img.setImageBitmap(yourSelectedImage);
+					storeImage(yourSelectedImage);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/** Store a bitmap image to a file */
+	private void storeImage(Bitmap image) {
+		File pictureFile = getOutputMediaFile();
+		if (pictureFile == null) {
+			Log.d("[debug]",
+					"Error creating media file, check storage permissions: ");// e.getMessage());
+			return;
+		}
+		try {
+			FileOutputStream fos = new FileOutputStream(pictureFile);
+			image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+			fos.close();
+		} catch (FileNotFoundException e) {
+			Log.d("[debug]", "File not found: " + e.getMessage());
+		} catch (IOException e) {
+			Log.d("[debug]", "Error accessing file: " + e.getMessage());
+		}
+	}
+
+	/** Create a File for saving an image or video */
+	private File getOutputMediaFile() {
+		// To be safe, you should check that the SDCard is mounted
+		// using Environment.getExternalStorageState() before doing this.
+		File mediaStorageDir = new File(
+				Environment.getExternalStorageDirectory() + "/Android/data/"
+						+ getApplicationContext().getPackageName() + "/Files");
+
+		// This location works best if you want the created images to be shared
+		// between applications and persist after your app has been uninstalled.
+
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				return null;
+			}
+		}
+		// Create a media file name
+		File mediaFile;
+		String mImageName = exc.id + whichOneToReplace + ".png";
+		mediaFile = new File(mediaStorageDir.getPath() + File.separator
+				+ mImageName);
+		return mediaFile;
+	}
+
 	protected void fillContentByEdit() {
 
 		SharedPreferences labelsPrefs = getSharedPreferences(LABELS,
@@ -273,34 +359,59 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		excName.setText(exc.getName());
 		excDesc.setText(exc.getDescription());
 
-		try {
-			String uriFirst = "@drawable/img_"
-					+ exc.getId().replaceAll("-", "_") + "1";
-			int imageResourceFirst = getResources().getIdentifier(uriFirst,
-					null, getPackageName());
-			Drawable resOne = getResources().getDrawable(imageResourceFirst);
-			imgOne.setImageDrawable(resOne);
-		} catch (NotFoundException n) {
-			String uriFirst = "@drawable/img_notavailable";
-			int imgRes = getResources().getIdentifier(uriFirst, null,
-					getPackageName());
-			Drawable res = getResources().getDrawable(imgRes);
-			imgOne.setImageDrawable(res);
+		String imgPathOne = Environment.getExternalStorageDirectory()
+				+ "/Android/data/" + getApplicationContext().getPackageName()
+				+ "/Files/" + exc.getId() + "1.png";
+		File imgFileOne = new File(imgPathOne);
+		if (imgFileOne.exists()) {
+
+			Bitmap myBitmapOne = BitmapFactory.decodeFile(imgFileOne
+					.getAbsolutePath());
+			imgOne.setImageBitmap(myBitmapOne);
+		} else {
+			try {
+				String uriFirst = "@drawable/img_"
+						+ exc.getId().replaceAll("-", "_") + "1";
+				int imageResourceFirst = getResources().getIdentifier(uriFirst,
+						null, getPackageName());
+				Drawable resOne = getResources()
+						.getDrawable(imageResourceFirst);
+				imgOne.setImageDrawable(resOne);
+			} catch (NotFoundException n) {
+				String uriFirst = "@drawable/img_notavailable";
+				int imgRes = getResources().getIdentifier(uriFirst, null,
+						getPackageName());
+				Drawable res = getResources().getDrawable(imgRes);
+				imgOne.setImageDrawable(res);
+			}
 		}
 
-		try {
-			String uriSecond = "@drawable/img_"
-					+ exc.getId().replaceAll("-", "_") + "2";
-			int imageResourceSecond = getResources().getIdentifier(uriSecond,
-					null, getPackageName());
-			Drawable resTwo = getResources().getDrawable(imageResourceSecond);
-			imgTwo.setImageDrawable(resTwo);
-		} catch (NotFoundException n) {
-			String uriSecond = "@drawable/img_notavailable";
-			int imgRes = getResources().getIdentifier(uriSecond, null,
-					getPackageName());
-			Drawable res = getResources().getDrawable(imgRes);
-			imgTwo.setImageDrawable(res);
+		String imgPathTwo = Environment.getExternalStorageDirectory()
+				+ "/Android/data/" + getApplicationContext().getPackageName()
+				+ "/Files/" + exc.getId() + "2.png";
+		File imgFileTwo = new File(imgPathTwo);
+		if (imgFileTwo.exists()) {
+
+			Bitmap myBitmapTwo = BitmapFactory.decodeFile(imgFileTwo
+					.getAbsolutePath());
+			imgTwo.setImageBitmap(myBitmapTwo);
+		} else {
+
+			try {
+				String uriSecond = "@drawable/img_"
+						+ exc.getId().replaceAll("-", "_") + "2";
+				int imageResourceSecond = getResources().getIdentifier(
+						uriSecond, null, getPackageName());
+				Drawable resTwo = getResources().getDrawable(
+						imageResourceSecond);
+				imgTwo.setImageDrawable(resTwo);
+			} catch (NotFoundException n) {
+				String uriSecond = "@drawable/img_notavailable";
+				int imgRes = getResources().getIdentifier(uriSecond, null,
+						getPackageName());
+				Drawable res = getResources().getDrawable(imgRes);
+				imgTwo.setImageDrawable(res);
+			}
 		}
 
 		String[] labels = exc.getLabels().split(" ", -1);
@@ -365,6 +476,12 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		Button purchase = (Button) findViewById(R.id.purchaseExercises);
 		purchase.setOnClickListener(this);
 
+		ImageView imgOne = (ImageView) findViewById(R.id.imageOne);
+		imgOne.setOnClickListener(this);
+
+		ImageView imgTwo = (ImageView) findViewById(R.id.imageTwo);
+		imgTwo.setOnClickListener(this);
+
 	}
 
 	private boolean saveExerciseToDatabase() {
@@ -426,6 +543,7 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			if (succesful) {
 				Intent intent = new Intent(this, MainActivity.class);
 				intent.putExtra("select_tab", "exercise");
+				finish();
 				startActivity(intent);
 			} else {
 				Toast.makeText(getApplicationContext(),
@@ -647,8 +765,11 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 											counter += 1;
 										}
 
-								/*		musclesToSet = musclesToSet.substring(
-												0, musclesToSet.length() - 1);*/
+										/*
+										 * musclesToSet =
+										 * musclesToSet.substring( 0,
+										 * musclesToSet.length() - 1);
+										 */
 										if (checkedMuscles[0] == true) {
 											exc.setMuscles("111111111111");
 											muscles.setText("All Muscles");
@@ -686,6 +807,22 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(this, PurchaseExercisesActivity.class);
 			startActivity(intent);
 			break;
+
+		case R.id.imageOne:
+		case R.id.imageTwo:
+			idToReplace = v.getId();
+			if (v.getId() == R.id.imageOne) {
+				whichOneToReplace = "1";
+			} else {
+				whichOneToReplace = "2";
+			}
+
+			Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+			photoPickerIntent.setType("image/*");
+			startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+
+			break;
+
 		}
 
 	}

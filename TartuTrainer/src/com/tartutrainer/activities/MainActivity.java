@@ -14,6 +14,7 @@ import com.tartutrainer.helpers.SharedPreferencesDefaultValues;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +34,8 @@ public class MainActivity extends FragmentActivity {
 	PageAdapter pageAdapter;
 	ActionBar actionBar;
 	boolean sortedBy = true;
+	
+	public static FragmentManager fm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,8 @@ public class MainActivity extends FragmentActivity {
 		// fragments);
 		final ViewPager pager = (ViewPager) findViewById(R.id.viewpager_main);
 		pager.setAdapter(pageAdapter);
+		
+		fm = getFragmentManager();
 
 		// Set up ActionBar
 		actionBar = getActionBar();
@@ -231,6 +236,7 @@ public class MainActivity extends FragmentActivity {
 		public void onTabSelected(Tab tab, FragmentTransaction ft) {
 			// Check if the fragment is already initialized
 			mActivity.invalidateOptionsMenu();
+			fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 			if (mFragment == null) {
 				// If not, instantiate and add it to the activity
 				mFragment = Fragment.instantiate(mActivity, mClass.getName());

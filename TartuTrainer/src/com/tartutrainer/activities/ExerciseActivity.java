@@ -1,5 +1,6 @@
 package com.tartutrainer.activities;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,9 +15,12 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -144,22 +148,42 @@ public class ExerciseActivity extends Activity implements OnLongClickListener,
 		aRepFirst.setOnClickListener(this);
 		TextView aLbsFirst = (TextView) findViewById(R.id.actual_lbs_first);
 		aLbsFirst.setOnClickListener(this);
+		TextView tRepFirst = (TextView) findViewById(R.id.target_reps_first);
+		tRepFirst.setOnClickListener(this);
+		TextView tLbsFirst = (TextView) findViewById(R.id.target_lbs_first);
+		tLbsFirst.setOnClickListener(this);
 		TextView aRepSecond = (TextView) findViewById(R.id.actual_reps_second);
 		aRepSecond.setOnClickListener(this);
 		TextView aLbsSecond = (TextView) findViewById(R.id.actual_lbs_second);
 		aLbsSecond.setOnClickListener(this);
+		TextView tRepSecond = (TextView) findViewById(R.id.target_reps_second);
+		tRepSecond.setOnClickListener(this);
+		TextView tLbsSecond = (TextView) findViewById(R.id.target_lbs_second);
+		tLbsSecond.setOnClickListener(this);
 		TextView aRepThird = (TextView) findViewById(R.id.actual_reps_third);
 		aRepThird.setOnClickListener(this);
 		TextView aLbsThird = (TextView) findViewById(R.id.actual_lbs_third);
 		aLbsThird.setOnClickListener(this);
+		TextView tRepThird = (TextView) findViewById(R.id.target_reps_third);
+		tRepThird.setOnClickListener(this);
+		TextView tLbsThird = (TextView) findViewById(R.id.target_lbs_third);
+		tLbsThird.setOnClickListener(this);
 		TextView aRepFourth = (TextView) findViewById(R.id.actual_reps_fourth);
 		aRepFourth.setOnClickListener(this);
 		TextView aLbsFourth = (TextView) findViewById(R.id.actual_lbs_fourth);
 		aLbsFourth.setOnClickListener(this);
+		TextView tRepFourth = (TextView) findViewById(R.id.target_reps_fourth);
+		tRepFourth.setOnClickListener(this);
+		TextView tLbsFourth = (TextView) findViewById(R.id.target_lbs_fourth);
+		tLbsFourth.setOnClickListener(this);
 		TextView aRepFifth = (TextView) findViewById(R.id.actual_reps_fifth);
 		aRepFifth.setOnClickListener(this);
 		TextView aLbsFifth = (TextView) findViewById(R.id.actual_lbs_fifth);
 		aLbsFifth.setOnClickListener(this);
+		TextView tRepFifth = (TextView) findViewById(R.id.target_reps_fifth);
+		tRepFifth.setOnClickListener(this);
+		TextView tLbsFifth = (TextView) findViewById(R.id.target_lbs_fifth);
+		tLbsFifth.setOnClickListener(this);
 	}
 
 	private void fillContent() {
@@ -179,39 +203,65 @@ public class ExerciseActivity extends Activity implements OnLongClickListener,
 		// Notes
 		TextView notes = (TextView) findViewById(R.id.exerciseNotes);
 		notes.setText(excElements.get(1));
-		
+
 		// First Image
 		ImageView imgOne = (ImageView) findViewById(R.id.exerciseFirstImg);
-		try {
-			String uriFirst = "@drawable/img_"
-					+ getIntent().getExtras().getString("exc_id").replaceAll("-", "_") + "1";
-			int imageResourceFirst = getResources().getIdentifier(uriFirst,
-					null, getPackageName());
-			Drawable resOne = getResources().getDrawable(imageResourceFirst);
-			imgOne.setImageDrawable(resOne);
-		} catch (NotFoundException n) {
-			String uriFirst = "@drawable/img_notavailable";
-			int imgRes = getResources().getIdentifier(uriFirst, null,
-					getPackageName());
-			Drawable res = getResources().getDrawable(imgRes);
-			imgOne.setImageDrawable(res);
+		String imgPathOne = Environment.getExternalStorageDirectory()
+				+ "/Android/data/" + getApplicationContext().getPackageName()
+				+ "/Files/" + getIntent().getExtras().getString("exc_id") + "1.png";
+		File imgFileOne = new File(imgPathOne);
+		if (imgFileOne.exists()) {
+
+			Bitmap myBitmapOne = BitmapFactory.decodeFile(imgFileOne
+					.getAbsolutePath());
+			imgOne.setImageBitmap(myBitmapOne);
+		} else {
+			try {
+				String uriFirst = "@drawable/img_"
+						+ getIntent().getExtras().getString("exc_id")
+								.replaceAll("-", "_") + "1";
+				int imageResourceFirst = getResources().getIdentifier(uriFirst,
+						null, getPackageName());
+				Drawable resOne = getResources()
+						.getDrawable(imageResourceFirst);
+				imgOne.setImageDrawable(resOne);
+			} catch (NotFoundException n) {
+				String uriFirst = "@drawable/img_notavailable";
+				int imgRes = getResources().getIdentifier(uriFirst, null,
+						getPackageName());
+				Drawable res = getResources().getDrawable(imgRes);
+				imgOne.setImageDrawable(res);
+			}
 		}
-		
+
 		// Second Image
 		ImageView imgTwo = (ImageView) findViewById(R.id.exerciseSecondImg);
-		try {
-			String uriSecond = "@drawable/img_"
-					+ getIntent().getExtras().getString("exc_id").replaceAll("-", "_") + "2";
-			int imageResourceSecond = getResources().getIdentifier(uriSecond,
-					null, getPackageName());
-			Drawable resTwo = getResources().getDrawable(imageResourceSecond);
-			imgTwo.setImageDrawable(resTwo);
-		} catch (NotFoundException n) {
-			String uriSecond = "@drawable/img_notavailable";
-			int imgRes = getResources().getIdentifier(uriSecond, null,
-					getPackageName());
-			Drawable res = getResources().getDrawable(imgRes);
-			imgTwo.setImageDrawable(res);
+		String imgPathTwo = Environment.getExternalStorageDirectory()
+				+ "/Android/data/" + getApplicationContext().getPackageName()
+				+ "/Files/" + getIntent().getExtras().getString("exc_id") + "2.png";
+		File imgFileTwo = new File(imgPathTwo);
+		if (imgFileTwo.exists()) {
+
+			Bitmap myBitmapTwo = BitmapFactory.decodeFile(imgFileTwo
+					.getAbsolutePath());
+			imgTwo.setImageBitmap(myBitmapTwo);
+		} else {
+			try {
+				String uriSecond = "@drawable/img_"
+						+ getIntent().getExtras().getString("exc_id")
+								.replaceAll("-", "_") + "2";
+				int imageResourceSecond = getResources().getIdentifier(
+						uriSecond, null, getPackageName());
+				Drawable resTwo = getResources().getDrawable(
+						imageResourceSecond);
+				imgTwo.setImageDrawable(resTwo);
+			} catch (NotFoundException n) {
+				String uriSecond = "@drawable/img_notavailable";
+				int imgRes = getResources().getIdentifier(uriSecond, null,
+						getPackageName());
+				Drawable res = getResources().getDrawable(imgRes);
+				imgTwo.setImageDrawable(res);
+			}
 		}
 
 		// Table elements
@@ -514,6 +564,16 @@ public class ExerciseActivity extends Activity implements OnLongClickListener,
 		case R.id.actual_lbs_fourth:
 		case R.id.actual_reps_fifth:
 		case R.id.actual_lbs_fifth:
+		case R.id.target_reps_first:
+		case R.id.target_lbs_first:
+		case R.id.target_reps_second:
+		case R.id.target_lbs_second:
+		case R.id.target_reps_third:
+		case R.id.target_lbs_third:
+		case R.id.target_reps_fourth:
+		case R.id.target_lbs_fourth:
+		case R.id.target_reps_fifth:
+		case R.id.target_lbs_fifth:
 
 			TextView repsFirst = (TextView) findViewById(R.id.actual_reps_first);
 			repsFirst.setBackgroundColor(Color.TRANSPARENT);
@@ -535,6 +595,26 @@ public class ExerciseActivity extends Activity implements OnLongClickListener,
 			repsFifth.setBackgroundColor(Color.TRANSPARENT);
 			TextView lbsFifth = (TextView) findViewById(R.id.actual_lbs_fifth);
 			lbsFifth.setBackgroundColor(Color.TRANSPARENT);
+			TextView trepsFirst = (TextView) findViewById(R.id.target_reps_first);
+			trepsFirst.setBackgroundColor(Color.TRANSPARENT);
+			TextView tlbsFirst = (TextView) findViewById(R.id.target_lbs_first);
+			tlbsFirst.setBackgroundColor(Color.TRANSPARENT);
+			TextView trepsSecond = (TextView) findViewById(R.id.target_reps_second);
+			trepsSecond.setBackgroundColor(Color.TRANSPARENT);
+			TextView tlbsSecond = (TextView) findViewById(R.id.target_lbs_second);
+			tlbsSecond.setBackgroundColor(Color.TRANSPARENT);
+			TextView trepsThird = (TextView) findViewById(R.id.target_reps_third);
+			trepsThird.setBackgroundColor(Color.TRANSPARENT);
+			TextView tlbsThird = (TextView) findViewById(R.id.target_lbs_third);
+			tlbsThird.setBackgroundColor(Color.TRANSPARENT);
+			TextView trepsFourth = (TextView) findViewById(R.id.target_reps_fourth);
+			trepsFourth.setBackgroundColor(Color.TRANSPARENT);
+			TextView tlbsFourth = (TextView) findViewById(R.id.target_lbs_fourth);
+			tlbsFourth.setBackgroundColor(Color.TRANSPARENT);
+			TextView trepsFifth = (TextView) findViewById(R.id.target_reps_fifth);
+			trepsFifth.setBackgroundColor(Color.TRANSPARENT);
+			TextView tlbsFifth = (TextView) findViewById(R.id.target_lbs_fifth);
+			tlbsFifth.setBackgroundColor(Color.TRANSPARENT);
 
 			if (currentSelectedView == v) {
 				currentSelectedView = null;

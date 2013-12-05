@@ -1,5 +1,6 @@
 package com.tartutrainer.adapters;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.tartutrainer.R;
@@ -12,8 +13,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,23 +71,34 @@ public class AddExercisesListAdapter extends BaseAdapter {
 			vi = inflater.inflate(R.layout.listitem_addexercise, null);
 		}
 
-		try {
-			ImageView img = (ImageView) vi.findViewById(R.id.ExerciseIcon);
-			String uri = "@drawable/img_" + id.get(position).replaceAll("-", "_")
-					+ "1";
-			int imgRes = activity.getResources().getIdentifier(uri, null,
-					activity.getPackageName());
-			Drawable res = activity.getResources().getDrawable(imgRes);
-			img.setImageDrawable(res);
-		} catch (NotFoundException n) {
-			ImageView img = (ImageView) vi.findViewById(R.id.ExerciseIcon);
-			String uri = "@drawable/img_notavailable";
-			int imgRes = activity.getResources().getIdentifier(uri, null,
-					activity.getPackageName());
-			Drawable res = activity.getResources().getDrawable(imgRes);
-			img.setImageDrawable(res);
+		ImageView img = (ImageView) vi.findViewById(R.id.ExerciseIcon);
+		String imgPathOne = Environment.getExternalStorageDirectory()
+				+ "/Android/data/"
+				+ activity.getApplicationContext().getPackageName() + "/Files/"
+				+ id.get(position) + "1.png";
+		File imgFileOne = new File(imgPathOne);
+		if (imgFileOne.exists()) {
+
+			Bitmap myBitmapOne = BitmapFactory.decodeFile(imgFileOne
+					.getAbsolutePath());
+			img.setImageBitmap(myBitmapOne);
+		} else {
+			try {
+				String uri = "@drawable/img_"
+						+ id.get(position).replaceAll("-", "_") + "1";
+				int imgRes = activity.getResources().getIdentifier(uri, null,
+						activity.getPackageName());
+				Drawable res = activity.getResources().getDrawable(imgRes);
+				img.setImageDrawable(res);
+			} catch (NotFoundException n) {
+				String uri = "@drawable/img_notavailable";
+				int imgRes = activity.getResources().getIdentifier(uri, null,
+						activity.getPackageName());
+				Drawable res = activity.getResources().getDrawable(imgRes);
+				img.setImageDrawable(res);
+			}
 		}
-			
+
 		TextView text = (TextView) vi.findViewById(R.id.exerciseName);
 		text.setText(name.get(position));
 

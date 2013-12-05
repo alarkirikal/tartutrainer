@@ -100,6 +100,7 @@
                     android:contentDescription="ad"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
+                    android:clickable="true"
                     android:src="@drawable/exercise_thumb" />
 
                 <ImageView
@@ -111,6 +112,7 @@
                     android:contentDescription="ad"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
+                    android:clickable="true"
                     android:src="@drawable/exercise_thumb" />
             </LinearLayout>
 
