@@ -111,9 +111,14 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 	
 	@Override
 	public void onBackPressed() {
+		super.onBackPressed();
 		saveNotes();
 		Intent intent = new Intent(this, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+		super.onBackPressed();		
+		
+		
 	}
 	
 	

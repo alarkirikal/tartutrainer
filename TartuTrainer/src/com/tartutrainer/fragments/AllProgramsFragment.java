@@ -86,6 +86,9 @@ public class AllProgramsFragment extends Fragment implements
 		super.onResume();
 		populateList("date");
 	}
+	
+	
+	
 
 	private void setOnClickListeners(View v) {
 

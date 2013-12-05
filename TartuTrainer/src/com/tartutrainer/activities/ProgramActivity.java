@@ -46,6 +46,7 @@ public class ProgramActivity extends FragmentActivity {
 		intent.putExtra("pgr_name", getIntent().getExtras().getString("pgr_name"));
 		intent.putExtra("pgr_id", getIntent().getExtras().getString("pgr_id"));
 		startActivity(intent);
+		super.onBackPressed();
 	}
 
 	private void buildMainFragment() {
