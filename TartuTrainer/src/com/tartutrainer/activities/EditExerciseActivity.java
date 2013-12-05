@@ -30,6 +30,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -278,6 +279,27 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 							selectedImage);
 					Bitmap yourSelectedImage = BitmapFactory
 							.decodeStream(imageStream);
+					
+					
+					
+					int width = yourSelectedImage.getWidth();
+			        int height = yourSelectedImage.getHeight();
+			 
+			        if(width>1000){
+			        float scaleWidth = ((float) 1000) / width;
+			        float ratio = ((float) yourSelectedImage.getWidth()) / 1000;
+			        int newHeight = (int) (height / ratio);
+			        float scaleHeight = ((float) newHeight) / height;
+			 
+			        Matrix matrix = new Matrix();
+			        matrix.postScale(scaleWidth, scaleHeight);
+			 
+			        yourSelectedImage = Bitmap.createBitmap(yourSelectedImage, 0, 0, width, height, matrix, true);
+			        }
+
+					
+					
+					
 					ImageView img = (ImageView) findViewById(idToReplace);
 					img.setImageBitmap(yourSelectedImage);
 					storeImage(yourSelectedImage);
@@ -367,6 +389,8 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 
 			Bitmap myBitmapOne = BitmapFactory.decodeFile(imgFileOne
 					.getAbsolutePath());
+	
+			
 			imgOne.setImageBitmap(myBitmapOne);
 		} else {
 			try {
@@ -392,8 +416,10 @@ public class EditExerciseActivity extends Activity implements OnClickListener {
 		File imgFileTwo = new File(imgPathTwo);
 		if (imgFileTwo.exists()) {
 
+			
 			Bitmap myBitmapTwo = BitmapFactory.decodeFile(imgFileTwo
 					.getAbsolutePath());
+			
 			imgTwo.setImageBitmap(myBitmapTwo);
 		} else {
 
