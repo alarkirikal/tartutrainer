@@ -52,6 +52,8 @@ public class MainActivity extends FragmentActivity {
 		buildMainFragment();
 	}
 
+	
+	
 	private void setInitialPreferenceValues() {
 		SharedPreferences p = PreferenceManager
 				.getDefaultSharedPreferences(this);

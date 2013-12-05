@@ -77,8 +77,9 @@ public class SaveTemplateActivity extends Activity implements OnClickListener{
 		
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra("select_tab", "program");
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);		
 		startActivity(intent);
-		
+		finish();
 		
 	}
 	

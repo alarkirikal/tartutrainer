@@ -123,7 +123,7 @@ public class TemplateItemActivity extends Activity implements OnItemClickListene
 		if(nameArray.get(pos).equals("Tri-Set") || nameArray.get(pos).equals("Super-Set")){
 		}else{
 			Intent intent = new Intent(this, CollectionItemInfoActivity.class);
-		
+			
 			intent.putExtra("item_id", idArray.get(pos));
 		
 			startActivity(intent);

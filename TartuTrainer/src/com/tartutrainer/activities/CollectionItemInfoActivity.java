@@ -1,5 +1,6 @@
 package com.tartutrainer.activities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +18,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -80,36 +84,67 @@ public class CollectionItemInfoActivity extends Activity  {
 		ImageView imgOne = (ImageView) findViewById(R.id.InfoimageOne);
 		ImageView imgTwo = (ImageView) findViewById(R.id.InfoimageTwo);
 		
-		
-		try {
-			String uriFirst = "@drawable/img_"
-					+ id.replaceAll("-", "_") + "1";
-			int imageResourceFirst = getResources().getIdentifier(uriFirst,
-					null, getPackageName());
-			Drawable resOne = getResources().getDrawable(imageResourceFirst);
-			imgOne.setImageDrawable(resOne);
-		} catch (NotFoundException n) {
-			String uriFirst = "@drawable/img_notavailable";
-			int imgRes = getResources().getIdentifier(uriFirst, null,
-					getPackageName());
-			Drawable res = getResources().getDrawable(imgRes);
-			imgOne.setImageDrawable(res);
+		// First Image
+		String imgPathOne = Environment.getExternalStorageDirectory()
+				+ "/Android/data/" + getApplicationContext().getPackageName()
+				+ "/Files/" + id + "1.png";
+		File imgFileOne = new File(imgPathOne);
+		if (imgFileOne.exists()) {
+
+			Bitmap myBitmapOne = BitmapFactory.decodeFile(imgFileOne
+					.getAbsolutePath());
+			imgOne.setImageBitmap(myBitmapOne);
+		} else {
+			try {
+				String uriFirst = "@drawable/img_"
+						+ id
+								.replaceAll("-", "_") + "1";
+				int imageResourceFirst = getResources().getIdentifier(uriFirst,
+						null, getPackageName());
+				Drawable resOne = getResources()
+						.getDrawable(imageResourceFirst);
+				imgOne.setImageDrawable(resOne);
+			} catch (NotFoundException n) {
+				String uriFirst = "@drawable/img_notavailable";
+				int imgRes = getResources().getIdentifier(uriFirst, null,
+						getPackageName());
+				Drawable res = getResources().getDrawable(imgRes);
+				imgOne.setImageDrawable(res);
+			}
 		}
 
-		try {
-			String uriSecond = "@drawable/img_"
-					+ id.replaceAll("-", "_") + "2";
-			int imageResourceSecond = getResources().getIdentifier(uriSecond,
-					null, getPackageName());
-			Drawable resTwo = getResources().getDrawable(imageResourceSecond);
-			imgTwo.setImageDrawable(resTwo);
-		} catch (NotFoundException n) {
-			String uriSecond = "@drawable/img_notavailable";
-			int imgRes = getResources().getIdentifier(uriSecond, null,
-					getPackageName());
-			Drawable res = getResources().getDrawable(imgRes);
-			imgTwo.setImageDrawable(res);
+		// Second Image
+		String imgPathTwo = Environment.getExternalStorageDirectory()
+				+ "/Android/data/" + getApplicationContext().getPackageName()
+				+ "/Files/" + id + "2.png";
+		File imgFileTwo = new File(imgPathTwo);
+		if (imgFileTwo.exists()) {
+
+			Bitmap myBitmapTwo = BitmapFactory.decodeFile(imgFileTwo
+					.getAbsolutePath());
+			imgTwo.setImageBitmap(myBitmapTwo);
+		} else {
+			try {
+				String uriSecond = "@drawable/img_"
+						+ id
+								.replaceAll("-", "_") + "2";
+				int imageResourceSecond = getResources().getIdentifier(
+						uriSecond, null, getPackageName());
+				Drawable resTwo = getResources().getDrawable(
+						imageResourceSecond);
+				imgTwo.setImageDrawable(resTwo);
+			} catch (NotFoundException n) {
+				String uriSecond = "@drawable/img_notavailable";
+				int imgRes = getResources().getIdentifier(uriSecond, null,
+						getPackageName());
+				Drawable res = getResources().getDrawable(imgRes);
+				imgTwo.setImageDrawable(res);
+			}
 		}
+
+		
+		
+
 
 		
 		itemName.setText(myCursor.getString(1));
