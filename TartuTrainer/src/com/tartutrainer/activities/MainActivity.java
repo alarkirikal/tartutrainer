@@ -14,8 +14,10 @@ import com.tartutrainer.helpers.SharedPreferencesDefaultValues;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,7 +36,8 @@ public class MainActivity extends FragmentActivity {
 	PageAdapter pageAdapter;
 	ActionBar actionBar;
 	boolean sortedBy = true;
-	
+	private AlertDialog Dialog;
+
 	public static FragmentManager fm;
 
 	@Override
@@ -50,6 +53,24 @@ public class MainActivity extends FragmentActivity {
 
 		// Build fragments
 		buildMainFragment();
+	}
+
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle("Do you want to exit?");
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				MainActivity.super.onBackPressed();
+			}
+		});
+		builder.setNegativeButton("No", null);
+		Dialog = builder.create();
+		Dialog.show();
+
 	}
 
 	private void setInitialPreferenceValues() {
@@ -72,7 +93,7 @@ public class MainActivity extends FragmentActivity {
 		// fragments);
 		final ViewPager pager = (ViewPager) findViewById(R.id.viewpager_main);
 		pager.setAdapter(pageAdapter);
-		
+
 		fm = getFragmentManager();
 
 		// Set up ActionBar
@@ -171,11 +192,11 @@ public class MainActivity extends FragmentActivity {
 		}
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		menu.clear();
-		
+
 		MenuInflater menuInflater = getMenuInflater();
 		if (actionBar.getSelectedNavigationIndex() == 0) {
 			menuInflater.inflate(R.menu.allprograms_menu, menu);
@@ -193,28 +214,27 @@ public class MainActivity extends FragmentActivity {
 		AllExercisesFragment allExercisesFragment = (AllExercisesFragment) getFragmentManager()
 				.findFragmentByTag("Exercises");
 		switch (item.getItemId()) {
-		
+
 		case R.id.action_newprogram:
 			Intent intent = new Intent(this, ClientsActivity.class);
 			startActivity(intent);
 			return true;
-			
+
 		case R.id.action_filterprograms:
 			allProgramsFragment.onSort(sortedBy);
 			sortedBy = !sortedBy;
 			return true;
-		
+
 		case R.id.action_addexercise:
-			Intent intent_addexc = new Intent(this,
-					EditExerciseActivity.class);
+			Intent intent_addexc = new Intent(this, EditExerciseActivity.class);
 			intent_addexc.putExtra("action", "New Exercise");
 			startActivity(intent_addexc);
 			return true;
-		
+
 		case R.id.action_filterexercises:
 			allExercisesFragment.filterExerciseDialog();
 			return true;
-			
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
