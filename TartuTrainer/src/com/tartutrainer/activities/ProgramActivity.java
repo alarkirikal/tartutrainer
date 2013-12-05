@@ -17,6 +17,7 @@ import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -36,6 +37,15 @@ public class ProgramActivity extends FragmentActivity {
 
 		// Build fragments
 		buildMainFragment();
+	}
+	
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(this, ProgramNotesActivity.class);
+		intent.putExtra("pgr_name", getIntent().getExtras().getString("pgr_name"));
+		intent.putExtra("pgr_id", getIntent().getExtras().getString("pgr_id"));
+		startActivity(intent);
 	}
 
 	private void buildMainFragment() {

@@ -45,6 +45,8 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 		fillContent();
 
 	}
+	
+	
 
 	private void addListeners() {
 		ImageView ad = (ImageView) findViewById(R.id.ad);
@@ -106,11 +108,15 @@ public class ProgramNotesActivity extends Activity implements OnClickListener {
 		db.close();
 
 	}
-
+	
+	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
 		saveNotes();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
 	}
+	
+	
 	
 	@Override
 	public void onClick(View v) {
